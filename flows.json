@@ -1,0 +1,1121 @@
+[
+    {
+        "id": "f15208d99d43e7d6",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "44959fc60800e3f1",
+        "type": "redis-config",
+        "name": "redis",
+        "options": "redis:6379",
+        "cluster": false,
+        "optionsType": "str"
+    },
+    {
+        "id": "3bde65c3a589f995",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "ws://verne:8080/mqtt",
+        "port": "1883",
+        "tls": "d37cb01740861896",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d37cb01740861896",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "df56b3aecf7ce20f",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "Random",
+        "func": "var size = msg.payload;\nvar chars = \"abcdefghijklmnopqrstuvwxyz012356789\";\nvar random_data = \"\";\nfor (var i = 0; i < size; i++){\n        var random_num = Math.floor(Math.random() * chars.length);\n        random_data = random_data + chars.substring(random_num,random_num+1);\n    }\nmsg.payload = random_data;   \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 340,
+        "wires": [
+            [
+                "7a8fd5e4121b31f7"
+            ]
+        ]
+    },
+    {
+        "id": "a3619869e11717a0",
+        "type": "file",
+        "z": "f15208d99d43e7d6",
+        "name": "Write",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 690,
+        "y": 340,
+        "wires": [
+            [
+                "26ecf226860ba4dd"
+            ]
+        ]
+    },
+    {
+        "id": "7a8fd5e4121b31f7",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "File",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "$flowContext(\"configuration_path\") & $flowContext(\"size_max\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 340,
+        "wires": [
+            [
+                "a3619869e11717a0"
+            ]
+        ]
+    },
+    {
+        "id": "0d890d8ab7853715",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = \"\";\n\nlet weight = flow.get(\"weight\");\nlet data = flow.get(\"dataset\");\nlet path = flow.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\n\nmsg = {};\nmsg.country = flow.get(\"country\");\nmsg.center_id = flow.get(\"center_id\");\n\nwhile ( buffer.length < max ) {\n    buffer = flow.get(\"buffer\")\n}\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\nmsg.topic = \"origin/a/wis2/\" + msg.country + \"/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nmsg.data_id = \"wis2/\" + msg.country + \"/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 600,
+        "wires": [
+            [
+                "db727b20860b9b02"
+            ]
+        ]
+    },
+    {
+        "id": "5352eac5b7fb42db",
+        "type": "file in",
+        "z": "f15208d99d43e7d6",
+        "name": "Read",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "ccbc30efd3952be2"
+            ]
+        ]
+    },
+    {
+        "id": "ccbc30efd3952be2",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Load buffer",
+        "rules": [
+            {
+                "t": "set",
+                "p": "buffer",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "02468a0afce5beac",
+        "type": "file in",
+        "z": "f15208d99d43e7d6",
+        "name": "Config",
+        "filename": "/data/configuration/configuration.yaml",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "070e2db17aa8dfbd"
+            ]
+        ]
+    },
+    {
+        "id": "070e2db17aa8dfbd",
+        "type": "yaml",
+        "z": "f15208d99d43e7d6",
+        "property": "payload",
+        "name": "",
+        "x": 550,
+        "y": 120,
+        "wires": [
+            [
+                "b9517e333a582acf"
+            ]
+        ]
+    },
+    {
+        "id": "b9517e333a582acf",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Store",
+        "rules": [
+            {
+                "t": "set",
+                "p": "size_min",
+                "pt": "flow",
+                "to": "payload.generator.size_min",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "size_max",
+                "pt": "flow",
+                "to": "payload.generator.size_max",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "skew",
+                "pt": "flow",
+                "to": "payload.generator.skew",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "country",
+                "pt": "flow",
+                "to": "payload.generator.country",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "center_id",
+                "pt": "flow",
+                "to": "payload.generator.center_id",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "embed_data",
+                "pt": "flow",
+                "to": "payload.generator.embed_data",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "embed_size_max",
+                "pt": "flow",
+                "to": "payload.generator.embed_size_max",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "weight",
+                "pt": "flow",
+                "to": "$map(payload.generator.data.*.weight, function($v, $i, $a) { $v/$sum($a) })",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "dataset",
+                "pt": "flow",
+                "to": "payload.generator.data.*.$.{   \"type\": type, \"sub_type\": sub_type, \"data_policy\": data_policy  }",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "host",
+                "pt": "flow",
+                "to": "payload.generator.download_host",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "path",
+                "pt": "flow",
+                "to": "payload.generator.download_path",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "configuration_path",
+                "pt": "flow",
+                "to": "payload.generator.configuration_path",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "freq_avg",
+                "pt": "flow",
+                "to": "payload.generator.freq_avg",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "store_duration",
+                "pt": "flow",
+                "to": "payload.generator.store_duration",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "cache_large_files",
+                "pt": "flow",
+                "to": "payload.generator.cache_large_files",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "cache_size_max",
+                "pt": "flow",
+                "to": "payload.generator.cache_size_max",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e56151285992f16",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "Put in the buffer",
+        "info": "",
+        "x": 240,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e47e89e8b6ff5a91",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "Create fake data file",
+        "info": "",
+        "x": 230,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7435f9cd7be87d7c",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "Load configuration parameters",
+        "info": "",
+        "x": 250,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "fa5f1732c526796f",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "WIS2 Node ",
+        "info": "",
+        "x": 230,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "db727b20860b9b02",
+        "type": "hash",
+        "z": "f15208d99d43e7d6",
+        "name": "Hash",
+        "outputvar": "hash",
+        "algorithm": "sha512",
+        "x": 590,
+        "y": 600,
+        "wires": [
+            [
+                "853bc4a4259e38f8"
+            ]
+        ]
+    },
+    {
+        "id": "385803d26b4f71e9",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "05da7d629923d597"
+        ],
+        "x": 1115,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "05da7d629923d597",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "links": [
+            "385803d26b4f71e9"
+        ],
+        "x": 155,
+        "y": 660,
+        "wires": [
+            [
+                "88a86cd939610e30"
+            ]
+        ]
+    },
+    {
+        "id": "7c527f7d354b65a5",
+        "type": "cronplus",
+        "z": "f15208d99d43e7d6",
+        "name": "CreateFiles",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "storeName": "",
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "SizeMax",
+                "topic": "size_max_bytes",
+                "payloadType": "flow",
+                "payload": "size_max",
+                "expressionType": "cron",
+                "expression": "0 5 0 * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "df56b3aecf7ce20f"
+            ]
+        ]
+    },
+    {
+        "id": "c2ae45ec0461ab4c",
+        "type": "cronplus",
+        "z": "f15208d99d43e7d6",
+        "name": "LoadBuffer",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "Load",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 30 0 * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "26ecf226860ba4dd"
+            ]
+        ]
+    },
+    {
+        "id": "26ecf226860ba4dd",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "File",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "$flowContext(\"configuration_path\") & $flowContext(\"size_max\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "5352eac5b7fb42db"
+            ]
+        ]
+    },
+    {
+        "id": "9f805d7c4e8096e5",
+        "type": "cronplus",
+        "z": "f15208d99d43e7d6",
+        "name": "LoadConfiguration",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "storeName": "",
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "Load",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0/5 * * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "02468a0afce5beac"
+            ]
+        ]
+    },
+    {
+        "id": "88a86cd939610e30",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"freq_avg\") * $random() * 2",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 660,
+        "wires": [
+            [
+                "fdf555e62099fbd0"
+            ]
+        ]
+    },
+    {
+        "id": "fdf555e62099fbd0",
+        "type": "trigger",
+        "z": "f15208d99d43e7d6",
+        "name": "Trigger",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 370,
+        "y": 660,
+        "wires": [
+            [
+                "f1b3be2e9730d21d"
+            ]
+        ]
+    },
+    {
+        "id": "0d6d8a409a25bee1",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "Message",
+        "func": "let chunk = msg.chunk;\nlet embed_data = flow.get(\"embed_data\"); \nlet embed_size_max = flow.get(\"embed_size_max\");\nlet cache_large_files = flow.get(\"cache_large_files\");\nlet cache_size_max = flow.get(\"cache_size_max\");\nlet host = flow.get(\"host\");\nlet path = flow.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"version\": \"v04\",\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false;\n}\n\nif ( embed_data == true && chunk <= embed_size_max ) {\n    msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"length\": chunk }\n}\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 600,
+        "wires": [
+            [
+                "385803d26b4f71e9",
+                "80382be560d62a6c"
+            ]
+        ]
+    },
+    {
+        "id": "853bc4a4259e38f8",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Date/Time",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pubtime",
+                "pt": "msg",
+                "to": "$fromMillis($millis(),'[Y0001][M01][D01]T[H01][m01][s01][f003]Z')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "datetime",
+                "pt": "msg",
+                "to": "$fromMillis($millis(),'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "start_datetime",
+                "pt": "msg",
+                "to": "$fromMillis($millis() + $floor(6*$random())*3600*1000,'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "end_datetime",
+                "pt": "msg",
+                "to": "$fromMillis($millis() + $floor(12*$random())*3600*1000,'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 600,
+        "wires": [
+            [
+                "62ec379499ef2c6f"
+            ]
+        ]
+    },
+    {
+        "id": "62ec379499ef2c6f",
+        "type": "file",
+        "z": "f15208d99d43e7d6",
+        "name": "Save",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 870,
+        "y": 600,
+        "wires": [
+            [
+                "0d6d8a409a25bee1",
+                "ce9decefd7cf7841"
+            ]
+        ]
+    },
+    {
+        "id": "95145234c54f12c1",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "control",
+        "payload": "toggle",
+        "payloadType": "str",
+        "x": 370,
+        "y": 720,
+        "wires": [
+            [
+                "f1b3be2e9730d21d"
+            ]
+        ]
+    },
+    {
+        "id": "2db8981967eb2509",
+        "type": "redis-instance",
+        "z": "f15208d99d43e7d6",
+        "server": "44959fc60800e3f1",
+        "name": "",
+        "topic": "redis",
+        "location": "flow",
+        "x": 470,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "80382be560d62a6c",
+        "type": "mqtt out",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3bde65c3a589f995",
+        "x": 1150,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "2a93e7ce.341078",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 2120,
+        "wires": [
+            [
+                "d89709ef.fd9368"
+            ]
+        ]
+    },
+    {
+        "id": "d89709ef.fd9368",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "func": "let redis = context.flow.get('redis');\n\nredis.info().then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})\n\n/*\nredis.call(\"anycmd\").then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})*/",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 2120,
+        "wires": [
+            [
+                "f2e9c3a0.8f181"
+            ]
+        ]
+    },
+    {
+        "id": "f2e9c3a0.8f181",
+        "type": "debug",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "ce9decefd7cf7841",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "K,V",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[filename,pubtime,\"EX\",$flowContext(\"store_duration\")]",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 560,
+        "wires": [
+            [
+                "1ca495d97cf3c78f"
+            ]
+        ]
+    },
+    {
+        "id": "1ca495d97cf3c78f",
+        "type": "redis-command",
+        "z": "f15208d99d43e7d6",
+        "server": "44959fc60800e3f1",
+        "command": "SET",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 1120,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f1b3be2e9730d21d",
+        "type": "q-gate",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "queueCmd": "queue",
+        "defaultCmd": "default",
+        "triggerCmd": "trigger",
+        "flushCmd": "flush",
+        "resetCmd": "reset",
+        "peekCmd": "peek",
+        "dropCmd": "drop",
+        "statusCmd": "status",
+        "maxQueueLength": "100",
+        "keepNewest": false,
+        "qToggle": false,
+        "persist": false,
+        "storeName": "memory",
+        "x": 510,
+        "y": 660,
+        "wires": [
+            [
+                "35de07527d283ea0"
+            ]
+        ]
+    },
+    {
+        "id": "35de07527d283ea0",
+        "type": "createrandom",
+        "z": "f15208d99d43e7d6",
+        "generator": "UUID",
+        "type_generator": "generator",
+        "label": "UUID",
+        "param_1": "v4",
+        "type_param_1": "Version",
+        "param_2": "",
+        "type_param_2": "msg",
+        "param_3": "",
+        "type_param_3": "msg",
+        "f_use_debug": false,
+        "x": 315,
+        "y": 600,
+        "wires": [
+            [
+                "b94085fe13d3366c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "b94085fe13d3366c",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Save",
+        "rules": [
+            {
+                "t": "set",
+                "p": "uuid",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 375,
+        "y": 600,
+        "wires": [
+            [
+                "0d890d8ab7853715"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "4e3ab537659a43b9",
+        "type": "redis-in",
+        "z": "f15208d99d43e7d6",
+        "server": "44959fc60800e3f1",
+        "command": "psubscribe",
+        "name": "",
+        "topic": "__key*__:*",
+        "obj": true,
+        "timeout": 0,
+        "x": 200,
+        "y": 880,
+        "wires": [
+            [
+                "6a25034a65fb9cb4"
+            ]
+        ]
+    },
+    {
+        "id": "c36d09a51882792b",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"set\",\"notify-keyspace-events\",\"KEx\"]",
+        "payloadType": "json",
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "7db3095835943be8",
+                "02468a0afce5beac"
+            ]
+        ]
+    },
+    {
+        "id": "7db3095835943be8",
+        "type": "redis-command",
+        "z": "f15208d99d43e7d6",
+        "server": "44959fc60800e3f1",
+        "command": "CONFIG",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 460,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6a25034a65fb9cb4",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "expired",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 880,
+        "wires": [
+            [
+                "53688ce4ce18138d"
+            ]
+        ]
+    },
+    {
+        "id": "53688ce4ce18138d",
+        "type": "fs-remove",
+        "z": "f15208d99d43e7d6",
+        "path": "",
+        "pathType": "str",
+        "filename": "payload",
+        "filenameType": "msg",
+        "recursive": true,
+        "exist": false,
+        "name": "",
+        "x": 530,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a8c268336845d16a",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "$flowContext(\"size_max\")",
+        "payloadType": "jsonata",
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "df56b3aecf7ce20f"
+            ]
+        ]
+    },
+    {
+        "id": "c676aa397d71b316",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "Delete expired files",
+        "info": "",
+        "x": 230,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "09aec1c7f1ccc0f3",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 600,
+        "wires": [
+            [
+                "35de07527d283ea0"
+            ]
+        ]
+    }
+]
