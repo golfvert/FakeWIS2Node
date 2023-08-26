@@ -2,7 +2,14 @@
     "name": "WIS2Node",
     "description": "A Node-RED Project",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-contrib-createrandom": "1.2.0",
+        "node-red-contrib-cron-plus": "2.1.0",
+        "node-red-contrib-dotnsf-hash": "0.1.2",
+        "node-red-contrib-filesystem": "1.0.0",
+        "node-red-contrib-queue-gate": "1.5.5",
+        "node-red-contrib-redis": "1.3.9"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
