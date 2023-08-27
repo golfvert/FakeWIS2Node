@@ -16,20 +16,6 @@
         "optionsType": "str"
     },
     {
-        "id": "d37cb01740861896",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "",
-        "servername": "",
-        "verifyservercert": false,
-        "alpnprotocol": ""
-    },
-    {
         "id": "8cf5f6b5.937088",
         "type": "mqtt-broker",
         "name": "Local",
@@ -58,6 +44,18 @@
         "sessionExpiry": ""
     },
     {
+        "id": "a93c45df39215989",
+        "type": "config-log",
+        "logname": "log",
+        "logdir": "/storage/log",
+        "stamp": "utc",
+        "logstyle": "json",
+        "logrotate": true,
+        "logcompress": false,
+        "logrotatecount": "10",
+        "logsize": "10000"
+    },
+    {
         "id": "df56b3aecf7ce20f",
         "type": "function",
         "z": "f15208d99d43e7d6",
@@ -81,7 +79,8 @@
         "type": "file",
         "z": "f15208d99d43e7d6",
         "name": "Write",
-        "filename": "",
+        "filename": "filename",
+        "filenameType": "msg",
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
@@ -132,8 +131,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 700,
+        "x": 450,
+        "y": 740,
         "wires": [
             [
                 "db727b20860b9b02"
@@ -151,7 +150,7 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 510,
+        "x": 490,
         "y": 560,
         "wires": [
             [
@@ -178,7 +177,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 650,
+        "x": 630,
         "y": 560,
         "wires": [
             []
@@ -196,7 +195,7 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 430,
+        "x": 450,
         "y": 120,
         "wires": [
             [
@@ -210,7 +209,7 @@
         "z": "f15208d99d43e7d6",
         "property": "payload",
         "name": "",
-        "x": 550,
+        "x": 570,
         "y": 120,
         "wires": [
             [
@@ -342,7 +341,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 670,
+        "x": 690,
         "y": 120,
         "wires": [
             []
@@ -354,7 +353,7 @@
         "z": "f15208d99d43e7d6",
         "name": "Put in the buffer",
         "info": "",
-        "x": 240,
+        "x": 220,
         "y": 520,
         "wires": []
     },
@@ -374,7 +373,7 @@
         "z": "f15208d99d43e7d6",
         "name": "Load configuration parameters",
         "info": "",
-        "x": 250,
+        "x": 270,
         "y": 60,
         "wires": []
     },
@@ -384,8 +383,8 @@
         "z": "f15208d99d43e7d6",
         "name": "WIS2 Node ",
         "info": "",
-        "x": 230,
-        "y": 640,
+        "x": 210,
+        "y": 680,
         "wires": []
     },
     {
@@ -395,8 +394,8 @@
         "name": "Hash",
         "outputvar": "hash",
         "algorithm": "sha512",
-        "x": 590,
-        "y": 700,
+        "x": 570,
+        "y": 740,
         "wires": [
             [
                 "853bc4a4259e38f8"
@@ -412,8 +411,8 @@
         "links": [
             "05da7d629923d597"
         ],
-        "x": 1115,
-        "y": 760,
+        "x": 1095,
+        "y": 800,
         "wires": []
     },
     {
@@ -424,8 +423,8 @@
         "links": [
             "385803d26b4f71e9"
         ],
-        "x": 155,
-        "y": 760,
+        "x": 135,
+        "y": 800,
         "wires": [
             [
                 "88a86cd939610e30"
@@ -489,7 +488,7 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 230,
+        "x": 210,
         "y": 560,
         "wires": [
             [
@@ -516,7 +515,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
+        "x": 370,
         "y": 560,
         "wires": [
             [
@@ -549,7 +548,7 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 210,
+        "x": 230,
         "y": 120,
         "wires": [
             [
@@ -576,8 +575,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 250,
-        "y": 760,
+        "x": 230,
+        "y": 800,
         "wires": [
             [
                 "fdf555e62099fbd0"
@@ -601,8 +600,8 @@
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 370,
-        "y": 760,
+        "x": 350,
+        "y": 800,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -620,12 +619,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1000,
-        "y": 700,
+        "x": 980,
+        "y": 740,
         "wires": [
             [
                 "385803d26b4f71e9",
-                "80382be560d62a6c"
+                "80382be560d62a6c",
+                "0ee3c679755e77b2"
             ]
         ]
     },
@@ -669,8 +669,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
-        "y": 700,
+        "x": 710,
+        "y": 740,
         "wires": [
             [
                 "62ec379499ef2c6f"
@@ -688,8 +688,8 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 870,
-        "y": 700,
+        "x": 850,
+        "y": 740,
         "wires": [
             [
                 "0d6d8a409a25bee1",
@@ -718,8 +718,8 @@
         "topic": "control",
         "payload": "toggle",
         "payloadType": "str",
-        "x": 370,
-        "y": 820,
+        "x": 350,
+        "y": 860,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -734,7 +734,7 @@
         "name": "",
         "topic": "redis",
         "location": "flow",
-        "x": 470,
+        "x": 490,
         "y": 60,
         "wires": []
     },
@@ -752,8 +752,8 @@
         "correl": "",
         "expiry": "",
         "broker": "8cf5f6b5.937088",
-        "x": 1160,
-        "y": 700,
+        "x": 1140,
+        "y": 740,
         "wires": []
     },
     {
@@ -843,7 +843,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 990,
+        "x": 970,
         "y": 660,
         "wires": [
             [
@@ -863,7 +863,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 1120,
+        "x": 1140,
         "y": 660,
         "wires": [
             []
@@ -892,8 +892,8 @@
         "qToggle": false,
         "persist": false,
         "storeName": "memory",
-        "x": 510,
-        "y": 760,
+        "x": 490,
+        "y": 800,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -914,8 +914,8 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 315,
-        "y": 700,
+        "x": 295,
+        "y": 740,
         "wires": [
             [
                 "b94085fe13d3366c"
@@ -942,8 +942,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 375,
-        "y": 700,
+        "x": 355,
+        "y": 740,
         "wires": [
             [
                 "0d890d8ab7853715"
@@ -962,7 +962,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 980,
+        "y": 1020,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -986,7 +986,7 @@
         "topic": "",
         "payload": "[\"set\",\"notify-keyspace-events\",\"KEx\"]",
         "payloadType": "json",
-        "x": 250,
+        "x": 270,
         "y": 180,
         "wires": [
             [
@@ -1008,7 +1008,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 460,
+        "x": 480,
         "y": 180,
         "wires": [
             []
@@ -1018,7 +1018,7 @@
         "id": "6a25034a65fb9cb4",
         "type": "switch",
         "z": "f15208d99d43e7d6",
-        "name": "",
+        "name": "Expired ?",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -1031,8 +1031,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 350,
-        "y": 980,
+        "x": 360,
+        "y": 1020,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -1051,7 +1051,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 980,
+        "y": 1020,
         "wires": [
             []
         ]
@@ -1088,7 +1088,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 900,
+        "y": 960,
         "wires": []
     },
     {
@@ -1112,8 +1112,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 210,
-        "y": 700,
+        "x": 190,
+        "y": 740,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -1195,7 +1195,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 470,
+        "x": 490,
         "y": 240,
         "wires": [
             [
@@ -1216,10 +1216,56 @@
         "rap": true,
         "rh": 0,
         "inputs": 1,
-        "x": 680,
+        "x": 700,
         "y": 240,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "5ae064fd89e9996f",
+        "type": "flogger",
+        "z": "f15208d99d43e7d6",
+        "name": "Publish",
+        "logfile": "publish.log",
+        "inputchoice": "object",
+        "inputobject": "payload",
+        "inputobjectType": "msg",
+        "inputmoustache": "Recieved payload {{payload}} and topic {{topic}}",
+        "loglevel": "INFO",
+        "logconfig": "a93c45df39215989",
+        "sendpane": false,
+        "x": 1260,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ee3c679755e77b2",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Log",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"topic\": topic,\t   \"data_id\": payload.properties.data_id,\t   \"file\": filename,\t   \"length\":  payload.links.length \t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 700,
+        "wires": [
+            [
+                "5ae064fd89e9996f"
+            ]
         ]
     }
 ]
