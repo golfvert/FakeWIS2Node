@@ -16,14 +16,28 @@
         "optionsType": "str"
     },
     {
-        "id": "3bde65c3a589f995",
-        "type": "mqtt-broker",
+        "id": "d37cb01740861896",
+        "type": "tls-config",
         "name": "",
-        "broker": "ws://verne:8080/mqtt",
-        "port": "1883",
-        "tls": "d37cb01740861896",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "8cf5f6b5.937088",
+        "type": "mqtt-broker",
+        "name": "Local",
+        "broker": "\"\"",
+        "port": "",
+        "tls": "",
         "clientid": "",
-        "autoConnect": true,
+        "autoConnect": false,
         "usetls": false,
         "protocolVersion": "4",
         "keepalive": "60",
@@ -44,20 +58,6 @@
         "sessionExpiry": ""
     },
     {
-        "id": "d37cb01740861896",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "",
-        "servername": "",
-        "verifyservercert": false,
-        "alpnprotocol": ""
-    },
-    {
         "id": "df56b3aecf7ce20f",
         "type": "function",
         "z": "f15208d99d43e7d6",
@@ -69,7 +69,7 @@
         "finalize": "",
         "libs": [],
         "x": 400,
-        "y": 340,
+        "y": 440,
         "wires": [
             [
                 "7a8fd5e4121b31f7"
@@ -87,7 +87,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 690,
-        "y": 340,
+        "y": 440,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -114,7 +114,7 @@
         "to": "",
         "reg": false,
         "x": 550,
-        "y": 340,
+        "y": 440,
         "wires": [
             [
                 "a3619869e11717a0"
@@ -133,7 +133,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "db727b20860b9b02"
@@ -152,7 +152,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 510,
-        "y": 460,
+        "y": 560,
         "wires": [
             [
                 "ccbc30efd3952be2"
@@ -179,7 +179,7 @@
         "to": "",
         "reg": false,
         "x": 650,
-        "y": 460,
+        "y": 560,
         "wires": [
             []
         ]
@@ -355,7 +355,7 @@
         "name": "Put in the buffer",
         "info": "",
         "x": 240,
-        "y": 420,
+        "y": 520,
         "wires": []
     },
     {
@@ -365,7 +365,7 @@
         "name": "Create fake data file",
         "info": "",
         "x": 230,
-        "y": 260,
+        "y": 360,
         "wires": []
     },
     {
@@ -385,7 +385,7 @@
         "name": "WIS2 Node ",
         "info": "",
         "x": 230,
-        "y": 540,
+        "y": 640,
         "wires": []
     },
     {
@@ -396,7 +396,7 @@
         "outputvar": "hash",
         "algorithm": "sha512",
         "x": 590,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "853bc4a4259e38f8"
@@ -413,7 +413,7 @@
             "05da7d629923d597"
         ],
         "x": 1115,
-        "y": 660,
+        "y": 760,
         "wires": []
     },
     {
@@ -425,7 +425,7 @@
             "385803d26b4f71e9"
         ],
         "x": 155,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "88a86cd939610e30"
@@ -458,7 +458,7 @@
             }
         ],
         "x": 230,
-        "y": 340,
+        "y": 440,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -490,7 +490,7 @@
             }
         ],
         "x": 230,
-        "y": 460,
+        "y": 560,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -517,7 +517,7 @@
         "to": "",
         "reg": false,
         "x": 390,
-        "y": 460,
+        "y": 560,
         "wires": [
             [
                 "5352eac5b7fb42db"
@@ -577,7 +577,7 @@
         "to": "",
         "reg": false,
         "x": 250,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "fdf555e62099fbd0"
@@ -602,7 +602,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 370,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -621,7 +621,7 @@
         "finalize": "",
         "libs": [],
         "x": 1000,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "385803d26b4f71e9",
@@ -670,7 +670,7 @@
         "to": "",
         "reg": false,
         "x": 730,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "62ec379499ef2c6f"
@@ -689,7 +689,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 870,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "0d6d8a409a25bee1",
@@ -719,7 +719,7 @@
         "payload": "toggle",
         "payloadType": "str",
         "x": 370,
-        "y": 720,
+        "y": 820,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -742,7 +742,7 @@
         "id": "80382be560d62a6c",
         "type": "mqtt out",
         "z": "f15208d99d43e7d6",
-        "name": "",
+        "name": "Publish",
         "topic": "",
         "qos": "",
         "retain": "",
@@ -751,9 +751,9 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "3bde65c3a589f995",
-        "x": 1150,
-        "y": 600,
+        "broker": "8cf5f6b5.937088",
+        "x": 1160,
+        "y": 700,
         "wires": []
     },
     {
@@ -844,7 +844,7 @@
         "to": "",
         "reg": false,
         "x": 990,
-        "y": 560,
+        "y": 660,
         "wires": [
             [
                 "1ca495d97cf3c78f"
@@ -864,7 +864,7 @@
         "payloadType": "json",
         "block": false,
         "x": 1120,
-        "y": 560,
+        "y": 660,
         "wires": [
             []
         ]
@@ -893,7 +893,7 @@
         "persist": false,
         "storeName": "memory",
         "x": 510,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -915,7 +915,7 @@
         "type_param_3": "msg",
         "f_use_debug": false,
         "x": 315,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "b94085fe13d3366c"
@@ -943,7 +943,7 @@
         "to": "",
         "reg": false,
         "x": 375,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "0d890d8ab7853715"
@@ -962,7 +962,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 880,
+        "y": 980,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -991,7 +991,8 @@
         "wires": [
             [
                 "7db3095835943be8",
-                "02468a0afce5beac"
+                "02468a0afce5beac",
+                "9e6943f9ea115417"
             ]
         ]
     },
@@ -1031,7 +1032,7 @@
         "repair": false,
         "outputs": 1,
         "x": 350,
-        "y": 880,
+        "y": 980,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -1050,7 +1051,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 880,
+        "y": 980,
         "wires": [
             []
         ]
@@ -1073,7 +1074,7 @@
         "payload": "$flowContext(\"size_max\")",
         "payloadType": "jsonata",
         "x": 250,
-        "y": 300,
+        "y": 400,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -1087,7 +1088,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 800,
+        "y": 900,
         "wires": []
     },
     {
@@ -1112,11 +1113,113 @@
         "payload": "",
         "payloadType": "date",
         "x": 210,
-        "y": 600,
+        "y": 700,
         "wires": [
             [
                 "35de07527d283ea0"
             ]
+        ]
+    },
+    {
+        "id": "9e6943f9ea115417",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Handle connection",
+        "rules": [
+            {
+                "t": "set",
+                "p": "action",
+                "pt": "msg",
+                "to": "connect",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "broker",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "broker.force",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "broker.url",
+                "pt": "msg",
+                "to": "MQTT_PUB_BROKER",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "broker.usetls",
+                "pt": "msg",
+                "to": "$contains($env(\"MQTT_PUB_BROKER\"),/wss/) or $contains($env(\"MQTT_PUB_BROKER\"),/mqtts/)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "broker.verifyservercert",
+                "pt": "msg",
+                "to": "$length($env(\"MQTT_PUB_VERIFYCERT\")) = 0 ? true : $env(\"MQTT_PUB_VERIFYCERT\")",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "broker.username",
+                "pt": "msg",
+                "to": "MQTT_PUB_USERNAME",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "broker.password",
+                "pt": "msg",
+                "to": "MQTT_PUB_PASSWORD",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "broker.protocolVersion",
+                "pt": "msg",
+                "to": "$length($env(\"MQTT_PUB_BROKERVERSION\")) = 0 ? 4 : $env(\"MQTT_PUB_BROKERVERSION\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "846fbfa4f7abf7b8"
+            ]
+        ]
+    },
+    {
+        "id": "846fbfa4f7abf7b8",
+        "type": "mqtt in",
+        "z": "f15208d99d43e7d6",
+        "name": "Define Publisher",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8cf5f6b5.937088",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 680,
+        "y": 240,
+        "wires": [
+            []
         ]
     }
 ]
