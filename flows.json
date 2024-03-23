@@ -8,6 +8,131 @@
         "env": []
     },
     {
+        "id": "47900301b5f7a8d3",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9a693308.7ebaf",
+        "type": "subflow",
+        "name": "flow-timer",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "7fc82258.93e36c"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 440,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "7fc82258.93e36c",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "name",
+                "type": "str",
+                "value": "measure",
+                "ui": {
+                    "icon": "font-awesome/fa-tag",
+                    "label": {
+                        "en-US": "Timer Name"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "operation",
+                "type": "str",
+                "value": "start",
+                "ui": {
+                    "icon": "font-awesome/fa-cog",
+                    "label": {
+                        "en-US": "Operation"
+                    },
+                    "type": "select",
+                    "opts": {
+                        "opts": [
+                            {
+                                "l": {
+                                    "en-US": "start"
+                                },
+                                "v": "start"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "stop"
+                                },
+                                "v": "stop"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "msg.topic"
+                                },
+                                "v": "msg.topic"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "msg.operation"
+                                },
+                                "v": "msg.operation"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "msg.payload"
+                                },
+                                "v": "msg.payload"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {
+            "module": "node-red-contrib-flow-performance",
+            "type": "flow-performance",
+            "version": "1.0.1",
+            "author": "Steve-Mcl",
+            "desc": "Inline flow performance measure node",
+            "keywords": "node-red performance",
+            "license": "MIT"
+        },
+        "color": "#DAEAAA",
+        "icon": "node-red/timer.svg",
+        "status": {
+            "x": 280,
+            "y": 160,
+            "wires": [
+                {
+                    "id": "7fc82258.93e36c",
+                    "port": 1
+                }
+            ]
+        }
+    },
+    {
         "id": "44959fc60800e3f1",
         "type": "redis-config",
         "name": "redis",
@@ -56,6 +181,24 @@
         "logsize": "10000"
     },
     {
+        "id": "7fc82258.93e36c",
+        "type": "function",
+        "z": "9a693308.7ebaf",
+        "name": "do operation",
+        "func": "// @ts-ignore\nvar name = msg.perfName || env.get(\"name\");\n// @ts-ignore\nvar operation = msg.perfOperation || env.get(\"operation\");\nvar measures = global.get(\"flow_timers\") || {};\nvar measure = measures[name] || {};\n\nfunction doOp(measure, op){\n    if(operation === \"start\"){\n        measure.start = Date.now();//change to process.hrtime\n        measure.stop = null;\n        measure.durationMs = null;\n    } else if(operation === \"stop\") {\n        measure.stop = Date.now();//change to process.hrtime\n        measure.durationMs = measure.start ? measure.stop - measure.start : null;\n        msg._performance = measure;\n    }\n}\n\n\nif(operation === \"start\"){\n    doOp(measure, operation);\n} else if(operation === \"stop\") {\n    doOp(measure, operation);\n    node.send([null, { payload: { text: name + \": \" + measure.durationMs + \"ms\" }}]);\n} else if(operation === \"msg.topic\") {\n    operation = msg.topic;\n    doOp(measure, operation);\n} else if(operation === \"msg.operation\") {\n    operation = msg.operation;\n    doOp(measure, operation);\n} else if(operation === \"msg.payload\") {\n    operation = msg.payload;\n    doOp(measure, operation);\n} else {\n    return [msg, null];\n}\nmeasures[name] = measure;\nglobal.set(\"flow_timers\", measures);\n\nreturn [msg, null];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
         "id": "df56b3aecf7ce20f",
         "type": "function",
         "z": "f15208d99d43e7d6",
@@ -66,7 +209,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
+        "x": 380,
         "y": 440,
         "wires": [
             [
@@ -85,7 +228,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 690,
+        "x": 670,
         "y": 440,
         "wires": [
             [
@@ -112,7 +255,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 550,
+        "x": 530,
         "y": 440,
         "wires": [
             [
@@ -125,14 +268,14 @@
         "type": "function",
         "z": "f15208d99d43e7d6",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = \"\";\n\nlet weight = flow.get(\"weight\");\nlet data = flow.get(\"dataset\");\nlet path = flow.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\n\nmsg = {};\nmsg.country = flow.get(\"country\");\nmsg.center_id = flow.get(\"center_id\");\n\nwhile ( buffer.length < max ) {\n    buffer = flow.get(\"buffer\")\n}\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\nmsg.topic = \"origin/a/wis2/\" + msg.country + \"/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nmsg.data_id = \"wis2/\" + msg.country + \"/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = flow.get(\"buffer\");\n\nlet weight = flow.get(\"weight\");\nlet data = flow.get(\"dataset\");\nlet path = flow.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\n\nmsg = {};\nmsg.center_id = flow.get(\"center_id\");\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\nmsg.topic = \"origin/a/wis2/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nmsg.data_id = \"wis2/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 740,
+        "x": 390,
+        "y": 940,
         "wires": [
             [
                 "db727b20860b9b02"
@@ -150,7 +293,7 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 490,
+        "x": 530,
         "y": 560,
         "wires": [
             [
@@ -177,7 +320,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 630,
+        "x": 670,
         "y": 560,
         "wires": [
             []
@@ -242,13 +385,6 @@
                 "p": "skew",
                 "pt": "flow",
                 "to": "payload.generator.skew",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "country",
-                "pt": "flow",
-                "to": "payload.generator.country",
                 "tot": "jsonata"
             },
             {
@@ -334,6 +470,48 @@
                 "pt": "flow",
                 "to": "payload.generator.cache_size_max",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "running",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "mqtt_broker",
+                "pt": "flow",
+                "to": "payload.mqtt.broker",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "mqtt_username",
+                "pt": "flow",
+                "to": "payload.mqtt.username",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "mqtt_password",
+                "pt": "flow",
+                "to": "payload.mqtt.password",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "mqtt_version",
+                "pt": "flow",
+                "to": "payload.mqtt.version",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "mqtt_verifytls",
+                "pt": "flow",
+                "to": "payload.mqtt.verifytls",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -344,7 +522,9 @@
         "x": 690,
         "y": 120,
         "wires": [
-            []
+            [
+                "9e6943f9ea115417"
+            ]
         ]
     },
     {
@@ -384,7 +564,7 @@
         "name": "WIS2 Node ",
         "info": "",
         "x": 210,
-        "y": 680,
+        "y": 720,
         "wires": []
     },
     {
@@ -394,8 +574,8 @@
         "name": "Hash",
         "outputvar": "hash",
         "algorithm": "sha512",
-        "x": 570,
-        "y": 740,
+        "x": 510,
+        "y": 940,
         "wires": [
             [
                 "853bc4a4259e38f8"
@@ -411,8 +591,8 @@
         "links": [
             "05da7d629923d597"
         ],
-        "x": 1095,
-        "y": 800,
+        "x": 1045,
+        "y": 1020,
         "wires": []
     },
     {
@@ -423,11 +603,11 @@
         "links": [
             "385803d26b4f71e9"
         ],
-        "x": 135,
-        "y": 800,
+        "x": 235,
+        "y": 1020,
         "wires": [
             [
-                "88a86cd939610e30"
+                "8153bed443dc7386"
             ]
         ]
     },
@@ -488,7 +668,7 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 210,
+        "x": 230,
         "y": 560,
         "wires": [
             [
@@ -515,7 +695,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
+        "x": 410,
         "y": 560,
         "wires": [
             [
@@ -575,8 +755,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 230,
-        "y": 800,
+        "x": 460,
+        "y": 1020,
         "wires": [
             [
                 "fdf555e62099fbd0"
@@ -600,8 +780,8 @@
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 350,
-        "y": 800,
+        "x": 580,
+        "y": 1020,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -619,8 +799,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 980,
-        "y": 740,
+        "x": 920,
+        "y": 940,
         "wires": [
             [
                 "385803d26b4f71e9",
@@ -669,8 +849,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 740,
+        "x": 650,
+        "y": 940,
         "wires": [
             [
                 "62ec379499ef2c6f"
@@ -688,8 +868,8 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 850,
-        "y": 740,
+        "x": 790,
+        "y": 940,
         "wires": [
             [
                 "0d6d8a409a25bee1",
@@ -718,8 +898,8 @@
         "topic": "control",
         "payload": "toggle",
         "payloadType": "str",
-        "x": 350,
-        "y": 860,
+        "x": 580,
+        "y": 1080,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -752,8 +932,8 @@
         "correl": "",
         "expiry": "",
         "broker": "8cf5f6b5.937088",
-        "x": 1140,
-        "y": 740,
+        "x": 1090,
+        "y": 960,
         "wires": []
     },
     {
@@ -843,8 +1023,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 970,
-        "y": 660,
+        "x": 910,
+        "y": 1080,
         "wires": [
             [
                 "1ca495d97cf3c78f"
@@ -863,8 +1043,8 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 1140,
-        "y": 660,
+        "x": 1040,
+        "y": 1080,
         "wires": [
             []
         ]
@@ -892,8 +1072,8 @@
         "qToggle": false,
         "persist": false,
         "storeName": "memory",
-        "x": 490,
-        "y": 800,
+        "x": 720,
+        "y": 1020,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -914,8 +1094,8 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 295,
-        "y": 740,
+        "x": 235,
+        "y": 940,
         "wires": [
             [
                 "b94085fe13d3366c"
@@ -942,8 +1122,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 355,
-        "y": 740,
+        "x": 295,
+        "y": 940,
         "wires": [
             [
                 "0d890d8ab7853715"
@@ -962,7 +1142,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 1020,
+        "y": 1260,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -992,7 +1172,7 @@
             [
                 "7db3095835943be8",
                 "02468a0afce5beac",
-                "9e6943f9ea115417"
+                "a9b39df0c059443c"
             ]
         ]
     },
@@ -1032,7 +1212,7 @@
         "repair": false,
         "outputs": 1,
         "x": 360,
-        "y": 1020,
+        "y": 1260,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -1051,7 +1231,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 1020,
+        "y": 1260,
         "wires": [
             []
         ]
@@ -1088,7 +1268,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 960,
+        "y": 1200,
         "wires": []
     },
     {
@@ -1101,22 +1281,23 @@
                 "p": "payload"
             },
             {
-                "p": "topic",
-                "vt": "str"
+                "p": "filename",
+                "v": "$string($flowContext(\"size_max\"))",
+                "vt": "jsonata"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "15",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 190,
-        "y": 740,
+        "x": 210,
+        "y": 780,
         "wires": [
             [
-                "35de07527d283ea0"
+                "db3f4193303dcba8"
             ]
         ]
     },
@@ -1151,42 +1332,42 @@
                 "t": "set",
                 "p": "broker.url",
                 "pt": "msg",
-                "to": "MQTT_PUB_BROKER",
-                "tot": "env"
+                "to": "mqtt_broker",
+                "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "broker.usetls",
                 "pt": "msg",
-                "to": "$contains($env(\"MQTT_PUB_BROKER\"),/wss/) or $contains($env(\"MQTT_PUB_BROKER\"),/mqtts/)",
+                "to": "$contains($flowContext(\"mqtt_broker\"),/wss/) or $contains($flowContext(\"mqtt_broker\"),/mqtts/)",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "broker.verifyservercert",
                 "pt": "msg",
-                "to": "$length($env(\"MQTT_PUB_VERIFYCERT\")) = 0 ? true : $env(\"MQTT_PUB_VERIFYCERT\")",
+                "to": "$length($flowContext(\"mqtt_verifycert\")) = 0 ? true : $flowContext(\"mqtt_verifycert\")",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "broker.username",
                 "pt": "msg",
-                "to": "MQTT_PUB_USERNAME",
-                "tot": "env"
+                "to": "mqtt_username",
+                "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "broker.password",
                 "pt": "msg",
-                "to": "MQTT_PUB_PASSWORD",
-                "tot": "env"
+                "to": "mqtt_password",
+                "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "broker.protocolVersion",
                 "pt": "msg",
-                "to": "$length($env(\"MQTT_PUB_BROKERVERSION\")) = 0 ? 4 : $env(\"MQTT_PUB_BROKERVERSION\")",
+                "to": "$length($flowContext(\"mqtt_version\")) = 0 ? 4 : $flowContext(\"mqtt_version\")",
                 "tot": "jsonata"
             }
         ],
@@ -1195,8 +1376,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 490,
-        "y": 240,
+        "x": 850,
+        "y": 120,
         "wires": [
             [
                 "846fbfa4f7abf7b8"
@@ -1216,8 +1397,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 1,
-        "x": 700,
-        "y": 240,
+        "x": 1060,
+        "y": 120,
         "wires": [
             []
         ]
@@ -1235,8 +1416,8 @@
         "loglevel": "INFO",
         "logconfig": "a93c45df39215989",
         "sendpane": false,
-        "x": 1260,
-        "y": 700,
+        "x": 1210,
+        "y": 920,
         "wires": [
             []
         ]
@@ -1260,11 +1441,711 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
-        "y": 700,
+        "x": 1080,
+        "y": 920,
         "wires": [
             [
                 "5ae064fd89e9996f"
+            ]
+        ]
+    },
+    {
+        "id": "83b1a8749fac4ee4",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "File ready ?",
+        "property": "$count(list)",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "bdf1a7420d59de56"
+            ],
+            [
+                "8ed0d529d96803f1"
+            ]
+        ]
+    },
+    {
+        "id": "bdf1a7420d59de56",
+        "type": "delay",
+        "z": "f15208d99d43e7d6",
+        "name": "Wait",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 760,
+        "wires": [
+            [
+                "2137fea797f95911"
+            ]
+        ]
+    },
+    {
+        "id": "2137fea797f95911",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "649e06fe9e47ab06"
+        ],
+        "x": 915,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "649e06fe9e47ab06",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "link in 1",
+        "links": [
+            "2137fea797f95911"
+        ],
+        "x": 425,
+        "y": 720,
+        "wires": [
+            [
+                "14b909ba9c138d08"
+            ]
+        ]
+    },
+    {
+        "id": "14b909ba9c138d08",
+        "type": "fs-list",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "path": "configuration_path",
+        "pathType": "flow",
+        "pattern": "filename",
+        "patternType": "msg",
+        "filter": "files",
+        "recursive": false,
+        "follow": true,
+        "property": "list",
+        "propertyType": "msg",
+        "x": 530,
+        "y": 780,
+        "wires": [
+            [
+                "83b1a8749fac4ee4"
+            ]
+        ]
+    },
+    {
+        "id": "db3f4193303dcba8",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "Running ?",
+        "property": "running",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "14b909ba9c138d08"
+            ]
+        ]
+    },
+    {
+        "id": "8153bed443dc7386",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Running !",
+        "rules": [
+            {
+                "t": "set",
+                "p": "running",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 1020,
+        "wires": [
+            [
+                "88a86cd939610e30"
+            ]
+        ]
+    },
+    {
+        "id": "0988c97edb614bfb",
+        "type": "cronplus",
+        "z": "f15208d99d43e7d6",
+        "name": "Restart",
+        "outputField": "payload",
+        "timeZone": "",
+        "storeName": "",
+        "commandResponseMsgOutput": "output1",
+        "defaultLocation": "",
+        "defaultLocationType": "default",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "Load",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0/1 * * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 220,
+        "y": 840,
+        "wires": [
+            [
+                "3f343d07531dc3bb"
+            ]
+        ]
+    },
+    {
+        "id": "3f343d07531dc3bb",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "File",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "$string($flowContext(\"size_max\"))",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 840,
+        "wires": [
+            [
+                "db3f4193303dcba8"
+            ]
+        ]
+    },
+    {
+        "id": "8ed0d529d96803f1",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "cf69e018c01d3cfe"
+        ],
+        "x": 795,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "cf69e018c01d3cfe",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "link in 2",
+        "links": [
+            "8ed0d529d96803f1"
+        ],
+        "x": 155,
+        "y": 940,
+        "wires": [
+            [
+                "35de07527d283ea0"
+            ]
+        ]
+    },
+    {
+        "id": "a9b39df0c059443c",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Buffer",
+        "rules": [
+            {
+                "t": "set",
+                "p": "buffer",
+                "pt": "flow",
+                "to": "\"\"",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d82e74922cabc567",
+        "type": "random-string",
+        "z": "47900301b5f7a8d3",
+        "size": "50000000",
+        "characters": "",
+        "property": "payload",
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "f6181e74.1732a"
+            ]
+        ]
+    },
+    {
+        "id": "23b867b438bef31b",
+        "type": "inject",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 300,
+        "wires": [
+            [
+                "80b9b0b2.1dd84"
+            ]
+        ]
+    },
+    {
+        "id": "db0c9a1d5590c769",
+        "type": "debug",
+        "z": "47900301b5f7a8d3",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "80b9b0b2.1dd84",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            }
+        ],
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "d82e74922cabc567"
+            ]
+        ]
+    },
+    {
+        "id": "f6181e74.1732a",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            },
+            {
+                "name": "operation",
+                "value": "stop",
+                "type": "str"
+            }
+        ],
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "db0c9a1d5590c769"
+            ]
+        ]
+    },
+    {
+        "id": "307e766c6c9a6a58",
+        "type": "function",
+        "z": "47900301b5f7a8d3",
+        "name": "function 1",
+        "func": "let characters = \"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";\nlet size = msg.payload;\nlet payload = '';\n\t\t\tfor (let i = 0; i < size; i++) {\n\t\t\t\tpayload += characters.charAt(Math.floor(Math.random() * characters.length));\n\t\t\t}\nmsg.payload=payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "0853a821e09eee06"
+            ]
+        ]
+    },
+    {
+        "id": "288b528a6b71c1dc",
+        "type": "inject",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50000000",
+        "payloadType": "num",
+        "x": 260,
+        "y": 380,
+        "wires": [
+            [
+                "e469935b15a999d2"
+            ]
+        ]
+    },
+    {
+        "id": "e469935b15a999d2",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            }
+        ],
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "307e766c6c9a6a58"
+            ]
+        ]
+    },
+    {
+        "id": "9aad27f0e84edf0e",
+        "type": "debug",
+        "z": "47900301b5f7a8d3",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "0853a821e09eee06",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            },
+            {
+                "name": "operation",
+                "value": "stop",
+                "type": "str"
+            }
+        ],
+        "x": 740,
+        "y": 380,
+        "wires": [
+            [
+                "9aad27f0e84edf0e"
+            ]
+        ]
+    },
+    {
+        "id": "09046cbd9cca04f6",
+        "type": "unsafe-function",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "func": "const characters = \"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";\nconst size = msg.payload;\nconst stringBuilder = [];\nfor (let i = 0; i < size; i++) {\n    stringBuilder.push(characters.charAt(Math.floor(Math.random() * characters.length)));\n}\nmsg.payload = stringBuilder.join('')\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 520,
+        "wires": [
+            [
+                "c26cff9f83b845f6"
+            ]
+        ]
+    },
+    {
+        "id": "72bf84b6daa57d38",
+        "type": "inject",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "100000000",
+        "payloadType": "num",
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "49671fb95253806b"
+            ]
+        ]
+    },
+    {
+        "id": "35982be554c13710",
+        "type": "debug",
+        "z": "47900301b5f7a8d3",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "49671fb95253806b",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            }
+        ],
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "09046cbd9cca04f6"
+            ]
+        ]
+    },
+    {
+        "id": "c26cff9f83b845f6",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            },
+            {
+                "name": "operation",
+                "value": "stop",
+                "type": "str"
+            }
+        ],
+        "x": 760,
+        "y": 520,
+        "wires": [
+            [
+                "35982be554c13710"
+            ]
+        ]
+    },
+    {
+        "id": "d998070b9e194e7f",
+        "type": "unsafe-function",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "func": "const characters = \"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";\nconst size = msg.payload;\nconst stringBuilder = Array.from({ length: size })\nfor (let i = 0; i < size; i++) {\n    stringBuilder.push(characters.charAt(Math.floor(Math.random() * characters.length)));\n}\nmsg.payload = stringBuilder.join('')\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 620,
+        "wires": [
+            [
+                "f2a68aadf1eb78a6"
+            ]
+        ]
+    },
+    {
+        "id": "38e345bd56158ef6",
+        "type": "inject",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "100000000",
+        "payloadType": "num",
+        "x": 220,
+        "y": 620,
+        "wires": [
+            [
+                "743dd778efd9d9c4"
+            ]
+        ]
+    },
+    {
+        "id": "7d773e2e5bdc1908",
+        "type": "debug",
+        "z": "47900301b5f7a8d3",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "743dd778efd9d9c4",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            }
+        ],
+        "x": 380,
+        "y": 620,
+        "wires": [
+            [
+                "d998070b9e194e7f"
+            ]
+        ]
+    },
+    {
+        "id": "f2a68aadf1eb78a6",
+        "type": "subflow:9a693308.7ebaf",
+        "z": "47900301b5f7a8d3",
+        "name": "",
+        "env": [
+            {
+                "name": "name",
+                "value": "function",
+                "type": "str"
+            },
+            {
+                "name": "operation",
+                "value": "stop",
+                "type": "str"
+            }
+        ],
+        "x": 760,
+        "y": 620,
+        "wires": [
+            [
+                "7d773e2e5bdc1908"
             ]
         ]
     }
