@@ -323,7 +323,7 @@
         "type": "file in",
         "z": "f15208d99d43e7d6",
         "name": "Config",
-        "filename": "/storage/configuration/configuration.yaml",
+        "filename": "/storage/configuration/configuration.yml",
         "filenameType": "str",
         "format": "utf8",
         "chunk": false,
@@ -356,7 +356,7 @@
         "id": "b9517e333a582acf",
         "type": "change",
         "z": "f15208d99d43e7d6",
-        "name": "Store",
+        "name": "Configuration",
         "rules": [
             {
                 "t": "set",
@@ -469,41 +469,6 @@
                 "pt": "flow",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "mqtt_broker",
-                "pt": "flow",
-                "to": "payload.mqtt.broker",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "mqtt_username",
-                "pt": "flow",
-                "to": "payload.mqtt.username",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "mqtt_password",
-                "pt": "flow",
-                "to": "payload.mqtt.password",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "mqtt_version",
-                "pt": "flow",
-                "to": "payload.mqtt.version",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "mqtt_verifytls",
-                "pt": "flow",
-                "to": "payload.mqtt.verifytls",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -511,12 +476,10 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
+        "x": 720,
         "y": 120,
         "wires": [
-            [
-                "9e6943f9ea115417"
-            ]
+            []
         ]
     },
     {
@@ -1164,7 +1127,8 @@
             [
                 "7db3095835943be8",
                 "02468a0afce5beac",
-                "a9b39df0c059443c"
+                "a9b39df0c059443c",
+                "00a9c44428849df8"
             ]
         ]
     },
@@ -1181,7 +1145,7 @@
         "payloadType": "json",
         "block": false,
         "x": 480,
-        "y": 180,
+        "y": 240,
         "wires": [
             []
         ]
@@ -1291,108 +1255,6 @@
             [
                 "db3f4193303dcba8"
             ]
-        ]
-    },
-    {
-        "id": "9e6943f9ea115417",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "name": "Handle connection",
-        "rules": [
-            {
-                "t": "set",
-                "p": "action",
-                "pt": "msg",
-                "to": "connect",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "broker",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "broker.force",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "broker.url",
-                "pt": "msg",
-                "to": "mqtt_broker",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "broker.usetls",
-                "pt": "msg",
-                "to": "$contains($flowContext(\"mqtt_broker\"),/wss/) or $contains($flowContext(\"mqtt_broker\"),/mqtts/)",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "broker.verifyservercert",
-                "pt": "msg",
-                "to": "$length($flowContext(\"mqtt_verifycert\")) = 0 ? true : $flowContext(\"mqtt_verifycert\")",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "broker.username",
-                "pt": "msg",
-                "to": "mqtt_username",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "broker.password",
-                "pt": "msg",
-                "to": "mqtt_password",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "broker.protocolVersion",
-                "pt": "msg",
-                "to": "$length($flowContext(\"mqtt_version\")) = 0 ? 4 : $flowContext(\"mqtt_version\")",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 850,
-        "y": 120,
-        "wires": [
-            [
-                "846fbfa4f7abf7b8"
-            ]
-        ]
-    },
-    {
-        "id": "846fbfa4f7abf7b8",
-        "type": "mqtt in",
-        "z": "f15208d99d43e7d6",
-        "name": "Define Publisher",
-        "topic": "",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "8cf5f6b5.937088",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 1,
-        "x": 1060,
-        "y": 120,
-        "wires": [
-            []
         ]
     },
     {
@@ -1710,7 +1572,143 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 240,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "00a9c44428849df8",
+        "type": "file in",
+        "z": "f15208d99d43e7d6",
+        "name": "MQTT",
+        "filename": "/storage/configuration/mqtt.yml",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 450,
+        "y": 180,
+        "wires": [
+            [
+                "1c6b9e69a9c8fbfd"
+            ]
+        ]
+    },
+    {
+        "id": "1c6b9e69a9c8fbfd",
+        "type": "yaml",
+        "z": "f15208d99d43e7d6",
+        "property": "payload",
+        "name": "",
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "841f22d42816f15a"
+            ]
+        ]
+    },
+    {
+        "id": "841f22d42816f15a",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "MQTT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "action",
+                "pt": "msg",
+                "to": "connect",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "broker",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "broker.force",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "broker.url",
+                "pt": "msg",
+                "to": "payload.mqtt.broker",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "broker.usetls",
+                "pt": "msg",
+                "to": "$contains(payload.mqtt.broker,/wss/) or $contains(payload.mqtt.broker,/mqtts/)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "broker.verifyservercert",
+                "pt": "msg",
+                "to": "$exists(payload.mqtt.verifycert) ? payload.mqtt.verifycert : false",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "broker.username",
+                "pt": "msg",
+                "to": "payload.mqtt.username",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "broker.password",
+                "pt": "msg",
+                "to": "payload.mqtt.password",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "broker.protocolVersion",
+                "pt": "msg",
+                "to": "$exists(payload.mqtt.version)  ? payload.mqtt.version : 4",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "a0f103689fa8e192"
+            ]
+        ]
+    },
+    {
+        "id": "a0f103689fa8e192",
+        "type": "mqtt in",
+        "z": "f15208d99d43e7d6",
+        "name": "Define Publisher",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8cf5f6b5.937088",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 840,
+        "y": 180,
         "wires": [
             []
         ]
