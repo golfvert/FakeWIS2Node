@@ -2314,7 +2314,8 @@
         "wires": [
             [
                 "dbb1093bf22c4670",
-                "18e47699ae16fc5e"
+                "18e47699ae16fc5e",
+                "de16a7caebdee83a"
             ]
         ]
     },
@@ -2476,73 +2477,6 @@
         ]
     },
     {
-        "id": "6babc9e774492aba",
-        "type": "fs-stats",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "path": "/storage/configuration/configuration.yml",
-        "pathType": "str",
-        "filename": "filename",
-        "filenameType": "msg",
-        "attr": "mtimeMs",
-        "follow": true,
-        "property": "stats",
-        "propertyType": "msg",
-        "x": 900,
-        "y": 340,
-        "wires": [
-            [
-                "8da35dd5e4932dd2"
-            ]
-        ]
-    },
-    {
-        "id": "8da35dd5e4932dd2",
-        "type": "debug",
-        "z": "f15208d99d43e7d6",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "( $millis() - stats ) <= 300000 ? true : false",
-        "targetType": "jsonata",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1080,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "a1539d7a31543848",
-        "type": "inject",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 760,
-        "y": 340,
-        "wires": [
-            [
-                "6babc9e774492aba"
-            ]
-        ]
-    },
-    {
         "id": "e27fb2b124dcbad4",
         "type": "link in",
         "z": "f15208d99d43e7d6",
@@ -2613,6 +2547,22 @@
         ],
         "x": 1095,
         "y": 140,
+        "wires": []
+    },
+    {
+        "id": "de16a7caebdee83a",
+        "type": "debug",
+        "z": "f15208d99d43e7d6",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 1300,
         "wires": []
     }
 ]
