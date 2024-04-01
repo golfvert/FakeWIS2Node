@@ -2,7 +2,7 @@
     {
         "id": "f15208d99d43e7d6",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "wis2node",
         "disabled": false,
         "info": "",
         "env": []
@@ -260,14 +260,14 @@
         "type": "function",
         "z": "f15208d99d43e7d6",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = flow.get(\"buffer\");\n\nlet weight = flow.get(\"weight\");\nlet data = flow.get(\"dataset\");\nlet path = flow.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\n\nmsg = {};\nmsg.center_id = flow.get(\"center_id\");\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\nmsg.topic = \"origin/a/wis2/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nmsg.data_id = \"wis2/\" + msg.center_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = flow.get(\"buffer\");\n\nlet weight = flow.get(\"weight\");\nlet data = flow.get(\"dataset\");\nlet path = flow.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\n\nmsg = {};\nmsg.centre_id = flow.get(\"centre_id\");\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nmsg.data_id = \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "db727b20860b9b02"
@@ -331,7 +331,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 450,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "070e2db17aa8dfbd"
@@ -345,7 +345,7 @@
         "property": "payload",
         "name": "",
         "x": 570,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "b9517e333a582acf"
@@ -381,9 +381,9 @@
             },
             {
                 "t": "set",
-                "p": "center_id",
+                "p": "centre_id",
                 "pt": "flow",
-                "to": "payload.generator.center_id",
+                "to": "payload.generator.centre_id",
                 "tot": "jsonata"
             },
             {
@@ -411,7 +411,7 @@
                 "t": "set",
                 "p": "dataset",
                 "pt": "flow",
-                "to": "payload.generator.data.*.$.{   \"type\": type, \"sub_type\": sub_type, \"data_policy\": data_policy  }",
+                "to": "payload.generator.data.*.$.{   \"type\": type, \"sub_type\": sub_type, \"data_policy\": data_policy, \"metadata\": metadata  }",
                 "tot": "jsonata"
             },
             {
@@ -469,6 +469,13 @@
                 "pt": "flow",
                 "to": "false",
                 "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "metadata_publish",
+                "pt": "flow",
+                "to": "$exists(payload.generator.metadata_publish) = true ? $number(payload.generator.metadata_publish) : 0",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -477,9 +484,11 @@
         "to": "",
         "reg": false,
         "x": 720,
-        "y": 120,
+        "y": 140,
         "wires": [
-            []
+            [
+                "1a016aa0df29da07"
+            ]
         ]
     },
     {
@@ -516,10 +525,10 @@
         "id": "fa5f1732c526796f",
         "type": "comment",
         "z": "f15208d99d43e7d6",
-        "name": "WIS2 Node ",
+        "name": "WIS2 Node Data",
         "info": "",
-        "x": 210,
-        "y": 720,
+        "x": 220,
+        "y": 660,
         "wires": []
     },
     {
@@ -530,7 +539,7 @@
         "outputvar": "hash",
         "algorithm": "sha512",
         "x": 510,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "853bc4a4259e38f8"
@@ -547,7 +556,7 @@
             "05da7d629923d597"
         ],
         "x": 1045,
-        "y": 1020,
+        "y": 960,
         "wires": []
     },
     {
@@ -559,7 +568,7 @@
             "385803d26b4f71e9"
         ],
         "x": 235,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "8153bed443dc7386"
@@ -684,7 +693,7 @@
             }
         ],
         "x": 230,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "02468a0afce5beac"
@@ -711,7 +720,7 @@
         "to": "",
         "reg": false,
         "x": 460,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "fdf555e62099fbd0"
@@ -736,7 +745,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 580,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -755,7 +764,7 @@
         "finalize": "",
         "libs": [],
         "x": 920,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "385803d26b4f71e9",
@@ -774,28 +783,28 @@
                 "t": "set",
                 "p": "pubtime",
                 "pt": "msg",
-                "to": "$fromMillis($millis(),'[Y0001][M01][D01]T[H01][m01][s01][f003]Z')",
+                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z')",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "datetime",
                 "pt": "msg",
-                "to": "$fromMillis($millis(),'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "start_datetime",
                 "pt": "msg",
-                "to": "$fromMillis($millis() + $floor(6*$random())*3600*1000,'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "to": "$fromMillis($millis() + $floor(6*$random())*3600*1000,'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "end_datetime",
                 "pt": "msg",
-                "to": "$fromMillis($millis() + $floor(12*$random())*3600*1000,'[Y0001][M01][D01]T[H01][m01][s01]Z')",
+                "to": "$fromMillis($millis() + $floor(12*$random())*3600*1000,'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')",
                 "tot": "jsonata"
             }
         ],
@@ -805,7 +814,7 @@
         "to": "",
         "reg": false,
         "x": 650,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "62ec379499ef2c6f"
@@ -824,7 +833,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 790,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "0d6d8a409a25bee1",
@@ -854,7 +863,7 @@
         "payload": "toggle",
         "payloadType": "str",
         "x": 580,
-        "y": 1080,
+        "y": 1020,
         "wires": [
             [
                 "f1b3be2e9730d21d"
@@ -888,70 +897,7 @@
         "expiry": "",
         "broker": "8cf5f6b5.937088",
         "x": 1090,
-        "y": 960,
-        "wires": []
-    },
-    {
-        "id": "2a93e7ce.341078",
-        "type": "inject",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload",
-                "v": "",
-                "vt": "date"
-            },
-            {
-                "p": "topic",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 320,
-        "y": 2120,
-        "wires": [
-            [
-                "d89709ef.fd9368"
-            ]
-        ]
-    },
-    {
-        "id": "d89709ef.fd9368",
-        "type": "function",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "func": "let redis = context.flow.get('redis');\n\nredis.info().then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})\n\n/*\nredis.call(\"anycmd\").then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})*/",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 550,
-        "y": 2120,
-        "wires": [
-            [
-                "f2e9c3a0.8f181"
-            ]
-        ]
-    },
-    {
-        "id": "f2e9c3a0.8f181",
-        "type": "debug",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 870,
-        "y": 2120,
+        "y": 900,
         "wires": []
     },
     {
@@ -979,7 +925,7 @@
         "to": "",
         "reg": false,
         "x": 910,
-        "y": 1080,
+        "y": 820,
         "wires": [
             [
                 "1ca495d97cf3c78f"
@@ -999,7 +945,7 @@
         "payloadType": "json",
         "block": false,
         "x": 1040,
-        "y": 1080,
+        "y": 820,
         "wires": [
             []
         ]
@@ -1028,7 +974,7 @@
         "persist": false,
         "storeName": "memory",
         "x": 720,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -1050,7 +996,7 @@
         "type_param_3": "msg",
         "f_use_debug": false,
         "x": 235,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "b94085fe13d3366c"
@@ -1078,7 +1024,7 @@
         "to": "",
         "reg": false,
         "x": 295,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "0d890d8ab7853715"
@@ -1097,7 +1043,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 1260,
+        "y": 1560,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -1128,7 +1074,8 @@
                 "7db3095835943be8",
                 "02468a0afce5beac",
                 "a9b39df0c059443c",
-                "00a9c44428849df8"
+                "00a9c44428849df8",
+                "a9af2159b35a9dc3"
             ]
         ]
     },
@@ -1145,7 +1092,7 @@
         "payloadType": "json",
         "block": false,
         "x": 480,
-        "y": 240,
+        "y": 260,
         "wires": [
             []
         ]
@@ -1168,7 +1115,7 @@
         "repair": false,
         "outputs": 1,
         "x": 360,
-        "y": 1260,
+        "y": 1560,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -1187,7 +1134,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 1260,
+        "y": 1560,
         "wires": [
             []
         ]
@@ -1224,7 +1171,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 1200,
+        "y": 1500,
         "wires": []
     },
     {
@@ -1250,7 +1197,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 210,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -1271,7 +1218,7 @@
         "logconfig": "a93c45df39215989",
         "sendpane": false,
         "x": 1210,
-        "y": 920,
+        "y": 860,
         "wires": [
             []
         ]
@@ -1296,7 +1243,7 @@
         "to": "",
         "reg": false,
         "x": 1080,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "5ae064fd89e9996f"
@@ -1326,7 +1273,7 @@
         "repair": false,
         "outputs": 2,
         "x": 670,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "bdf1a7420d59de56"
@@ -1354,7 +1301,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 830,
-        "y": 760,
+        "y": 700,
         "wires": [
             [
                 "2137fea797f95911"
@@ -1371,7 +1318,7 @@
             "649e06fe9e47ab06"
         ],
         "x": 915,
-        "y": 760,
+        "y": 700,
         "wires": []
     },
     {
@@ -1383,7 +1330,7 @@
             "2137fea797f95911"
         ],
         "x": 425,
-        "y": 720,
+        "y": 660,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -1405,7 +1352,7 @@
         "property": "list",
         "propertyType": "msg",
         "x": 530,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "83b1a8749fac4ee4"
@@ -1428,7 +1375,7 @@
         "repair": false,
         "outputs": 1,
         "x": 370,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -1455,7 +1402,7 @@
         "to": "",
         "reg": false,
         "x": 330,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "88a86cd939610e30"
@@ -1489,7 +1436,7 @@
             }
         ],
         "x": 220,
-        "y": 840,
+        "y": 780,
         "wires": [
             [
                 "3f343d07531dc3bb"
@@ -1516,7 +1463,7 @@
         "to": "",
         "reg": false,
         "x": 370,
-        "y": 840,
+        "y": 780,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -1533,7 +1480,7 @@
             "cf69e018c01d3cfe"
         ],
         "x": 795,
-        "y": 800,
+        "y": 740,
         "wires": []
     },
     {
@@ -1545,7 +1492,7 @@
             "8ed0d529d96803f1"
         ],
         "x": 155,
-        "y": 940,
+        "y": 880,
         "wires": [
             [
                 "35de07527d283ea0"
@@ -1642,42 +1589,49 @@
                 "t": "set",
                 "p": "broker.url",
                 "pt": "msg",
-                "to": "payload.mqtt.broker",
+                "to": "payload.mqtt.internal.broker",
                 "tot": "msg"
             },
             {
                 "t": "set",
                 "p": "broker.usetls",
                 "pt": "msg",
-                "to": "$contains(payload.mqtt.broker,/wss/) or $contains(payload.mqtt.broker,/mqtts/)",
+                "to": "$contains(payload.mqtt.internal.broker,/wss/) or $contains(payload.mqtt.internal.broker,/mqtts/)",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "broker.verifyservercert",
                 "pt": "msg",
-                "to": "$exists(payload.mqtt.verifycert) ? payload.mqtt.verifycert : false",
+                "to": "$exists(payload.mqtt.internal.verifycert) ? payload.mqtt.internal.verifycert : false",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "broker.username",
                 "pt": "msg",
-                "to": "payload.mqtt.username",
+                "to": "payload.mqtt.internal.username",
                 "tot": "msg"
             },
             {
                 "t": "set",
                 "p": "broker.password",
                 "pt": "msg",
-                "to": "payload.mqtt.password",
+                "to": "payload.mqtt.internal.password",
                 "tot": "msg"
             },
             {
                 "t": "set",
                 "p": "broker.protocolVersion",
                 "pt": "msg",
-                "to": "$exists(payload.mqtt.version)  ? payload.mqtt.version : 4",
+                "to": "$exists(payload.mqtt.internal.version)  ? payload.mqtt.version : 4",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "wis2node_broker",
+                "pt": "flow",
+                "to": "payload.mqtt.external.broker",
                 "tot": "jsonata"
             }
         ],
@@ -1712,5 +1666,953 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "04c51a6740b77b2d",
+        "type": "split",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 550,
+        "y": 1200,
+        "wires": [
+            [
+                "a85f7f02a58f3fe7"
+            ]
+        ]
+    },
+    {
+        "id": "a9af2159b35a9dc3",
+        "type": "file in",
+        "z": "f15208d99d43e7d6",
+        "name": "Metadata",
+        "filename": "/storage/configuration/metadata-template.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "3c64a40d018185f2"
+            ]
+        ]
+    },
+    {
+        "id": "3c64a40d018185f2",
+        "type": "json",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 590,
+        "y": 220,
+        "wires": [
+            [
+                "8f8c012830af67cf"
+            ]
+        ]
+    },
+    {
+        "id": "8f8c012830af67cf",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Metadata",
+        "rules": [
+            {
+                "t": "set",
+                "p": "metadata",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f6036838de9e679",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Metadata",
+        "rules": [
+            {
+                "t": "set",
+                "p": "metadata",
+                "pt": "msg",
+                "to": "metadata",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"metadata_publish\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 1200,
+        "wires": [
+            [
+                "04c51a6740b77b2d",
+                "568171e44d8acaf6"
+            ]
+        ]
+    },
+    {
+        "id": "5cab1d4a6045592a",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Modify",
+        "rules": [
+            {
+                "t": "set",
+                "p": "metadata.id",
+                "pt": "msg",
+                "to": "\"urn:wmo:md:\" & $flowContext(\"centre_id\") & \":\" & payload.type & \"-\" & $replace(payload.sub_type,\"/\",\"-\")",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metadata.time.interval[0]",
+                "pt": "msg",
+                "to": "$fromMillis($millis()-$random()*3600000,'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties.themes[1].concepts[0].id",
+                "pt": "msg",
+                "to": "payload.type",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties.themes[1].concepts[0].title",
+                "pt": "msg",
+                "to": "$uppercase($substring(payload.type, 0, 1) ) & $substring(payload.type, 1)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties.themes[1].concepts[0].url",
+                "pt": "msg",
+                "to": "\"https://codes.wmo.int/wis/topic-hierarchy/earth-system-discipline/\" & payload.type",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties.themes[1].scheme",
+                "pt": "msg",
+                "to": "https://codes.wmo.int/wis/topic-hierarchy/earth-system-discipline",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties.created",
+                "pt": "msg",
+                "to": "metadata.time.interval[0]",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metadata.properties[\"wmo:dataPolicy\"]",
+                "pt": "msg",
+                "to": "payload.data_policy",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metadata.geometry.coordinates",
+                "pt": "msg",
+                "to": "coordinates",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metadata.links[1]",
+                "pt": "msg",
+                "to": "{\t   \"rel\":\"items\",\t   \"href\":$flowContext(\"wis2node_broker\"),\t   \"channel\":\"origin/a/wis2/\" & $flowContext(\"centre_id\") & \"/data/\" & payload.data_policy & \"/\" & payload.type & \"/\" & payload.sub_type,\t   \"type\":\"application/geo+json\",\t   \"title\":\"Data notifications\"\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "metadata",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "chunk",
+                "pt": "flow",
+                "to": "$length($string(payload))",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "pubtime",
+                "pt": "msg",
+                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z')",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 1200,
+        "wires": [
+            [
+                "95f58eca7ccb7324"
+            ]
+        ]
+    },
+    {
+        "id": "2a277f43bc3aaa14",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "Polygon",
+        "func": "let lon1 = Math.round( ( Math.random() - 0.5 ) * 360 );\nlet lon2 = Math.round( ( Math.random() - 0.5 ) * 360 );\nlet lat1 = Math.round( ( Math.random() - 0.5 ) * 180 );\nlet lat2 = Math.round( ( Math.random() - 0.5 ) * 180 );\n\nlet coordinates = [\n    [\n        [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n        [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n        [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n        [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n        [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n    ]\n]\nmsg.coordinates = coordinates\n\nlet min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = flow.get(\"buffer\");\nlet path = flow.get(\"path\");\n\nlet chunk;\nlet pos;\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1200,
+        "wires": [
+            [
+                "5cab1d4a6045592a"
+            ]
+        ]
+    },
+    {
+        "id": "a85f7f02a58f3fe7",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "Metadata ?",
+        "property": "payload.metadata",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 1200,
+        "wires": [
+            [
+                "2a277f43bc3aaa14"
+            ]
+        ]
+    },
+    {
+        "id": "a0a9f2ba1d00f354",
+        "type": "trigger",
+        "z": "f15208d99d43e7d6",
+        "name": "Trigger",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 530,
+        "y": 1260,
+        "wires": [
+            [
+                "8316bd6c80bc66ce"
+            ]
+        ]
+    },
+    {
+        "id": "2080a32a5b0128ee",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "property": "delay",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 1260,
+        "wires": [
+            [
+                "a0a9f2ba1d00f354"
+            ]
+        ]
+    },
+    {
+        "id": "618e6c5681339e4a",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "$flowContext(\"dataset\")",
+        "payloadType": "jsonata",
+        "x": 210,
+        "y": 1200,
+        "wires": [
+            [
+                "0f6036838de9e679"
+            ]
+        ]
+    },
+    {
+        "id": "9273018c4b81e8b9",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "link in 3",
+        "links": [
+            "568171e44d8acaf6"
+        ],
+        "x": 285,
+        "y": 1260,
+        "wires": [
+            [
+                "2080a32a5b0128ee"
+            ]
+        ]
+    },
+    {
+        "id": "568171e44d8acaf6",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "9273018c4b81e8b9"
+        ],
+        "x": 515,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "876409abaf6825b0",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$flowContext(\"dataset\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 1260,
+        "wires": [
+            [
+                "0f6036838de9e679"
+            ]
+        ]
+    },
+    {
+        "id": "fe28b13b447d7696",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "WIS2 Node Metadata",
+        "info": "",
+        "x": 240,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "1992164608ae779b",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "control",
+        "payload": "toggle",
+        "payloadType": "str",
+        "x": 530,
+        "y": 1320,
+        "wires": [
+            [
+                "8316bd6c80bc66ce"
+            ]
+        ]
+    },
+    {
+        "id": "8316bd6c80bc66ce",
+        "type": "q-gate",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "queueCmd": "queue",
+        "defaultCmd": "default",
+        "triggerCmd": "trigger",
+        "flushCmd": "flush",
+        "resetCmd": "reset",
+        "peekCmd": "peek",
+        "dropCmd": "drop",
+        "statusCmd": "status",
+        "maxQueueLength": "100",
+        "keepNewest": false,
+        "qToggle": false,
+        "persist": false,
+        "storeName": "memory",
+        "x": 670,
+        "y": 1260,
+        "wires": [
+            [
+                "876409abaf6825b0"
+            ]
+        ]
+    },
+    {
+        "id": "e87243799d2ea73c",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "rules": [
+            {
+                "t": "set",
+                "p": "uuid",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "pubtime",
+                "pt": "msg",
+                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"origin/a/wis2/\" & $flowContext(\"centre_id\") & \"/metadata\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "data_id",
+                "pt": "msg",
+                "to": "\"wis2/\" & $flowContext(\"centre_id\") & \"/metadata\" & $flowContext(\"filename\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 1400,
+        "wires": [
+            [
+                "c63105f17d59abb9"
+            ]
+        ]
+    },
+    {
+        "id": "f53089b4f4986a2a",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "f1c9fa43d960a1b9"
+        ],
+        "x": 1225,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "f1c9fa43d960a1b9",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "link in 4",
+        "links": [
+            "f53089b4f4986a2a"
+        ],
+        "x": 155,
+        "y": 1400,
+        "wires": [
+            [
+                "1db2a64e64d658eb"
+            ]
+        ]
+    },
+    {
+        "id": "1e11f8434a0f472a",
+        "type": "hash",
+        "z": "f15208d99d43e7d6",
+        "name": "Hash",
+        "outputvar": "hash",
+        "algorithm": "sha512",
+        "x": 310,
+        "y": 1400,
+        "wires": [
+            [
+                "56d3c8cd9aeccbc7"
+            ]
+        ]
+    },
+    {
+        "id": "95f58eca7ccb7324",
+        "type": "file",
+        "z": "f15208d99d43e7d6",
+        "name": "Save",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1090,
+        "y": 1200,
+        "wires": [
+            [
+                "f53089b4f4986a2a",
+                "734976bd33fc6e39"
+            ]
+        ]
+    },
+    {
+        "id": "734976bd33fc6e39",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "K,V",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[filename,pubtime,\"EX\",$flowContext(\"store_duration\")]",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 1140,
+        "wires": [
+            [
+                "a856d2a38d1cce4e"
+            ]
+        ]
+    },
+    {
+        "id": "a856d2a38d1cce4e",
+        "type": "redis-command",
+        "z": "f15208d99d43e7d6",
+        "server": "44959fc60800e3f1",
+        "command": "SET",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 1220,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c63105f17d59abb9",
+        "type": "function",
+        "z": "f15208d99d43e7d6",
+        "name": "Message",
+        "func": "let chunk = flow.get(\"chunk\");\nlet host = flow.get(\"host\");\nlet path = flow.get(\"path\");\nlet uuid = msg.uuid;\nlet pubtime = msg.pubtime;\nlet hash = flow.get(\"hash\");\nlet data_id = msg.data_id;\nlet filename = flow.get(\"filename\");\nlet metadata_id = flow.get(\"metadata_id\");\n\nmsg.payload = { \n    \"id\": uuid,\n    \"version\": \"v04\",\n    \"type\": \"Feature\",\n    \"properties\": {\n        \"pubtime\": pubtime,\n        \"integrity\": {\n            \"method\": \"sha512\",\n            \"value\": hash\n        },\n        \"data_id\": data_id,\n        \"metadata_id\": metadata_id\n    }\n}\n\nrandom = Math.random();\n\nif ( random <= 0.2 ) { \n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"deletion\"\n        }   ]\n}\nelse if ( random <= 0.8 ) {\n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"canonical\",\n            \"type\": \"application/geo+json\",\n            \"length\": chunk\n        },\n        {\n            \"href\": host + filename,\n            \"rel\": \"update\"\n        }\n        ]\n}\nelse {\n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"canonical\",\n            \"type\": \"application/geo+json\",\n            \"length\": chunk\n        }   ]\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1400,
+        "wires": [
+            [
+                "dbb1093bf22c4670",
+                "18e47699ae16fc5e"
+            ]
+        ]
+    },
+    {
+        "id": "9cd0599da33b2df4",
+        "type": "createrandom",
+        "z": "f15208d99d43e7d6",
+        "generator": "UUID",
+        "type_generator": "generator",
+        "label": "UUID",
+        "param_1": "v4",
+        "type_param_1": "Version",
+        "param_2": "",
+        "type_param_2": "msg",
+        "param_3": "",
+        "type_param_3": "msg",
+        "f_use_debug": false,
+        "x": 465,
+        "y": 1400,
+        "wires": [
+            [
+                "e87243799d2ea73c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "56d3c8cd9aeccbc7",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Save",
+        "rules": [
+            {
+                "t": "set",
+                "p": "hash",
+                "pt": "flow",
+                "to": "hash",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "flow",
+                "to": "filename",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metadata_id",
+                "pt": "flow",
+                "to": "metadata.id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 405,
+        "y": 1400,
+        "wires": [
+            [
+                "9cd0599da33b2df4"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "1db2a64e64d658eb",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Save",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$string(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 215,
+        "y": 1400,
+        "wires": [
+            [
+                "1e11f8434a0f472a"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "18e47699ae16fc5e",
+        "type": "mqtt out",
+        "z": "f15208d99d43e7d6",
+        "name": "Publish",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8cf5f6b5.937088",
+        "x": 820,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "db4715bf533f60f0",
+        "type": "flogger",
+        "z": "f15208d99d43e7d6",
+        "name": "Publish",
+        "logfile": "publish.log",
+        "inputchoice": "object",
+        "inputobject": "payload",
+        "inputobjectType": "msg",
+        "inputmoustache": "Recieved payload {{payload}} and topic {{topic}}",
+        "loglevel": "INFO",
+        "logconfig": "a93c45df39215989",
+        "sendpane": false,
+        "x": 940,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbb1093bf22c4670",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Log",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"topic\": topic,\t   \"data_id\": payload.properties.data_id,\t   \"file\": filename,\t   \"length\":  payload.links.length \t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 1400,
+        "wires": [
+            [
+                "db4715bf533f60f0"
+            ]
+        ]
+    },
+    {
+        "id": "6babc9e774492aba",
+        "type": "fs-stats",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "path": "/storage/configuration/configuration.yml",
+        "pathType": "str",
+        "filename": "filename",
+        "filenameType": "msg",
+        "attr": "mtimeMs",
+        "follow": true,
+        "property": "stats",
+        "propertyType": "msg",
+        "x": 900,
+        "y": 340,
+        "wires": [
+            [
+                "8da35dd5e4932dd2"
+            ]
+        ]
+    },
+    {
+        "id": "8da35dd5e4932dd2",
+        "type": "debug",
+        "z": "f15208d99d43e7d6",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "( $millis() - stats ) <= 300000 ? true : false",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "a1539d7a31543848",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 760,
+        "y": 340,
+        "wires": [
+            [
+                "6babc9e774492aba"
+            ]
+        ]
+    },
+    {
+        "id": "e27fb2b124dcbad4",
+        "type": "link in",
+        "z": "f15208d99d43e7d6",
+        "name": "link in 5",
+        "links": [
+            "64139418621944ee"
+        ],
+        "x": 245,
+        "y": 1140,
+        "wires": [
+            [
+                "0f6036838de9e679"
+            ]
+        ]
+    },
+    {
+        "id": "e03feade4be583f7",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "True ?",
+        "property": "( $millis() - stats ) <= 300000 ? true : false",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 140,
+        "wires": [
+            [
+                "64139418621944ee"
+            ]
+        ]
+    },
+    {
+        "id": "1a016aa0df29da07",
+        "type": "fs-stats",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "path": "/storage/configuration/configuration.yml",
+        "pathType": "str",
+        "filename": "filename",
+        "filenameType": "msg",
+        "attr": "mtimeMs",
+        "follow": true,
+        "property": "stats",
+        "propertyType": "msg",
+        "x": 880,
+        "y": 140,
+        "wires": [
+            [
+                "e03feade4be583f7"
+            ]
+        ]
+    },
+    {
+        "id": "64139418621944ee",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "e27fb2b124dcbad4"
+        ],
+        "x": 1095,
+        "y": 140,
+        "wires": []
     }
 ]
