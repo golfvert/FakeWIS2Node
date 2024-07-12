@@ -1,13 +1,5 @@
 [
     {
-        "id": "b0c552bf66c23054",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "f15208d99d43e7d6",
         "type": "tab",
         "label": "wis2node",
