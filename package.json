@@ -1,8 +1,35 @@
 {
     "name": "GlobalCacheTesting",
     "description": "Tool for the WIS2 Global Services test",
-    "version": "0.0.1",
+    "version": "2.0.0",
+    "homepage": "http://nodered.org",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/node-red/node-red-docker.git"
+    },
+    "main": "node_modules/node-red/red/red.js",
+    "scripts": {
+        "start": "node $NODE_OPTIONS node_modules/node-red/red.js $FLOWS",
+        "debug": "node --inspect=0.0.0.0:9229 $NODE_OPTIONS node_modules/node-red/red.js $FLOWS",
+        "debug_brk": "node --inspect=0.0.0.0:9229 --inspect-brk $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
+    },
+    "contributors": [
+        {
+            "name": "Dave Conway-Jones"
+        },
+        {
+            "name": "Nick O'Leary"
+        },
+        {
+            "name": "James Thomas"
+        },
+        {
+            "name": "Raymond Mouthaan"
+        }
+    ],
     "dependencies": {
+        "node-red": "4.0.2",
         "node-red-contrib-filesystem": "1.0.0",
         "@golfvert/node-red-redis": "1.1.0",
         "@marcus-j-davies/node-red-semaphore-plus": "3.4.0",

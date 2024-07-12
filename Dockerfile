@@ -29,4 +29,5 @@ COPY flows.json  /data/flows.json
 COPY --from=build --chown=node-red:node-red /usr/src/node-red/  /usr/src/node-red/
 USER node-red
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--cache", "/data/.npm", "--", "--userDir", "/data"]
+

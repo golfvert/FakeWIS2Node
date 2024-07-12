@@ -717,7 +717,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 1120,
+        "y": 1060,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -789,7 +789,7 @@
         "repair": false,
         "outputs": 1,
         "x": 360,
-        "y": 1120,
+        "y": 1060,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -808,7 +808,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 1120,
+        "y": 1060,
         "wires": [
             []
         ]
@@ -845,7 +845,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 1060,
+        "y": 1000,
         "wires": []
     },
     {
@@ -2500,8 +2500,9 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Message",
-        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"version\": \"v04\",\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( embed_data == true && chunk <= embed_size_max ) {\n    msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"size\": chunk }\n}\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
+        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( embed_data == true && chunk <= embed_size_max ) {\n    msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"size\": chunk }\n}\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -2512,7 +2513,7 @@
             [
                 "385803d26b4f71e9",
                 "0ee3c679755e77b2",
-                "37b520a21a1e7afa"
+                "80382be560d62a6c"
             ]
         ]
     },
@@ -2873,22 +2874,5 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "37b520a21a1e7afa",
-        "type": "debug",
-        "z": "da27bfdd1d006652",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "topic",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "counter",
-        "x": 980,
-        "y": 300,
-        "wires": []
     }
 ]
