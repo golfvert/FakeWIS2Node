@@ -3855,7 +3855,7 @@
         "type": "function",
         "z": "0528d79810dd92da",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, integrity, id, conformsTo, type, geometry, value, method;\nlet data_id, pubtime, links, start_datetime, end_datetime, href, rel, properties, topic;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"topic\", topic !== undefined ? topic : null )\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    id = payload.configuration.wnm.id;\n    conformsTo = payload.configuration.wnm.conformsTo;\n    type = payload.configuration.wnm.type;\n    geometry = payload.configuration.wnm.geometry;\n    links = payload.configuration.wnm.links;\n    properties = payload.configuration.wnm.properties;\n\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n    }    \n    if ( payload.configuration.wnm.links ) {\n        if ( payload.configuration.wnm.links.href ) href = payload.configuration.wnm.links.href;\n        if ( payload.configuration.wnm.links.rel ) rel = payload.configuration.wnm.links.rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"id\", id !== undefined ? id : null);\nflow.set(\"geometry\", geometry !== undefined ? geometry : null);\nflow.set(\"conformsTo\", conformsTo !== undefined ? conformsTo : null);\nflow.set(\"type\", type !== undefined ? type : null);\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"href\", href !== undefined ? href : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, integrity, id, conformsTo, type, geometry, value, method;\nlet data_id, pubtime, links, start_datetime, end_datetime, datetime, href, rel, properties, topic;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"topic\", topic !== undefined ? topic : null )\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    id = payload.configuration.wnm.id;\n    conformsTo = payload.configuration.wnm.conformsTo;\n    type = payload.configuration.wnm.type;\n    geometry = payload.configuration.wnm.geometry;\n    links = payload.configuration.wnm.links;\n    properties = payload.configuration.wnm.properties;\n\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        datetime = payload.configuration.wnm.properties.datetime;        \n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n    }    \n    if ( payload.configuration.wnm.links ) {\n        href = payload.configuration.wnm.links.href;\n        rel = payload.configuration.wnm.links.rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"id\", id !== undefined ? id : null);\nflow.set(\"geometry\", geometry !== undefined ? geometry : null);\nflow.set(\"conformsTo\", conformsTo !== undefined ? conformsTo : null);\nflow.set(\"type\", type !== undefined ? type : null);\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"datetime\", datetime !== undefined ? datetime : null);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"href\", href !== undefined ? href : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nnode.warn(href)\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3908,7 +3908,7 @@
             "bf78825383df0370",
             "bbe71032dd812d50"
         ],
-        "x": 245,
+        "x": 265,
         "y": 220,
         "wires": [
             [
@@ -3930,7 +3930,7 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 330,
+        "x": 350,
         "y": 220,
         "wires": [
             [
@@ -3948,7 +3948,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\t    ],\t    \"type\": \"Feature\",\t    \"geometry\": null,\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\"\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\",\t            \"type\": \"application/txt\",\t            \"length\": 10000\t    }   ]\t}",
+                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\t    ],\t    \"type\": \"Feature\",\t    \"geometry\": null,\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\",\t            \"datetime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z')\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\"\t    }   ]\t}",
                 "tot": "jsonata"
             },
             {
@@ -3988,6 +3988,13 @@
             },
             {
                 "t": "set",
+                "p": "payload.properties.datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"datetime\") != null ? $flowContext(\"datetime\") : payload.properties.datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
                 "p": "payload.properties.start_datetime",
                 "pt": "msg",
                 "to": "$flowContext(\"start_datetime\") != null ? $flowContext(\"start_datetime\") : payload.properties.start_datetime",
@@ -4023,23 +4030,16 @@
             },
             {
                 "t": "set",
-                "p": "payload.links",
+                "p": "payload.links[0].href",
                 "pt": "msg",
-                "to": "$flowContext(\"links\") != null ? $flowContext(\"links\") : payload.links",
+                "to": "$flowContext(\"href\") != null ? $flowContext(\"href\") : payload.links[0].href",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "payload.links.href",
+                "p": "payload.links[0].rel",
                 "pt": "msg",
-                "to": "$flowContext(\"href\") != null ? $flowContext(\"href\") : payload.links.href",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload.links.rel",
-                "pt": "msg",
-                "to": "$flowContext(\"rel\") != null ? $flowContext(\"rel\") : payload.links.rel",
+                "to": "$flowContext(\"rel\") != null ? $flowContext(\"rel\") : payload.links[0].rel",
                 "tot": "jsonata"
             },
             {
@@ -4054,6 +4054,13 @@
                 "p": "payload",
                 "pt": "msg",
                 "to": "payload.properties.pubtime = false ? **.payload ~> |$.properties|{}, ['pubtime']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.datetime = false ? **.payload ~> |$.properties|{}, ['datetime']|: payload",
                 "tot": "jsonata"
             },
             {
@@ -4130,14 +4137,14 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "payload.links = {} ? **.payload ~> |$|{}, ['links']|: payload",
+                "to": "payload.links[0] = {} ? **.payload ~> |$|{}, ['links']|: payload",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/core/weather/surface-base-observations/synop\"",
+                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/core/weather/surface-based-observations/synop\"",
                 "tot": "jsonata"
             }
         ],
