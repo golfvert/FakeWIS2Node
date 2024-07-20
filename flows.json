@@ -18,7 +18,7 @@
     {
         "id": "da27bfdd1d006652",
         "type": "tab",
-        "label": "Test",
+        "label": "DataTest",
         "disabled": false,
         "info": "",
         "env": []
@@ -27,6 +27,22 @@
         "id": "fcc41b6aa5346b0b",
         "type": "tab",
         "label": "DataGen",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0528d79810dd92da",
+        "type": "tab",
+        "label": "WNMTest",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7a284d91c976432b",
+        "type": "tab",
+        "label": "WNMGen",
         "disabled": false,
         "info": "",
         "env": []
@@ -226,7 +242,12 @@
     {
         "id": "403eb36e86403742",
         "type": "semaphore-plus-config",
-        "name": "Test"
+        "name": "DataTest"
+    },
+    {
+        "id": "994cdc4109176708",
+        "type": "semaphore-plus-config",
+        "name": "WNMTest"
     },
     {
         "id": "7fc82258.93e36c",
@@ -415,13 +436,6 @@
                 "p": "skew",
                 "pt": "global",
                 "to": "payload.generator.skew",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "centre_id",
-                "pt": "global",
-                "to": "payload.generator.centre_id",
                 "tot": "jsonata"
             },
             {
@@ -1551,62 +1565,11 @@
         ]
     },
     {
-        "id": "57b2482c452d671c",
-        "type": "switch",
-        "z": "f15208d99d43e7d6",
-        "name": "Scenario",
-        "property": "payload.scenario",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "test",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "datagen",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 660,
-        "y": 900,
-        "wires": [
-            [
-                "1a5a6cd662dc99a3"
-            ],
-            [
-                "2cde8a42ad81aacf"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "1a5a6cd662dc99a3",
-        "type": "link out",
-        "z": "f15208d99d43e7d6",
-        "name": "link out 6",
-        "mode": "link",
-        "links": [
-            "685ae48b5683f365",
-            "7d21165089f1e0ef"
-        ],
-        "x": 795,
-        "y": 860,
-        "wires": []
-    },
-    {
         "id": "16a799f89623cff3",
         "type": "switch",
         "z": "f15208d99d43e7d6",
         "name": "Centre ID",
-        "property": "payload.centreid",
+        "property": "payload.configuration.setup.centreid",
         "propertyType": "msg",
         "rules": [
             {
@@ -1622,7 +1585,7 @@
         "y": 880,
         "wires": [
             [
-                "57b2482c452d671c"
+                "44c2a4750726bd35"
             ]
         ]
     },
@@ -1631,7 +1594,7 @@
         "type": "switch",
         "z": "f15208d99d43e7d6",
         "name": "Range",
-        "property": " ( $globalContext(\"centreidnumber\") >= payload.centreid_min and $globalContext(\"centreidnumber\") <= payload.centreid_max ) ",
+        "property": " ( $globalContext(\"centreidnumber\") >= payload.configuration.setup.centreid_min and $globalContext(\"centreidnumber\") <= payload.configuration.setup.centreid_max ) ",
         "propertyType": "jsonata",
         "rules": [
             {
@@ -1645,9 +1608,105 @@
         "y": 920,
         "wires": [
             [
-                "57b2482c452d671c"
+                "44c2a4750726bd35"
             ]
         ]
+    },
+    {
+        "id": "44c2a4750726bd35",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "Scenario",
+        "property": "payload.scenario",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "datatest",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "datagen",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wnmtest",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wnmgen",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 680,
+        "y": 900,
+        "wires": [
+            [
+                "1a5a6cd662dc99a3"
+            ],
+            [
+                "2cde8a42ad81aacf"
+            ],
+            [
+                "1f44f5ebf047e951"
+            ],
+            [
+                "b1fee82a3f2e01ab"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1f44f5ebf047e951",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 15",
+        "mode": "link",
+        "links": [
+            "094edc9e79f3ac5e",
+            "cddc549d092886bc"
+        ],
+        "x": 805,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "b1fee82a3f2e01ab",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 16",
+        "mode": "link",
+        "links": [
+            "d7d1313fde813eff",
+            "8e3473c56e63770b",
+            "3e14349d405d79aa"
+        ],
+        "x": 805,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "1a5a6cd662dc99a3",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "685ae48b5683f365",
+            "7d21165089f1e0ef"
+        ],
+        "x": 805,
+        "y": 820,
+        "wires": []
     },
     {
         "id": "2cde8a42ad81aacf",
@@ -1659,8 +1718,8 @@
             "ca5b114a7774870d",
             "b7311151a77e2321"
         ],
-        "x": 795,
-        "y": 900,
+        "x": 805,
+        "y": 860,
         "wires": []
     },
     {
@@ -2418,7 +2477,8 @@
         "name": "",
         "mode": "link",
         "links": [
-            "05da7d629923d597"
+            "05da7d629923d597",
+            "4f25f340a952cf06"
         ],
         "x": 555,
         "y": 420,
@@ -2769,7 +2829,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, freq_avg, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = payload.configuration.setup.size_max;\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", min || global.get(\"size_min\") );\nflow.set(\"size_max\",max || global.get(\"size_max\") );\nflow.set(\"skew\",skew || global.get(\"skew\") );\nflow.set(\"number\", payload.configuration.setup.number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm && payload.configuration.wnm.properties ) {\n    data_id = payload.configuration.wnm.properties.data_id;\n    pubtime = payload.configuration.wnm.properties.pubtime;\n    cache = payload.configuration.wnm.properties.cache;\n    integrity = payload.configuration.wnm.properties.integrity ;\n}    \nif ( payload.configuration.wnm && payload.configuration.wnm.links ) {\n    rel = payload.configuration.wnm.links.rel;\n    length = payload.configuration.wnm.links.length;\n    href = payload.configuration.wnm.links.href;\n}\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"integrity\", integrity !== undefined ? integrity : true);\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nnode.warn(cache_a_wis2);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, freq_avg, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = payload.configuration.setup.size_max;\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", min || global.get(\"size_min\") );\nflow.set(\"size_max\",max || global.get(\"size_max\") );\nflow.set(\"skew\",skew || global.get(\"skew\") );\nflow.set(\"number\", payload.configuration.setup.number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm && payload.configuration.wnm.properties ) {\n    data_id = payload.configuration.wnm.properties.data_id;\n    pubtime = payload.configuration.wnm.properties.pubtime;\n    cache = payload.configuration.wnm.properties.cache;\n    integrity = payload.configuration.wnm.properties.integrity ;\n}    \nif ( payload.configuration.wnm && payload.configuration.wnm.links ) {\n    rel = payload.configuration.wnm.links.rel;\n    length = payload.configuration.wnm.links.length;\n    href = payload.configuration.wnm.links.href;\n}\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"integrity\", integrity !== undefined ? integrity : true);\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2950,7 +3010,8 @@
         "name": "link in 6",
         "links": [
             "19f21a46b18a3e6a",
-            "14b27303351298f1"
+            "14b27303351298f1",
+            "a32dcda5d9b7c09f"
         ],
         "x": 175,
         "y": 180,
@@ -3044,7 +3105,8 @@
         "name": "",
         "links": [
             "64497ada297a8048",
-            "e5ff4991733fe60d"
+            "e5ff4991733fe60d",
+            "2e99d6b744e52bb2"
         ],
         "x": 325,
         "y": 500,
@@ -3643,6 +3705,975 @@
         "wires": [
             [
                 "298341c8881ea656"
+            ]
+        ]
+    },
+    {
+        "id": "98be10d6fc587b55",
+        "type": "semaphore-plus-take",
+        "z": "0528d79810dd92da",
+        "name": "Take",
+        "timeout": 0,
+        "config": "994cdc4109176708",
+        "avoidance": "never",
+        "threshold": 5,
+        "msgPart": "smp_avoidQueue",
+        "partType": "msg",
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "8063a1c2ecca3f67"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4ce4c41c09bae760",
+        "type": "semaphore-plus-release",
+        "z": "0528d79810dd92da",
+        "name": "Release",
+        "config": "994cdc4109176708",
+        "x": 540,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ccee77f1edf6a50c",
+        "type": "change",
+        "z": "0528d79810dd92da",
+        "name": "Delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"freq_avg\") * ( $random() + 0.5 )",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "03151e544a34a2b0"
+            ]
+        ]
+    },
+    {
+        "id": "03151e544a34a2b0",
+        "type": "trigger",
+        "z": "0528d79810dd92da",
+        "name": "Trigger",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 770,
+        "y": 340,
+        "wires": [
+            [
+                "bbe71032dd812d50"
+            ]
+        ]
+    },
+    {
+        "id": "474d3a9744802bf3",
+        "type": "switch",
+        "z": "0528d79810dd92da",
+        "name": "Loop ?",
+        "property": "loop",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "number",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "6fe6d0cb6f271365"
+            ],
+            [
+                "4ce4c41c09bae760"
+            ]
+        ]
+    },
+    {
+        "id": "6fe6d0cb6f271365",
+        "type": "change",
+        "z": "0528d79810dd92da",
+        "name": "Loop",
+        "rules": [
+            {
+                "t": "set",
+                "p": "loop",
+                "pt": "flow",
+                "to": "$flowContext(\"loop\") + 1",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "ccee77f1edf6a50c"
+            ]
+        ]
+    },
+    {
+        "id": "8063a1c2ecca3f67",
+        "type": "function",
+        "z": "0528d79810dd92da",
+        "name": "Override",
+        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, integrity, id, conformsTo, type, geometry, value, method;\nlet data_id, pubtime, links, start_datetime, end_datetime, href, rel, properties, topic;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"topic\", topic !== undefined ? topic : null )\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    id = payload.configuration.wnm.id;\n    conformsTo = payload.configuration.wnm.conformsTo;\n    type = payload.configuration.wnm.type;\n    geometry = payload.configuration.wnm.geometry;\n    links = payload.configuration.wnm.links;\n    properties = payload.configuration.wnm.properties;\n\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n    }    \n    if ( payload.configuration.wnm.links ) {\n        if ( payload.configuration.wnm.links.href ) href = payload.configuration.wnm.links.href;\n        if ( payload.configuration.wnm.links.rel ) rel = payload.configuration.wnm.links.rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"id\", id !== undefined ? id : null);\nflow.set(\"geometry\", geometry !== undefined ? geometry : null);\nflow.set(\"conformsTo\", conformsTo !== undefined ? conformsTo : null);\nflow.set(\"type\", type !== undefined ? type : null);\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"href\", href !== undefined ? href : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [
+                "bf78825383df0370"
+            ]
+        ]
+    },
+    {
+        "id": "cddc549d092886bc",
+        "type": "link in",
+        "z": "0528d79810dd92da",
+        "name": "link in 15",
+        "links": [
+            "1f44f5ebf047e951"
+        ],
+        "x": 385,
+        "y": 120,
+        "wires": [
+            [
+                "98be10d6fc587b55"
+            ]
+        ]
+    },
+    {
+        "id": "bf78825383df0370",
+        "type": "link out",
+        "z": "0528d79810dd92da",
+        "name": "link out 20",
+        "mode": "link",
+        "links": [
+            "792b25592decedce"
+        ],
+        "x": 705,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "792b25592decedce",
+        "type": "link in",
+        "z": "0528d79810dd92da",
+        "name": "link in 16",
+        "links": [
+            "bf78825383df0370",
+            "bbe71032dd812d50"
+        ],
+        "x": 245,
+        "y": 220,
+        "wires": [
+            [
+                "7adaf95cd617a533"
+            ]
+        ]
+    },
+    {
+        "id": "7adaf95cd617a533",
+        "type": "createrandom",
+        "z": "0528d79810dd92da",
+        "generator": "UUID",
+        "type_generator": "generator",
+        "label": "UUID",
+        "param_1": "v4",
+        "type_param_1": "Version",
+        "param_2": "",
+        "type_param_2": "msg",
+        "param_3": "",
+        "type_param_3": "msg",
+        "f_use_debug": false,
+        "x": 330,
+        "y": 220,
+        "wires": [
+            [
+                "cb387984e64ec02e"
+            ]
+        ]
+    },
+    {
+        "id": "cb387984e64ec02e",
+        "type": "change",
+        "z": "0528d79810dd92da",
+        "name": "WNM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\t    ],\t    \"type\": \"Feature\",\t    \"geometry\": null,\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\"\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\",\t            \"type\": \"application/txt\",\t            \"length\": 10000\t    }   ]\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "$flowContext(\"id\") != null ? $flowContext(\"id\") : payload.id ",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.conformsTo[0]",
+                "pt": "msg",
+                "to": "$flowContext(\"conformsTo\") != null ? $flowContext(\"conformsTo\") : payload.conformsTo[0]",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "$flowContext(\"type\") != null ? $flowContext(\"type\") : payload.type",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.geometry",
+                "pt": "msg",
+                "to": "$flowContext(\"geometry\") != null ? $flowContext(\"geometry\") : payload.geometry",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.pubtime",
+                "pt": "msg",
+                "to": "$flowContext(\"pubtime\") != null ? $flowContext(\"pubtime\") : payload.properties.pubtime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.start_datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"start_datetime\") != null ? $flowContext(\"start_datetime\") : payload.properties.start_datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.integrity.method",
+                "pt": "msg",
+                "to": "$flowContext(\"method\") != null ? $flowContext(\"method\") : payload.properties.integrity.method",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.integrity.value",
+                "pt": "msg",
+                "to": "$flowContext(\"value\") != null ? $flowContext(\"value\") : payload.properties.integrity.value",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.end_datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"end_datetime\") != null ? $flowContext(\"end_datetime\") : payload.properties.end_datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.data_id",
+                "pt": "msg",
+                "to": "$flowContext(\"data_id\") != null ? $flowContext(\"data_id\") : payload.properties.data_id",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.links",
+                "pt": "msg",
+                "to": "$flowContext(\"links\") != null ? $flowContext(\"links\") : payload.links",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.links.href",
+                "pt": "msg",
+                "to": "$flowContext(\"href\") != null ? $flowContext(\"href\") : payload.links.href",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.links.rel",
+                "pt": "msg",
+                "to": "$flowContext(\"rel\") != null ? $flowContext(\"rel\") : payload.links.rel",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.id = false ? **.payload ~> |$|{}, ['id']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.pubtime = false ? **.payload ~> |$.properties|{}, ['pubtime']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.type = false ? **.payload ~> |$|{}, ['type']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.geometry = false ? **.payload ~> |$|{}, ['geometry']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.data_id = false ? **.payload ~> |$.properties|{}, ['data_id']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.conformsTo[0] = false ? **.payload ~> |$|{}, ['conformsTo']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.links.href = false ? **.payload ~> |$.links|{}, ['href']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.links.rel = false ? **.payload ~> |$.links|{}, ['rel']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.integrity.method = false ? **.payload ~> |$.properties.integrity|{}, ['method']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.integrity.value = false ? **.payload ~> |$.properties.integrity|{}, ['value']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.integrity = {} ? **.payload ~> |$.properties|{}, ['integrity']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties = {} ? **.payload ~> |$|{}, ['properties']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.links = {} ? **.payload ~> |$|{}, ['links']|: payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/core/weather/surface-base-observations/synop\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "6a39a6330d9adc5b",
+                "36ba9df86ca5cb92",
+                "729e0cc730dc45d6"
+            ]
+        ]
+    },
+    {
+        "id": "6a39a6330d9adc5b",
+        "type": "mqtt out",
+        "z": "0528d79810dd92da",
+        "name": "Pub",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8cf5f6b5.937088",
+        "x": 610,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "36ba9df86ca5cb92",
+        "type": "link out",
+        "z": "0528d79810dd92da",
+        "name": "link out 21",
+        "mode": "link",
+        "links": [
+            "de4109cd72fa92b1"
+        ],
+        "x": 575,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "de4109cd72fa92b1",
+        "type": "link in",
+        "z": "0528d79810dd92da",
+        "name": "link in 17",
+        "links": [
+            "36ba9df86ca5cb92"
+        ],
+        "x": 305,
+        "y": 360,
+        "wires": [
+            [
+                "474d3a9744802bf3"
+            ]
+        ]
+    },
+    {
+        "id": "bbe71032dd812d50",
+        "type": "link out",
+        "z": "0528d79810dd92da",
+        "name": "link out 22",
+        "mode": "link",
+        "links": [
+            "792b25592decedce"
+        ],
+        "x": 855,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "68b4c9ed6cc214f3",
+        "type": "flogger",
+        "z": "0528d79810dd92da",
+        "name": "Publish",
+        "logfile": "wnmtest.log",
+        "inputchoice": "object",
+        "inputobject": "payload",
+        "inputobjectType": "msg",
+        "inputmoustache": "Recieved payload {{payload}} and topic {{topic}}",
+        "loglevel": "INFO",
+        "logconfig": "a93c45df39215989",
+        "sendpane": false,
+        "x": 740,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "729e0cc730dc45d6",
+        "type": "change",
+        "z": "0528d79810dd92da",
+        "name": "Log",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "68b4c9ed6cc214f3"
+            ]
+        ]
+    },
+    {
+        "id": "6463e038858fab43",
+        "type": "function",
+        "z": "7a284d91c976432b",
+        "name": "Override",
+        "func": "let payload = msg.payload;\n\nlet freq_avg, action;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   freq_avg = payload.configuration.setup.freq_avg;\n   action = payload.configuration.setup.action;\n}\n\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") );\nflow.set(\"action\", action || \"stop\");\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "423d8996c3908f58"
+            ]
+        ]
+    },
+    {
+        "id": "423d8996c3908f58",
+        "type": "switch",
+        "z": "7a284d91c976432b",
+        "name": "Action ?",
+        "property": "action",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "8c1c1a406e7d6106"
+            ],
+            [
+                "1e256b5517221fea"
+            ]
+        ]
+    },
+    {
+        "id": "8c1c1a406e7d6106",
+        "type": "switch",
+        "z": "7a284d91c976432b",
+        "name": "Status ?",
+        "property": "status_wnm",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "istype",
+                "v": "undefined",
+                "vt": "undefined"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 580,
+        "y": 120,
+        "wires": [
+            [
+                "d62ab76bf311cc80"
+            ],
+            [
+                "d62ab76bf311cc80"
+            ]
+        ]
+    },
+    {
+        "id": "d62ab76bf311cc80",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "status_wnm",
+                "pt": "global",
+                "to": "start",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 120,
+        "wires": [
+            [
+                "81e4756d3692cefc"
+            ]
+        ]
+    },
+    {
+        "id": "1e256b5517221fea",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Stop",
+        "rules": [
+            {
+                "t": "set",
+                "p": "status_wnm",
+                "pt": "global",
+                "to": "stop",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ad2b72c10aa712e",
+        "type": "switch",
+        "z": "7a284d91c976432b",
+        "name": "Action ?",
+        "property": "action",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 380,
+        "y": 380,
+        "wires": [
+            [
+                "4120753db93115b4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4120753db93115b4",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"freq_avg\") * ( $random() + 0.5 )",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "3a3468d89bcf8b77"
+            ]
+        ]
+    },
+    {
+        "id": "3a3468d89bcf8b77",
+        "type": "trigger",
+        "z": "7a284d91c976432b",
+        "name": "Trigger",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 630,
+        "y": 380,
+        "wires": [
+            [
+                "1646936f9a99d1f8"
+            ]
+        ]
+    },
+    {
+        "id": "dbc1960b8b403a38",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "WNM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"toto\"\t    ],\t    \"type\": \"Feature\",\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\"\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\",\t            \"type\": \"application/txt\",\t            \"length\": 10000\t    }   ]\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"origin/a/wis2/\" & $flowContext(\"centreid\") & \"/core/weather/experimental\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 260,
+        "wires": [
+            [
+                "4ef8419be40ed93a",
+                "309aabd1580176fb",
+                "9ec6d973cebc5d0a"
+            ]
+        ]
+    },
+    {
+        "id": "c5165ef052fca09c",
+        "type": "createrandom",
+        "z": "7a284d91c976432b",
+        "generator": "UUID",
+        "type_generator": "generator",
+        "label": "UUID",
+        "param_1": "v4",
+        "type_param_1": "Version",
+        "param_2": "",
+        "type_param_2": "msg",
+        "param_3": "",
+        "type_param_3": "msg",
+        "f_use_debug": false,
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "dbc1960b8b403a38"
+            ]
+        ]
+    },
+    {
+        "id": "4ef8419be40ed93a",
+        "type": "mqtt out",
+        "z": "7a284d91c976432b",
+        "name": "Pub",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8cf5f6b5.937088",
+        "x": 650,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "309aabd1580176fb",
+        "type": "link out",
+        "z": "7a284d91c976432b",
+        "name": "link out 17",
+        "mode": "link",
+        "links": [
+            "207e36a4193f7952"
+        ],
+        "x": 605,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "207e36a4193f7952",
+        "type": "link in",
+        "z": "7a284d91c976432b",
+        "name": "link in 12",
+        "links": [
+            "309aabd1580176fb"
+        ],
+        "x": 285,
+        "y": 380,
+        "wires": [
+            [
+                "0ad2b72c10aa712e"
+            ]
+        ]
+    },
+    {
+        "id": "2645428b040d9fc2",
+        "type": "link in",
+        "z": "7a284d91c976432b",
+        "name": "link in 13",
+        "links": [
+            "1646936f9a99d1f8",
+            "81e4756d3692cefc"
+        ],
+        "x": 305,
+        "y": 260,
+        "wires": [
+            [
+                "c5165ef052fca09c"
+            ]
+        ]
+    },
+    {
+        "id": "1646936f9a99d1f8",
+        "type": "link out",
+        "z": "7a284d91c976432b",
+        "name": "link out 18",
+        "mode": "link",
+        "links": [
+            "2645428b040d9fc2"
+        ],
+        "x": 715,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "81e4756d3692cefc",
+        "type": "link out",
+        "z": "7a284d91c976432b",
+        "name": "link out 19",
+        "mode": "link",
+        "links": [
+            "2645428b040d9fc2"
+        ],
+        "x": 815,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "8e3473c56e63770b",
+        "type": "link in",
+        "z": "7a284d91c976432b",
+        "name": "link in 14",
+        "links": [
+            "b1fee82a3f2e01ab"
+        ],
+        "x": 205,
+        "y": 140,
+        "wires": [
+            [
+                "6463e038858fab43"
+            ]
+        ]
+    },
+    {
+        "id": "a1f17e209edef3bb",
+        "type": "flogger",
+        "z": "7a284d91c976432b",
+        "name": "Publish",
+        "logfile": "wnmgen.log",
+        "inputchoice": "object",
+        "inputobject": "payload",
+        "inputobjectType": "msg",
+        "inputmoustache": "Recieved payload {{payload}} and topic {{topic}}",
+        "loglevel": "INFO",
+        "logconfig": "a93c45df39215989",
+        "sendpane": false,
+        "x": 780,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9ec6d973cebc5d0a",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Log",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 320,
+        "wires": [
+            [
+                "a1f17e209edef3bb"
             ]
         ]
     }
