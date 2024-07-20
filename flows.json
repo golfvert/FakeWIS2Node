@@ -4137,7 +4137,7 @@
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/core/weather/surface-base-observations/synop\"",
+                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/core/weather/surface-base-observations/synop\"",
                 "tot": "jsonata"
             }
         ],
