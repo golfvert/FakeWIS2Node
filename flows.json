@@ -1231,13 +1231,6 @@
                 "pt": "msg",
                 "to": "$exists(payload.mqtt.internal.version)  ? payload.mqtt.version : 4",
                 "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "wis2node_broker",
-                "pt": "flow",
-                "to": "payload.mqtt.external.broker",
-                "tot": "jsonata"
             }
         ],
         "action": "",
