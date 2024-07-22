@@ -10,7 +10,7 @@
     {
         "id": "5c8aabcb5b253930",
         "type": "tab",
-        "label": "Metadata",
+        "label": "MetadataTest",
         "disabled": false,
         "info": "",
         "env": []
@@ -250,6 +250,11 @@
         "name": "WNMTest"
     },
     {
+        "id": "4f86e34297b0e1f0",
+        "type": "semaphore-plus-config",
+        "name": "MetadataTest"
+    },
+    {
         "id": "7fc82258.93e36c",
         "type": "function",
         "z": "9a693308.7ebaf",
@@ -279,7 +284,7 @@
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 440,
+        "y": 400,
         "wires": [
             [
                 "7a8fd5e4121b31f7"
@@ -298,7 +303,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 670,
-        "y": 440,
+        "y": 400,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -325,7 +330,7 @@
         "to": "",
         "reg": false,
         "x": 530,
-        "y": 440,
+        "y": 400,
         "wires": [
             [
                 "a3619869e11717a0"
@@ -345,7 +350,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 530,
-        "y": 560,
+        "y": 520,
         "wires": [
             [
                 "ccbc30efd3952be2"
@@ -372,7 +377,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 560,
+        "y": 520,
         "wires": [
             []
         ]
@@ -524,13 +529,6 @@
             },
             {
                 "t": "set",
-                "p": "metadata_publish",
-                "pt": "global",
-                "to": "$exists(payload.generator.metadata_publish) = true ? $number(payload.generator.metadata_publish) : 0",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
                 "p": "centreidnumber",
                 "pt": "global",
                 "to": "payload.generator.centre_id",
@@ -555,7 +553,7 @@
         "name": "Put in the buffer",
         "info": "",
         "x": 220,
-        "y": 520,
+        "y": 480,
         "wires": []
     },
     {
@@ -565,7 +563,7 @@
         "name": "Create fake data file",
         "info": "",
         "x": 230,
-        "y": 360,
+        "y": 320,
         "wires": []
     },
     {
@@ -585,7 +583,7 @@
         "name": "WIS2 Node Data",
         "info": "",
         "x": 220,
-        "y": 660,
+        "y": 620,
         "wires": []
     },
     {
@@ -615,7 +613,7 @@
             }
         ],
         "x": 230,
-        "y": 440,
+        "y": 400,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -649,7 +647,7 @@
             }
         ],
         "x": 230,
-        "y": 560,
+        "y": 520,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -676,7 +674,7 @@
         "to": "",
         "reg": false,
         "x": 410,
-        "y": 560,
+        "y": 520,
         "wires": [
             [
                 "5352eac5b7fb42db"
@@ -739,7 +737,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 1060,
+        "y": 1020,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -770,8 +768,7 @@
                 "7db3095835943be8",
                 "02468a0afce5beac",
                 "a9b39df0c059443c",
-                "00a9c44428849df8",
-                "a9af2159b35a9dc3"
+                "00a9c44428849df8"
             ]
         ]
     },
@@ -788,7 +785,7 @@
         "payloadType": "json",
         "block": false,
         "x": 480,
-        "y": 320,
+        "y": 220,
         "wires": [
             []
         ]
@@ -811,7 +808,7 @@
         "repair": false,
         "outputs": 1,
         "x": 360,
-        "y": 1060,
+        "y": 1020,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -830,7 +827,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 1060,
+        "y": 1020,
         "wires": [
             []
         ]
@@ -853,7 +850,7 @@
         "payload": "$globalContext(\"size_max\")",
         "payloadType": "jsonata",
         "x": 250,
-        "y": 400,
+        "y": 360,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -867,7 +864,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 1000,
+        "y": 960,
         "wires": []
     },
     {
@@ -893,7 +890,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 210,
-        "y": 720,
+        "y": 680,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -923,7 +920,7 @@
         "repair": false,
         "outputs": 2,
         "x": 670,
-        "y": 720,
+        "y": 680,
         "wires": [
             [
                 "bdf1a7420d59de56"
@@ -951,7 +948,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 830,
-        "y": 700,
+        "y": 660,
         "wires": [
             [
                 "2137fea797f95911"
@@ -968,7 +965,7 @@
             "649e06fe9e47ab06"
         ],
         "x": 915,
-        "y": 700,
+        "y": 660,
         "wires": []
     },
     {
@@ -980,7 +977,7 @@
             "2137fea797f95911"
         ],
         "x": 425,
-        "y": 660,
+        "y": 620,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -1002,7 +999,7 @@
         "property": "list",
         "propertyType": "msg",
         "x": 530,
-        "y": 720,
+        "y": 680,
         "wires": [
             [
                 "83b1a8749fac4ee4"
@@ -1025,7 +1022,7 @@
         "repair": false,
         "outputs": 1,
         "x": 370,
-        "y": 720,
+        "y": 680,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -1059,7 +1056,7 @@
             }
         ],
         "x": 220,
-        "y": 780,
+        "y": 740,
         "wires": [
             [
                 "3f343d07531dc3bb"
@@ -1086,7 +1083,7 @@
         "to": "",
         "reg": false,
         "x": 370,
-        "y": 780,
+        "y": 740,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -1103,7 +1100,7 @@
             "cf69e018c01d3cfe"
         ],
         "x": 795,
-        "y": 740,
+        "y": 700,
         "wires": []
     },
     {
@@ -1126,7 +1123,7 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 360,
+        "y": 260,
         "wires": [
             []
         ]
@@ -1271,67 +1268,6 @@
         "inputs": 1,
         "x": 1040,
         "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a9af2159b35a9dc3",
-        "type": "file in",
-        "z": "f15208d99d43e7d6",
-        "name": "Metadata",
-        "filename": "/storage/configuration/metadata-template.json",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 460,
-        "y": 280,
-        "wires": [
-            [
-                "3c64a40d018185f2"
-            ]
-        ]
-    },
-    {
-        "id": "3c64a40d018185f2",
-        "type": "json",
-        "z": "f15208d99d43e7d6",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 590,
-        "y": 280,
-        "wires": [
-            [
-                "8f8c012830af67cf"
-            ]
-        ]
-    },
-    {
-        "id": "8f8c012830af67cf",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "name": "Metadata",
-        "rules": [
-            {
-                "t": "set",
-                "p": "metadata",
-                "pt": "global",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 720,
-        "y": 280,
         "wires": [
             []
         ]
@@ -1506,7 +1442,7 @@
         "rh": 0,
         "inputs": 1,
         "x": 380,
-        "y": 900,
+        "y": 860,
         "wires": [
             [
                 "16a799f89623cff3",
@@ -1541,7 +1477,7 @@
         "to": "",
         "reg": false,
         "x": 250,
-        "y": 900,
+        "y": 860,
         "wires": [
             [
                 "815bde2c61339b1b"
@@ -1557,7 +1493,7 @@
             "8ed0d529d96803f1"
         ],
         "x": 165,
-        "y": 900,
+        "y": 860,
         "wires": [
             [
                 "2d37f820c93ba8f8"
@@ -1582,7 +1518,7 @@
         "repair": false,
         "outputs": 1,
         "x": 520,
-        "y": 880,
+        "y": 840,
         "wires": [
             [
                 "44c2a4750726bd35"
@@ -1605,7 +1541,7 @@
         "repair": false,
         "outputs": 1,
         "x": 510,
-        "y": 920,
+        "y": 880,
         "wires": [
             [
                 "44c2a4750726bd35"
@@ -1620,6 +1556,11 @@
         "property": "payload.scenario",
         "propertyType": "msg",
         "rules": [
+            {
+                "t": "eq",
+                "v": "metadatatest",
+                "vt": "str"
+            },
             {
                 "t": "eq",
                 "v": "datatest",
@@ -1644,12 +1585,15 @@
                 "t": "else"
             }
         ],
-        "checkall": "true",
+        "checkall": "false",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 680,
-        "y": 900,
+        "y": 860,
         "wires": [
+            [
+                "0304084e1cbff2da"
+            ],
             [
                 "1a5a6cd662dc99a3"
             ],
@@ -1673,9 +1617,11 @@
         "mode": "link",
         "links": [
             "094edc9e79f3ac5e",
-            "cddc549d092886bc"
+            "cddc549d092886bc",
+            "31a44fc63ce5696d",
+            "0f42fe1560204923"
         ],
-        "x": 805,
+        "x": 875,
         "y": 900,
         "wires": []
     },
@@ -1690,7 +1636,7 @@
             "8e3473c56e63770b",
             "3e14349d405d79aa"
         ],
-        "x": 805,
+        "x": 875,
         "y": 940,
         "wires": []
     },
@@ -1704,7 +1650,7 @@
             "685ae48b5683f365",
             "7d21165089f1e0ef"
         ],
-        "x": 805,
+        "x": 875,
         "y": 820,
         "wires": []
     },
@@ -1718,47 +1664,82 @@
             "ca5b114a7774870d",
             "b7311151a77e2321"
         ],
-        "x": 805,
+        "x": 875,
         "y": 860,
         "wires": []
     },
     {
-        "id": "04c51a6740b77b2d",
-        "type": "split",
+        "id": "0304084e1cbff2da",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 23",
+        "mode": "link",
+        "links": [
+            "8ed036c3433022b1"
+        ],
+        "x": 875,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "8ed036c3433022b1",
+        "type": "link in",
         "z": "5c8aabcb5b253930",
-        "name": "",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "",
-        "x": 510,
-        "y": 220,
+        "name": "link in 18",
+        "links": [
+            "0304084e1cbff2da"
+        ],
+        "x": 355,
+        "y": 160,
         "wires": [
             [
-                "a85f7f02a58f3fe7"
+                "88ba18126e3774d5"
             ]
         ]
     },
     {
-        "id": "0f6036838de9e679",
+        "id": "88ba18126e3774d5",
+        "type": "semaphore-plus-take",
+        "z": "5c8aabcb5b253930",
+        "name": "Take",
+        "timeout": 0,
+        "config": "4f86e34297b0e1f0",
+        "avoidance": "never",
+        "threshold": 5,
+        "msgPart": "smp_avoidQueue",
+        "partType": "msg",
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "1134a405552ea123"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "83110ba28c2b38af",
+        "type": "semaphore-plus-release",
+        "z": "5c8aabcb5b253930",
+        "name": "Release",
+        "config": "4f86e34297b0e1f0",
+        "x": 520,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9489f6e0fb66869a",
         "type": "change",
         "z": "5c8aabcb5b253930",
-        "name": "Metadata",
+        "name": "Delay",
         "rules": [
-            {
-                "t": "set",
-                "p": "metadata",
-                "pt": "msg",
-                "to": "metadata",
-                "tot": "global"
-            },
             {
                 "t": "set",
                 "p": "delay",
                 "pt": "msg",
-                "to": "$globalContext(\"metadata_publish\")",
+                "to": "$flowContext(\"freq_avg\") * ( $random() + 0.5 )",
                 "tot": "jsonata"
             }
         ],
@@ -1767,171 +1748,16 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 380,
-        "y": 220,
+        "x": 630,
+        "y": 380,
         "wires": [
             [
-                "04c51a6740b77b2d",
-                "568171e44d8acaf6"
+                "009ea63a4ef11126"
             ]
         ]
     },
     {
-        "id": "5cab1d4a6045592a",
-        "type": "change",
-        "z": "5c8aabcb5b253930",
-        "name": "Modify",
-        "rules": [
-            {
-                "t": "set",
-                "p": "metadata.id",
-                "pt": "msg",
-                "to": "\"urn:wmo:md:\" & $globalContext(\"centre_id\") & \":\" & payload.type & \"-\" & $replace(payload.sub_type,\"/\",\"-\")",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "metadata.time.interval[0]",
-                "pt": "msg",
-                "to": "$fromMillis($millis()-$random()*3600000,'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]Z')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties.themes[1].concepts[0].id",
-                "pt": "msg",
-                "to": "payload.type",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties.themes[1].concepts[0].title",
-                "pt": "msg",
-                "to": "$uppercase($substring(payload.type, 0, 1) ) & $substring(payload.type, 1)",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties.themes[1].concepts[0].url",
-                "pt": "msg",
-                "to": "\"https://codes.wmo.int/wis/topic-hierarchy/earth-system-discipline/\" & payload.type",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties.themes[1].scheme",
-                "pt": "msg",
-                "to": "https://codes.wmo.int/wis/topic-hierarchy/earth-system-discipline",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties.created",
-                "pt": "msg",
-                "to": "metadata.time.interval[0]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "metadata.properties[\"wmo:dataPolicy\"]",
-                "pt": "msg",
-                "to": "payload.data_policy",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "metadata.geometry.coordinates",
-                "pt": "msg",
-                "to": "coordinates",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "metadata.links[1]",
-                "pt": "msg",
-                "to": "{\t   \"rel\":\"items\",\t   \"href\":$globalContext(\"wis2node_broker\"),\t   \"channel\":\"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/\" & payload.data_policy & \"/\" & payload.type & \"/\" & payload.sub_type,\t   \"type\":\"application/geo+json\",\t   \"title\":\"Data notifications\"\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "metadata",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "chunk",
-                "pt": "flow",
-                "to": "$length($string(payload))",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "pubtime",
-                "pt": "msg",
-                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z')",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 930,
-        "y": 220,
-        "wires": [
-            [
-                "95f58eca7ccb7324"
-            ]
-        ]
-    },
-    {
-        "id": "2a277f43bc3aaa14",
-        "type": "function",
-        "z": "5c8aabcb5b253930",
-        "name": "Polygon",
-        "func": "let lon1 = Math.round( ( Math.random() - 0.5 ) * 360 );\nlet lon2 = Math.round( ( Math.random() - 0.5 ) * 360 );\nlet lat1 = Math.round( ( Math.random() - 0.5 ) * 180 );\nlet lat2 = Math.round( ( Math.random() - 0.5 ) * 180 );\n\nlet coordinates = [\n    [\n        [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n        [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n        [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n        [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n        [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n    ]\n]\nmsg.coordinates = coordinates\n\nlet min = global.get(\"size_min\");\nlet max = global.get(\"size_max\");\nlet skew = global.get(\"skew\");\nlet buffer = global.get(\"buffer\");\nlet path = global.get(\"path\");\n\nlet chunk;\nlet pos;\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 220,
-        "wires": [
-            [
-                "5cab1d4a6045592a"
-            ]
-        ]
-    },
-    {
-        "id": "a85f7f02a58f3fe7",
-        "type": "switch",
-        "z": "5c8aabcb5b253930",
-        "name": "Metadata ?",
-        "property": "payload.metadata",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 650,
-        "y": 220,
-        "wires": [
-            [
-                "2a277f43bc3aaa14"
-            ]
-        ]
-    },
-    {
-        "id": "a0a9f2ba1d00f354",
+        "id": "009ea63a4ef11126",
         "type": "trigger",
         "z": "5c8aabcb5b253930",
         "name": "Trigger",
@@ -1939,110 +1765,64 @@
         "op2": "0",
         "op1type": "nul",
         "op2type": "str",
-        "duration": "5",
+        "duration": "250",
         "extend": false,
         "overrideDelay": true,
-        "units": "s",
+        "units": "ms",
         "reset": "",
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 490,
-        "y": 280,
+        "x": 750,
+        "y": 380,
         "wires": [
-            []
+            [
+                "745f4653868f194e"
+            ]
         ]
     },
     {
-        "id": "2080a32a5b0128ee",
+        "id": "fdba9e74cf16388a",
         "type": "switch",
         "z": "5c8aabcb5b253930",
-        "name": "",
-        "property": "delay",
-        "propertyType": "msg",
+        "name": "Loop ?",
+        "property": "loop",
+        "propertyType": "flow",
         "rules": [
             {
-                "t": "neq",
-                "v": "0",
-                "vt": "num"
+                "t": "lt",
+                "v": "number",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 370,
-        "y": 280,
+        "outputs": 2,
+        "x": 380,
+        "y": 400,
         "wires": [
             [
-                "a0a9f2ba1d00f354"
+                "06cdf24d6d0500ef"
+            ],
+            [
+                "83110ba28c2b38af"
             ]
         ]
     },
     {
-        "id": "618e6c5681339e4a",
-        "type": "inject",
-        "z": "5c8aabcb5b253930",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "$globalContext(\"dataset\")",
-        "payloadType": "jsonata",
-        "x": 230,
-        "y": 220,
-        "wires": [
-            [
-                "0f6036838de9e679"
-            ]
-        ]
-    },
-    {
-        "id": "9273018c4b81e8b9",
-        "type": "link in",
-        "z": "5c8aabcb5b253930",
-        "name": "link in 3",
-        "links": [
-            "568171e44d8acaf6"
-        ],
-        "x": 245,
-        "y": 280,
-        "wires": [
-            [
-                "2080a32a5b0128ee"
-            ]
-        ]
-    },
-    {
-        "id": "568171e44d8acaf6",
-        "type": "link out",
-        "z": "5c8aabcb5b253930",
-        "name": "link out 3",
-        "mode": "link",
-        "links": [
-            "9273018c4b81e8b9"
-        ],
-        "x": 475,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "876409abaf6825b0",
+        "id": "06cdf24d6d0500ef",
         "type": "change",
         "z": "5c8aabcb5b253930",
-        "name": "Payload",
+        "name": "Loop",
         "rules": [
             {
                 "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$globalContext(\"dataset\")",
+                "p": "loop",
+                "pt": "flow",
+                "to": "$flowContext(\"loop\") + 1",
                 "tot": "jsonata"
             }
         ],
@@ -2051,235 +1831,66 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
-        "y": 280,
+        "x": 510,
+        "y": 380,
         "wires": [
             [
-                "0f6036838de9e679"
+                "9489f6e0fb66869a"
             ]
         ]
     },
     {
-        "id": "fe28b13b447d7696",
-        "type": "comment",
-        "z": "5c8aabcb5b253930",
-        "name": "WIS2 Node Metadata",
-        "info": "",
-        "x": 200,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "1992164608ae779b",
-        "type": "inject",
-        "z": "5c8aabcb5b253930",
-        "name": "",
-        "props": [
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "control",
-        "payload": "toggle",
-        "payloadType": "str",
-        "x": 490,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e87243799d2ea73c",
-        "type": "change",
-        "z": "5c8aabcb5b253930",
-        "name": "Init",
-        "rules": [
-            {
-                "t": "set",
-                "p": "uuid",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "pubtime",
-                "pt": "msg",
-                "to": "$fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "\"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadata\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "data_id",
-                "pt": "msg",
-                "to": "\"wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadata\" & $globalContext(\"filename\")",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 420,
-        "wires": [
-            [
-                "c63105f17d59abb9"
-            ]
-        ]
-    },
-    {
-        "id": "f53089b4f4986a2a",
-        "type": "link out",
-        "z": "5c8aabcb5b253930",
-        "name": "link out 4",
-        "mode": "link",
-        "links": [
-            "f1c9fa43d960a1b9"
-        ],
-        "x": 1185,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "f1c9fa43d960a1b9",
-        "type": "link in",
-        "z": "5c8aabcb5b253930",
-        "name": "link in 4",
-        "links": [
-            "f53089b4f4986a2a"
-        ],
-        "x": 195,
-        "y": 420,
-        "wires": [
-            [
-                "1db2a64e64d658eb"
-            ]
-        ]
-    },
-    {
-        "id": "1e11f8434a0f472a",
-        "type": "hash",
-        "z": "5c8aabcb5b253930",
-        "name": "Hash",
-        "outputvar": "hash",
-        "algorithm": "sha512",
-        "x": 350,
-        "y": 420,
-        "wires": [
-            [
-                "56d3c8cd9aeccbc7"
-            ]
-        ]
-    },
-    {
-        "id": "95f58eca7ccb7324",
-        "type": "file",
-        "z": "5c8aabcb5b253930",
-        "name": "Save",
-        "filename": "filename",
-        "filenameType": "msg",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1050,
-        "y": 220,
-        "wires": [
-            [
-                "f53089b4f4986a2a",
-                "734976bd33fc6e39"
-            ]
-        ]
-    },
-    {
-        "id": "734976bd33fc6e39",
-        "type": "change",
-        "z": "5c8aabcb5b253930",
-        "name": "K,V",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[filename,pubtime,\"EX\",$globalContext(\"store_duration\")]",
-                "tot": "jsonata"
-            },
-            {
-                "t": "delete",
-                "p": "topic",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1050,
-        "y": 160,
-        "wires": [
-            [
-                "a856d2a38d1cce4e"
-            ]
-        ]
-    },
-    {
-        "id": "a856d2a38d1cce4e",
-        "type": "redis-command",
-        "z": "5c8aabcb5b253930",
-        "server": "44959fc60800e3f1",
-        "command": "SET",
-        "name": "",
-        "topic": "",
-        "params": "[]",
-        "paramsType": "json",
-        "payloadType": "json",
-        "block": false,
-        "x": 1180,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c63105f17d59abb9",
+        "id": "1134a405552ea123",
         "type": "function",
         "z": "5c8aabcb5b253930",
-        "name": "Message",
-        "func": "let chunk = flow.get(\"chunk\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet uuid = msg.uuid;\nlet pubtime = msg.pubtime;\nlet hash = flow.get(\"hash\");\nlet data_id = msg.data_id;\nlet filename = flow.get(\"filename\");\nlet metadata_id = flow.get(\"metadata_id\");\n\nmsg.payload = { \n    \"id\": uuid,\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wcmp/2/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n        \"pubtime\": pubtime,\n        \"integrity\": {\n            \"method\": \"sha512\",\n            \"value\": hash\n        },\n        \"data_id\": data_id,\n        \"metadata_id\": metadata_id\n    }\n}\n\nrandom = Math.random();\n\nif ( random <= 0.2 ) { \n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"deletion\"\n        }   ]\n}\nelse if ( random <= 0.8 ) {\n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"canonical\",\n            \"type\": \"application/geo+json\",\n            \"length\": chunk\n        },\n        {\n            \"href\": host + filename,\n            \"rel\": \"update\"\n        }\n        ]\n}\nelse {\n    msg.payload.links = \n        [  {\n            \"href\": host + filename,\n            \"rel\": \"canonical\",\n            \"type\": \"application/geo+json\",\n            \"length\": chunk\n        }   ]\n}\n\nreturn msg;\n",
+        "name": "Override",
+        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, server;\nlet data_id, pubtime, start_datetime, end_datetime, datetime, rel, file;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   server = payload.configuration.setup.server;\n   file = payload.configuration.setup.file;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"server\", server || global.get(\"server\")); \nflow.set(\"file\", file || \"unknown\");\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        datetime = payload.configuration.wnm.properties.datetime;        \n    }    \n    if ( payload.configuration.wnm.links ) {\n        rel = payload.configuration.wnm.links[0].rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"datetime\", datetime !== undefined ? datetime : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nreturn msg;\n",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 420,
+        "x": 580,
+        "y": 160,
         "wires": [
             [
-                "dbb1093bf22c4670",
-                "18e47699ae16fc5e"
+                "dbfdd24c796ab857"
             ]
         ]
     },
     {
-        "id": "9cd0599da33b2df4",
+        "id": "dbfdd24c796ab857",
+        "type": "link out",
+        "z": "5c8aabcb5b253930",
+        "name": "link out 24",
+        "mode": "link",
+        "links": [
+            "994cca8aababc692"
+        ],
+        "x": 685,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "994cca8aababc692",
+        "type": "link in",
+        "z": "5c8aabcb5b253930",
+        "name": "link in 20",
+        "links": [
+            "dbfdd24c796ab857",
+            "745f4653868f194e"
+        ],
+        "x": 245,
+        "y": 260,
+        "wires": [
+            [
+                "fc2f93e122326f2b"
+            ]
+        ]
+    },
+    {
+        "id": "fc2f93e122326f2b",
         "type": "createrandom",
         "z": "5c8aabcb5b253930",
         "generator": "UUID",
@@ -2292,68 +1903,81 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 505,
-        "y": 420,
+        "x": 330,
+        "y": 260,
         "wires": [
             [
-                "e87243799d2ea73c"
+                "590451eb189d17b9"
             ]
-        ],
-        "l": false
+        ]
     },
     {
-        "id": "56d3c8cd9aeccbc7",
+        "id": "590451eb189d17b9",
         "type": "change",
         "z": "5c8aabcb5b253930",
-        "name": "Save",
-        "rules": [
-            {
-                "t": "set",
-                "p": "hash",
-                "pt": "flow",
-                "to": "hash",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "filename",
-                "pt": "flow",
-                "to": "filename",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "metadata_id",
-                "pt": "flow",
-                "to": "metadata.id",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 445,
-        "y": 420,
-        "wires": [
-            [
-                "9cd0599da33b2df4"
-            ]
-        ],
-        "l": false
-    },
-    {
-        "id": "1db2a64e64d658eb",
-        "type": "change",
-        "z": "5c8aabcb5b253930",
-        "name": "Save",
+        "name": "WNM",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$string(payload)",
+                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\t    ],\t    \"type\": \"Feature\",\t    \"geometry\": null,\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t            \"data_id\": \"wis2/core/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadata/\" & payload,\t            \"datetime\": null\t    },\t    \"links\": [  {\t            \"href\": \"https\",\t            \"rel\": \"canonical\"\t    }   ]\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.pubtime",
+                "pt": "msg",
+                "to": "$flowContext(\"pubtime\") != null ? $flowContext(\"pubtime\") : payload.properties.pubtime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"datetime\") != null ? $flowContext(\"datetime\") : payload.properties.datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.start_datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"start_datetime\") != null ? $flowContext(\"start_datetime\") : payload.properties.start_datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.end_datetime",
+                "pt": "msg",
+                "to": "$flowContext(\"end_datetime\") != null ? $flowContext(\"end_datetime\") : payload.properties.end_datetime",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.properties.data_id",
+                "pt": "msg",
+                "to": "$flowContext(\"data_id\") != null ? $flowContext(\"data_id\") : payload.properties.data_id",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.links[0].href",
+                "pt": "msg",
+                "to": "$flowContext(\"server\") & $flowContext(\"file\")",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.links[0].rel",
+                "pt": "msg",
+                "to": "$flowContext(\"rel\") != null ? $flowContext(\"rel\") : payload.links[0].rel",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadata\"",
                 "tot": "jsonata"
             }
         ],
@@ -2362,20 +1986,22 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 255,
-        "y": 420,
+        "x": 450,
+        "y": 260,
         "wires": [
             [
-                "1e11f8434a0f472a"
+                "ecba962a10eed8eb",
+                "9e5164ecaca81a1c",
+                "8b55a9c25d0b1757",
+                "162d6997cefca983"
             ]
-        ],
-        "l": false
+        ]
     },
     {
-        "id": "18e47699ae16fc5e",
+        "id": "ecba962a10eed8eb",
         "type": "mqtt out",
         "z": "5c8aabcb5b253930",
-        "name": "Publish",
+        "name": "Pub",
         "topic": "",
         "qos": "",
         "retain": "",
@@ -2385,16 +2011,58 @@
         "correl": "",
         "expiry": "",
         "broker": "8cf5f6b5.937088",
-        "x": 860,
-        "y": 460,
+        "x": 590,
+        "y": 240,
         "wires": []
     },
     {
-        "id": "db4715bf533f60f0",
+        "id": "9e5164ecaca81a1c",
+        "type": "link out",
+        "z": "5c8aabcb5b253930",
+        "name": "link out 25",
+        "mode": "link",
+        "links": [
+            "d7c78bbbfdf0a29c"
+        ],
+        "x": 555,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d7c78bbbfdf0a29c",
+        "type": "link in",
+        "z": "5c8aabcb5b253930",
+        "name": "link in 21",
+        "links": [
+            "9e5164ecaca81a1c"
+        ],
+        "x": 285,
+        "y": 400,
+        "wires": [
+            [
+                "fdba9e74cf16388a"
+            ]
+        ]
+    },
+    {
+        "id": "745f4653868f194e",
+        "type": "link out",
+        "z": "5c8aabcb5b253930",
+        "name": "link out 26",
+        "mode": "link",
+        "links": [
+            "994cca8aababc692"
+        ],
+        "x": 835,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "25391c76ec6b702a",
         "type": "flogger",
         "z": "5c8aabcb5b253930",
         "name": "Publish",
-        "logfile": "publish.log",
+        "logfile": "metadatatest.log",
         "inputchoice": "object",
         "inputobject": "payload",
         "inputobjectType": "msg",
@@ -2402,45 +2070,70 @@
         "loglevel": "INFO",
         "logconfig": "a93c45df39215989",
         "sendpane": false,
-        "x": 980,
-        "y": 420,
+        "x": 720,
+        "y": 320,
         "wires": [
             []
         ]
     },
     {
-        "id": "dbb1093bf22c4670",
+        "id": "8b55a9c25d0b1757",
         "type": "change",
         "z": "5c8aabcb5b253930",
         "name": "Log",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t   \"topic\": topic,\t   \"data_id\": payload.properties.data_id,\t   \"file\": filename,\t   \"length\":  payload.links.length \t}",
-                "tot": "jsonata"
-            }
-        ],
+        "rules": [],
         "action": "",
         "property": "",
         "from": "",
         "to": "",
         "reg": false,
-        "x": 850,
-        "y": 420,
+        "x": 590,
+        "y": 320,
         "wires": [
             [
-                "db4715bf533f60f0"
+                "25391c76ec6b702a"
             ]
         ]
+    },
+    {
+        "id": "1622f5c30cb1e5af",
+        "type": "catch",
+        "z": "5c8aabcb5b253930",
+        "name": "",
+        "scope": [
+            "1134a405552ea123"
+        ],
+        "uncaught": false,
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "83110ba28c2b38af"
+            ]
+        ]
+    },
+    {
+        "id": "162d6997cefca983",
+        "type": "debug",
+        "z": "5c8aabcb5b253930",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "0d890d8ab7853715",
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\nlet buffer = global.get(\"buffer\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\n}\n\nnode.warn(msg.topic);\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\nlet buffer = global.get(\"buffer\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\n\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.type = datatype.type;\nmsg.sub_type = datatype.sub_type;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type ;\n}\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.type + \"/\" + msg.sub_type +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2557,7 +2250,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Message",
-        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\nif (flow.get(\"length\") == false) msg.payload.links[0].length = chunk + 1 ;\nif (flow.get(\"href\") == false) msg.payload.links[0].href = host + \"/fail\" + msg.filename;\n\nif ( embed_data == true && chunk <= embed_size_max ) {\n    msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"size\": chunk }\n}\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
+        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( flow.get(\"length\") == false ) msg.payload.links[0].length = chunk + 1 ;\nif ( flow.get(\"href\") == false ) msg.payload.links[0].href = host + \"/fail\" + msg.filename;\n\nif ( embed_data == true && chunk <= embed_size_max ) {\n    msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"size\": chunk }\n    if ( flow.get(\"size\") == false ) msg.payload.properties.content.size = chunk - 1;\n}\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2829,7 +2522,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, freq_avg, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = payload.configuration.setup.size_max;\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", min || global.get(\"size_min\") );\nflow.set(\"size_max\",max || global.get(\"size_max\") );\nflow.set(\"skew\",skew || global.get(\"skew\") );\nflow.set(\"number\", payload.configuration.setup.number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm && payload.configuration.wnm.properties ) {\n    data_id = payload.configuration.wnm.properties.data_id;\n    pubtime = payload.configuration.wnm.properties.pubtime;\n    cache = payload.configuration.wnm.properties.cache;\n    integrity = payload.configuration.wnm.properties.integrity ;\n}    \nif ( payload.configuration.wnm && payload.configuration.wnm.links ) {\n    rel = payload.configuration.wnm.links.rel;\n    length = payload.configuration.wnm.links.length;\n    href = payload.configuration.wnm.links.href;\n}\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"integrity\", integrity !== undefined ? integrity : true);\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, freq_avg, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href, method, value, size;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = Math.min(payload.configuration.setup.size_max, global.get(\"size_max\"));\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", Math.floor(min) || global.get(\"size_min\") );\nflow.set(\"size_max\", Math.floor(max) || global.get(\"size_max\") );\nflow.set(\"skew\", Math.floor(skew) || global.get(\"skew\") );\nflow.set(\"number\", Math.floor(number) || 1);\nflow.set(\"freq_avg\", Math.floor(freq_avg) || global.get(\"freq_avg\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm ) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        cache = payload.configuration.wnm.properties.cache;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n        if (payload.configuration.wnm.properties.content) {\n            size = payload.configuration.wnm.properties.content.size;            \n        }        \n    }    \n\n    if ( payload.configuration.wnm.links ) {\n       href = payload.configuration.wnm.links[0].href;\n       rel = payload.configuration.wnm.links[0].rel;\n       length = payload.configuration.wnm.links[0].length;\n    }\n}\n\n\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"size\", size !== undefined ? size : null);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2939,11 +2632,11 @@
         "type": "switch",
         "z": "da27bfdd1d006652",
         "name": "",
-        "property": "integrity",
+        "property": "value",
         "propertyType": "flow",
         "rules": [
             {
-                "t": "true"
+                "t": "null"
             },
             {
                 "t": "false"
@@ -3064,7 +2757,7 @@
         "wires": []
     },
     {
-        "id": "106638743370283e",
+        "id": "b1e6cc6827329b0a",
         "type": "catch",
         "z": "da27bfdd1d006652",
         "name": "",
@@ -3072,10 +2765,12 @@
             "e926030de3468aef"
         ],
         "uncaught": false,
-        "x": 470,
-        "y": 60,
+        "x": 370,
+        "y": 620,
         "wires": [
-            []
+            [
+                "278b9adc116f286c"
+            ]
         ]
     },
     {
@@ -3732,10 +3427,12 @@
             "0daa3e39533f4653"
         ],
         "uncaught": false,
-        "x": 350,
-        "y": 100,
+        "x": 370,
+        "y": 220,
         "wires": [
-            []
+            [
+                "2d98292388a0388c"
+            ]
         ]
     },
     {
@@ -3885,7 +3582,7 @@
         "type": "function",
         "z": "0528d79810dd92da",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, integrity, id, conformsTo, type, geometry, value, method;\nlet data_id, pubtime, links, start_datetime, end_datetime, datetime, href, rel, properties, topic;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"topic\", topic !== undefined ? topic : null )\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    id = payload.configuration.wnm.id;\n    if ( typeof payload.configuration.wnm.conformsTo != \"undefined\" ) conformsTo = payload.configuration.wnm.conformsTo[0];\n    type = payload.configuration.wnm.type;\n    geometry = payload.configuration.wnm.geometry;\n    links = payload.configuration.wnm.links;\n    properties = payload.configuration.wnm.properties;\n\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        datetime = payload.configuration.wnm.properties.datetime;        \n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n    }    \n    if ( payload.configuration.wnm.links ) {\n        href = payload.configuration.wnm.links[0].href;\n        rel = payload.configuration.wnm.links[0].rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"id\", id !== undefined ? id : null);\nflow.set(\"geometry\", geometry !== undefined ? geometry : null);\nflow.set(\"conformsTo\", conformsTo !== undefined ? conformsTo : null);\nflow.set(\"type\", type !== undefined ? type : null);\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"datetime\", datetime !== undefined ? datetime : null);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"href\", href !== undefined ? href : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet number, loop, freq_avg, integrity, id, conformsTo, type, geometry, value, method;\nlet data_id, pubtime, links, start_datetime, end_datetime, datetime, href, rel, properties, topic;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   number = payload.configuration.setup.number;\n   freq_avg = payload.configuration.setup.freq_avg;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"number\", number || 1);\nflow.set(\"freq_avg\", freq_avg || global.get(\"freq_avg\") )\nflow.set(\"topic\", topic !== undefined ? topic : null )\nflow.set(\"loop\",1);\n\nif (payload.configuration.wnm) {\n    id = payload.configuration.wnm.id;\n    if ( typeof payload.configuration.wnm.conformsTo != \"undefined\" ) conformsTo = payload.configuration.wnm.conformsTo[0];\n    type = payload.configuration.wnm.type;\n    geometry = payload.configuration.wnm.geometry;\n\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        start_datetime = payload.configuration.wnm.properties.start_datetime;\n        end_datetime = payload.configuration.wnm.properties.end_datetime;\n        datetime = payload.configuration.wnm.properties.datetime;        \n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n    }    \n    if ( payload.configuration.wnm.links ) {\n        href = payload.configuration.wnm.links[0].href;\n        rel = payload.configuration.wnm.links[0].rel;\n    }\n}\n \nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"id\", id !== undefined ? id : null);\nflow.set(\"geometry\", geometry !== undefined ? geometry : null);\nflow.set(\"conformsTo\", conformsTo !== undefined ? conformsTo : null);\nflow.set(\"type\", type !== undefined ? type : null);\nflow.set(\"start_datetime\", start_datetime !== undefined ? start_datetime : null);\nflow.set(\"end_datetime\", end_datetime !== undefined ? end_datetime : null);\nflow.set(\"datetime\", datetime !== undefined ? datetime : null);\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\nflow.set(\"href\", href !== undefined ? href : null);\nflow.set(\"rel\", rel !== undefined ? rel : null);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4740,10 +4437,12 @@
             "6463e038858fab43"
         ],
         "uncaught": false,
-        "x": 290,
-        "y": 80,
+        "x": 450,
+        "y": 180,
         "wires": [
-            []
+            [
+                "1e256b5517221fea"
+            ]
         ]
     }
 ]
