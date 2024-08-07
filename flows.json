@@ -284,7 +284,7 @@
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 400,
+        "y": 500,
         "wires": [
             [
                 "7a8fd5e4121b31f7"
@@ -303,7 +303,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 670,
-        "y": 400,
+        "y": 500,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -330,7 +330,7 @@
         "to": "",
         "reg": false,
         "x": 530,
-        "y": 400,
+        "y": 500,
         "wires": [
             [
                 "a3619869e11717a0"
@@ -350,7 +350,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 530,
-        "y": 520,
+        "y": 620,
         "wires": [
             [
                 "ccbc30efd3952be2"
@@ -377,7 +377,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 520,
+        "y": 620,
         "wires": [
             []
         ]
@@ -553,7 +553,7 @@
         "name": "Put in the buffer",
         "info": "",
         "x": 220,
-        "y": 480,
+        "y": 580,
         "wires": []
     },
     {
@@ -563,7 +563,7 @@
         "name": "Create fake data file",
         "info": "",
         "x": 230,
-        "y": 320,
+        "y": 420,
         "wires": []
     },
     {
@@ -583,7 +583,7 @@
         "name": "WIS2 Node Data",
         "info": "",
         "x": 220,
-        "y": 620,
+        "y": 720,
         "wires": []
     },
     {
@@ -613,7 +613,7 @@
             }
         ],
         "x": 230,
-        "y": 400,
+        "y": 500,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -647,7 +647,7 @@
             }
         ],
         "x": 230,
-        "y": 520,
+        "y": 620,
         "wires": [
             [
                 "26ecf226860ba4dd"
@@ -674,7 +674,7 @@
         "to": "",
         "reg": false,
         "x": 410,
-        "y": 520,
+        "y": 620,
         "wires": [
             [
                 "5352eac5b7fb42db"
@@ -737,7 +737,7 @@
         "obj": true,
         "timeout": 0,
         "x": 200,
-        "y": 1020,
+        "y": 1120,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -765,7 +765,6 @@
         "y": 180,
         "wires": [
             [
-                "7db3095835943be8",
                 "02468a0afce5beac",
                 "a9b39df0c059443c",
                 "00a9c44428849df8"
@@ -785,7 +784,7 @@
         "payloadType": "json",
         "block": false,
         "x": 480,
-        "y": 220,
+        "y": 260,
         "wires": [
             []
         ]
@@ -808,7 +807,7 @@
         "repair": false,
         "outputs": 1,
         "x": 360,
-        "y": 1020,
+        "y": 1120,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -827,7 +826,7 @@
         "exist": false,
         "name": "",
         "x": 530,
-        "y": 1020,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -850,7 +849,7 @@
         "payload": "$globalContext(\"size_max\")",
         "payloadType": "jsonata",
         "x": 250,
-        "y": 360,
+        "y": 460,
         "wires": [
             [
                 "df56b3aecf7ce20f"
@@ -864,7 +863,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 230,
-        "y": 960,
+        "y": 1060,
         "wires": []
     },
     {
@@ -890,7 +889,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 210,
-        "y": 680,
+        "y": 780,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -920,7 +919,7 @@
         "repair": false,
         "outputs": 2,
         "x": 670,
-        "y": 680,
+        "y": 780,
         "wires": [
             [
                 "bdf1a7420d59de56"
@@ -948,7 +947,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 830,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "2137fea797f95911"
@@ -965,7 +964,7 @@
             "649e06fe9e47ab06"
         ],
         "x": 915,
-        "y": 660,
+        "y": 760,
         "wires": []
     },
     {
@@ -977,7 +976,7 @@
             "2137fea797f95911"
         ],
         "x": 425,
-        "y": 620,
+        "y": 720,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -999,7 +998,7 @@
         "property": "list",
         "propertyType": "msg",
         "x": 530,
-        "y": 680,
+        "y": 780,
         "wires": [
             [
                 "83b1a8749fac4ee4"
@@ -1022,7 +1021,7 @@
         "repair": false,
         "outputs": 1,
         "x": 370,
-        "y": 680,
+        "y": 780,
         "wires": [
             [
                 "14b909ba9c138d08"
@@ -1056,7 +1055,7 @@
             }
         ],
         "x": 220,
-        "y": 740,
+        "y": 840,
         "wires": [
             [
                 "3f343d07531dc3bb"
@@ -1083,7 +1082,7 @@
         "to": "",
         "reg": false,
         "x": 370,
-        "y": 740,
+        "y": 840,
         "wires": [
             [
                 "db3f4193303dcba8"
@@ -1100,7 +1099,7 @@
             "cf69e018c01d3cfe"
         ],
         "x": 795,
-        "y": 700,
+        "y": 800,
         "wires": []
     },
     {
@@ -1123,7 +1122,7 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 260,
+        "y": 220,
         "wires": [
             []
         ]
@@ -1435,7 +1434,7 @@
         "rh": 0,
         "inputs": 1,
         "x": 380,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "16a799f89623cff3",
@@ -1470,7 +1469,7 @@
         "to": "",
         "reg": false,
         "x": 250,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "815bde2c61339b1b"
@@ -1486,7 +1485,7 @@
             "8ed0d529d96803f1"
         ],
         "x": 165,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "2d37f820c93ba8f8"
@@ -1511,10 +1510,10 @@
         "repair": false,
         "outputs": 1,
         "x": 520,
-        "y": 840,
+        "y": 940,
         "wires": [
             [
-                "44c2a4750726bd35"
+                "accab3f561c00643"
             ]
         ]
     },
@@ -1534,10 +1533,10 @@
         "repair": false,
         "outputs": 1,
         "x": 510,
-        "y": 880,
+        "y": 980,
         "wires": [
             [
-                "44c2a4750726bd35"
+                "accab3f561c00643"
             ]
         ]
     },
@@ -1581,8 +1580,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 6,
-        "x": 680,
-        "y": 860,
+        "x": 800,
+        "y": 960,
         "wires": [
             [
                 "0304084e1cbff2da"
@@ -1614,8 +1613,8 @@
             "31a44fc63ce5696d",
             "0f42fe1560204923"
         ],
-        "x": 875,
-        "y": 900,
+        "x": 995,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1629,8 +1628,8 @@
             "8e3473c56e63770b",
             "3e14349d405d79aa"
         ],
-        "x": 875,
-        "y": 940,
+        "x": 995,
+        "y": 1040,
         "wires": []
     },
     {
@@ -1643,8 +1642,8 @@
             "685ae48b5683f365",
             "7d21165089f1e0ef"
         ],
-        "x": 875,
-        "y": 820,
+        "x": 995,
+        "y": 920,
         "wires": []
     },
     {
@@ -1657,8 +1656,8 @@
             "ca5b114a7774870d",
             "b7311151a77e2321"
         ],
-        "x": 875,
-        "y": 860,
+        "x": 995,
+        "y": 960,
         "wires": []
     },
     {
@@ -1670,9 +1669,99 @@
         "links": [
             "8ed036c3433022b1"
         ],
-        "x": 875,
-        "y": 780,
+        "x": 995,
+        "y": 880,
         "wires": []
+    },
+    {
+        "id": "8a1d3e5dda202987",
+        "type": "complete",
+        "z": "f15208d99d43e7d6",
+        "name": "",
+        "scope": [
+            "7db3095835943be8"
+        ],
+        "uncaught": false,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "03218137c68497af"
+            ]
+        ]
+    },
+    {
+        "id": "03218137c68497af",
+        "type": "change",
+        "z": "f15208d99d43e7d6",
+        "name": "Redis Ready",
+        "rules": [
+            {
+                "t": "set",
+                "p": "redis_ready",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "accab3f561c00643",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "Redis ?",
+        "property": "redis_ready",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 660,
+        "y": 960,
+        "wires": [
+            [
+                "44c2a4750726bd35"
+            ]
+        ]
+    },
+    {
+        "id": "d2800750237cad46",
+        "type": "inject",
+        "z": "f15208d99d43e7d6",
+        "name": "Init",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "[\"set\",\"notify-keyspace-events\",\"KEx\"]",
+        "payloadType": "json",
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "7db3095835943be8"
+            ]
+        ]
     },
     {
         "id": "8ed036c3433022b1",
@@ -1985,8 +2074,7 @@
             [
                 "ecba962a10eed8eb",
                 "9e5164ecaca81a1c",
-                "8b55a9c25d0b1757",
-                "162d6997cefca983"
+                "8b55a9c25d0b1757"
             ]
         ]
     },
@@ -2104,22 +2192,6 @@
                 "83110ba28c2b38af"
             ]
         ]
-    },
-    {
-        "id": "162d6997cefca983",
-        "type": "debug",
-        "z": "5c8aabcb5b253930",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 740,
-        "y": 500,
-        "wires": []
     },
     {
         "id": "0d890d8ab7853715",
