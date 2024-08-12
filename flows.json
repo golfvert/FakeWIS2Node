@@ -4982,7 +4982,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"toto\"\t    ],\t    \"type\": \"Feature\",\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\"\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\",\t            \"type\": \"application/txt\",\t            \"length\": 10000\t    }   ]\t}",
+                "to": "{ \t    \"id\": payload,\t    \"conformsTo\": [\t        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\t    ],\t    \"type\": \"Feature\",\t    \"properties\": {\t            \"pubtime\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]:[f003]Z'),\t            \"integrity\": {\t                \"method\": \"sha512\",\t                \"value\": \"this_is_a_random_hash\"\t            },\t            \"data_id\": \"this_is_a_random_data_id\"\t    },\t    \"links\": [  {\t            \"href\": \"https://www.example.org/random\",\t            \"rel\": \"canonical\",\t            \"type\": \"application/txt\",\t            \"length\": 10000\t    }   ]\t}",
                 "tot": "jsonata"
             },
             {
