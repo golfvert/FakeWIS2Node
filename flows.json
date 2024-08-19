@@ -284,6 +284,7 @@
         "id": "df56b3aecf7ce20f",
         "type": "function",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Random",
         "func": "var size = msg.payload;\nvar chars = \"abcdefghijklmnopqrstuvwxyz012356789\";\nvar random_data = \"\";\nfor (var i = 0; i < size; i++){\n        var random_num = Math.floor(Math.random() * chars.length);\n        random_data = random_data + chars.substring(random_num,random_num+1);\n    }\nmsg.payload = random_data;   \nreturn msg;",
         "outputs": 1,
@@ -303,6 +304,7 @@
         "id": "a3619869e11717a0",
         "type": "file",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Write",
         "filename": "filename",
         "filenameType": "msg",
@@ -322,6 +324,7 @@
         "id": "7a8fd5e4121b31f7",
         "type": "change",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "File",
         "rules": [
             {
@@ -349,6 +352,7 @@
         "id": "5352eac5b7fb42db",
         "type": "file in",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Read",
         "filename": "filename",
         "filenameType": "msg",
@@ -369,6 +373,7 @@
         "id": "ccbc30efd3952be2",
         "type": "change",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Load buffer",
         "rules": [
             {
@@ -565,6 +570,7 @@
         "id": "5e56151285992f16",
         "type": "comment",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Put in the buffer",
         "info": "",
         "x": 220,
@@ -575,6 +581,7 @@
         "id": "e47e89e8b6ff5a91",
         "type": "comment",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Create fake data file",
         "info": "",
         "x": 230,
@@ -595,6 +602,7 @@
         "id": "fa5f1732c526796f",
         "type": "comment",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "WIS2 Node Data",
         "info": "",
         "x": 220,
@@ -605,6 +613,7 @@
         "id": "7c527f7d354b65a5",
         "type": "cronplus",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "CreateFiles",
         "outputField": "payload",
         "timeZone": "",
@@ -639,6 +648,7 @@
         "id": "c2ae45ec0461ab4c",
         "type": "cronplus",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "LoadBuffer",
         "outputField": "payload",
         "timeZone": "",
@@ -673,6 +683,7 @@
         "id": "26ecf226860ba4dd",
         "type": "change",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "File",
         "rules": [
             {
@@ -850,6 +861,7 @@
         "id": "a8c268336845d16a",
         "type": "inject",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Init",
         "props": [
             {
@@ -885,6 +897,7 @@
         "id": "09aec1c7f1ccc0f3",
         "type": "inject",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Init",
         "props": [
             {
@@ -915,6 +928,7 @@
         "id": "83b1a8749fac4ee4",
         "type": "switch",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "File ready ?",
         "property": "$count(list)",
         "propertyType": "jsonata",
@@ -948,6 +962,7 @@
         "id": "bdf1a7420d59de56",
         "type": "delay",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Wait",
         "pauseType": "delay",
         "timeout": "5",
@@ -973,6 +988,7 @@
         "id": "2137fea797f95911",
         "type": "link out",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "link out 1",
         "mode": "link",
         "links": [
@@ -986,6 +1002,7 @@
         "id": "649e06fe9e47ab06",
         "type": "link in",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "link in 1",
         "links": [
             "2137fea797f95911"
@@ -1002,6 +1019,7 @@
         "id": "14b909ba9c138d08",
         "type": "fs-list",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "",
         "path": "configuration_path",
         "pathType": "global",
@@ -1024,6 +1042,7 @@
         "id": "db3f4193303dcba8",
         "type": "switch",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Running ?",
         "property": "running",
         "propertyType": "flow",
@@ -1047,6 +1066,7 @@
         "id": "0988c97edb614bfb",
         "type": "cronplus",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Restart",
         "outputField": "payload",
         "timeZone": "",
@@ -1081,6 +1101,7 @@
         "id": "3f343d07531dc3bb",
         "type": "change",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "File",
         "rules": [
             {
@@ -1108,6 +1129,7 @@
         "id": "8ed0d529d96803f1",
         "type": "link out",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "link out 2",
         "mode": "link",
         "links": [
@@ -1440,14 +1462,14 @@
         "type": "mqtt in",
         "z": "f15208d99d43e7d6",
         "name": "Scenario",
-        "topic": "",
-        "qos": "2",
+        "topic": "config/a/wis2/#",
+        "qos": "0",
         "datatype": "json",
         "broker": "6b724b3e458a437c",
         "nl": false,
         "rap": true,
         "rh": 0,
-        "inputs": 1,
+        "inputs": 0,
         "x": 380,
         "y": 960,
         "wires": [
@@ -1461,6 +1483,7 @@
         "id": "2d37f820c93ba8f8",
         "type": "change",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "Init",
         "rules": [
             {
@@ -1486,15 +1509,14 @@
         "x": 250,
         "y": 960,
         "wires": [
-            [
-                "815bde2c61339b1b"
-            ]
+            []
         ]
     },
     {
         "id": "cf69e018c01d3cfe",
         "type": "link in",
         "z": "f15208d99d43e7d6",
+        "d": true,
         "name": "link in 2",
         "links": [
             "8ed0d529d96803f1"
@@ -2877,7 +2899,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\nlet buffer = global.get(\"buffer\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\n\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.topic = datatype.topic;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n}\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\nlet arr = [];\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30));\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.topic = datatype.topic;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n}\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3267,7 +3289,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, delay, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href, method, value, size;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = Math.min(payload.configuration.setup.size_max, global.get(\"size_max\"));\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   delay = payload.configuration.setup.delay;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", Math.floor(min) || global.get(\"size_min\") );\nflow.set(\"size_max\", Math.floor(max) || global.get(\"size_max\") );\nflow.set(\"skew\", Math.floor(skew) || global.get(\"skew\") );\nflow.set(\"number\", Math.floor(number) || 1);\nflow.set(\"delay\", Math.floor(delay) || global.get(\"delay\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm ) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        cache = payload.configuration.wnm.properties.cache;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n        if (payload.configuration.wnm.properties.content) {\n            size = payload.configuration.wnm.properties.content.size;            \n        }        \n    }    \n\n    if ( payload.configuration.wnm.links ) {\n       href = payload.configuration.wnm.links[0].href;\n       rel = payload.configuration.wnm.links[0].rel;\n       length = payload.configuration.wnm.links[0].length;\n    }\n}\n\n\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"size\", size !== undefined ? size : null);\n\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, delay, cache_a_wis2,integrity;\nlet data_id, pubtime, cache, rel, length, href, method, value, size;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = Math.min(payload.configuration.setup.size_max, 500000000);\n   min = Math.min(payload.configuration.setup.size_min, max);\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   delay = payload.configuration.setup.delay;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n}\n\nflow.set(\"size_min\", Math.floor(min) || global.get(\"size_min\") );\nflow.set(\"size_max\", Math.floor(max) || global.get(\"size_max\") );\nflow.set(\"skew\", Math.floor(skew) || global.get(\"skew\") );\nflow.set(\"number\", Math.floor(number) || 1);\nflow.set(\"delay\", Math.floor(delay) || global.get(\"delay\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm ) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        cache = payload.configuration.wnm.properties.cache;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n        if (payload.configuration.wnm.properties.content) {\n            size = payload.configuration.wnm.properties.content.size;            \n        }        \n    }    \n\n    if ( payload.configuration.wnm.links ) {\n       href = payload.configuration.wnm.links[0].href;\n       rel = payload.configuration.wnm.links[0].rel;\n       length = payload.configuration.wnm.links[0].length;\n    }\n}\n\n\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"size\", size !== undefined ? size : null);\n\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3520,11 +3542,123 @@
         ]
     },
     {
+        "id": "b98918f090e6340c",
+        "type": "inject",
+        "z": "da27bfdd1d006652",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "512",
+        "payloadType": "num",
+        "x": 400,
+        "y": 820,
+        "wires": [
+            [
+                "8efb6f25187901e9"
+            ]
+        ]
+    },
+    {
+        "id": "8efb6f25187901e9",
+        "type": "function",
+        "z": "da27bfdd1d006652",
+        "name": "function 1",
+        "func": "let length = msg.payload;\nvar buf = Buffer.alloc(length, makeid(24));\nmsg.payload = buf\nmsg.filename = \"/storage/files/\" + makeid(30) + \".txt\"\n\nreturn msg;\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 820,
+        "wires": [
+            [
+                "9190260b38acd0dd"
+            ]
+        ]
+    },
+    {
+        "id": "d35b2f160542b97e",
+        "type": "file",
+        "z": "da27bfdd1d006652",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 720,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9190260b38acd0dd",
+        "type": "debug",
+        "z": "da27bfdd1d006652",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "filename",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "325e37401e81d498",
+        "type": "inject",
+        "z": "da27bfdd1d006652",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 700,
+        "wires": [
+            [
+                "278b9adc116f286c"
+            ]
+        ]
+    },
+    {
         "id": "242b90601bbb3920",
         "type": "function",
         "z": "fcc41b6aa5346b0b",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet buffer = global.get(\"buffer\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\nmsg.payload = buffer.substring(pos, pos+chunk);\nmsg.filename = path + buffer.substring(pos, pos+30) + \".txt\";\nobj = Object.assign({}, weight)\ndatatype = data[weightedRandom(obj)];\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.sub_topic = datatype.topic;\n\nnode.warn(msg.topic) \n\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.sub_topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30));\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.sub_topic = datatype.topic;\n\nnode.warn(msg.topic) \n\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.sub_topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\nfunction makeid(length) {\n  var result = '';\n  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n  var charactersLength = characters.length;\n  for (var i = 0; i < length; i++) {\n    result += characters.charAt(Math.floor(Math.random() * charactersLength));\n  }\n  return result;\n}",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
