@@ -281,121 +281,6 @@
         ]
     },
     {
-        "id": "df56b3aecf7ce20f",
-        "type": "function",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Random",
-        "func": "var size = msg.payload;\nvar chars = \"abcdefghijklmnopqrstuvwxyz012356789\";\nvar random_data = \"\";\nfor (var i = 0; i < size; i++){\n        var random_num = Math.floor(Math.random() * chars.length);\n        random_data = random_data + chars.substring(random_num,random_num+1);\n    }\nmsg.payload = random_data;   \nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 500,
-        "wires": [
-            [
-                "7a8fd5e4121b31f7"
-            ]
-        ]
-    },
-    {
-        "id": "a3619869e11717a0",
-        "type": "file",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Write",
-        "filename": "filename",
-        "filenameType": "msg",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 670,
-        "y": 500,
-        "wires": [
-            [
-                "26ecf226860ba4dd"
-            ]
-        ]
-    },
-    {
-        "id": "7a8fd5e4121b31f7",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "File",
-        "rules": [
-            {
-                "t": "set",
-                "p": "filename",
-                "pt": "msg",
-                "to": "$globalContext(\"configuration_path\") & $globalContext(\"size_max\")",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 500,
-        "wires": [
-            [
-                "a3619869e11717a0"
-            ]
-        ]
-    },
-    {
-        "id": "5352eac5b7fb42db",
-        "type": "file in",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Read",
-        "filename": "filename",
-        "filenameType": "msg",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 530,
-        "y": 620,
-        "wires": [
-            [
-                "ccbc30efd3952be2"
-            ]
-        ]
-    },
-    {
-        "id": "ccbc30efd3952be2",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Load buffer",
-        "rules": [
-            {
-                "t": "set",
-                "p": "buffer",
-                "pt": "global",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 670,
-        "y": 620,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "02468a0afce5beac",
         "type": "file in",
         "z": "f15208d99d43e7d6",
@@ -567,28 +452,6 @@
         ]
     },
     {
-        "id": "5e56151285992f16",
-        "type": "comment",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Put in the buffer",
-        "info": "",
-        "x": 220,
-        "y": 580,
-        "wires": []
-    },
-    {
-        "id": "e47e89e8b6ff5a91",
-        "type": "comment",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Create fake data file",
-        "info": "",
-        "x": 230,
-        "y": 420,
-        "wires": []
-    },
-    {
         "id": "7435f9cd7be87d7c",
         "type": "comment",
         "z": "f15208d99d43e7d6",
@@ -597,115 +460,6 @@
         "x": 270,
         "y": 60,
         "wires": []
-    },
-    {
-        "id": "fa5f1732c526796f",
-        "type": "comment",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "WIS2 Node Data",
-        "info": "",
-        "x": 220,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "7c527f7d354b65a5",
-        "type": "cronplus",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "CreateFiles",
-        "outputField": "payload",
-        "timeZone": "",
-        "storeName": "",
-        "commandResponseMsgOutput": "output1",
-        "defaultLocation": "",
-        "defaultLocationType": "default",
-        "outputs": 1,
-        "options": [
-            {
-                "name": "SizeMax",
-                "topic": "size_max_bytes",
-                "payloadType": "global",
-                "payload": "size_max",
-                "expressionType": "cron",
-                "expression": "0 5 0 * * * *",
-                "location": "",
-                "offset": "0",
-                "solarType": "all",
-                "solarEvents": "sunrise,sunset"
-            }
-        ],
-        "x": 230,
-        "y": 500,
-        "wires": [
-            [
-                "df56b3aecf7ce20f"
-            ]
-        ]
-    },
-    {
-        "id": "c2ae45ec0461ab4c",
-        "type": "cronplus",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "LoadBuffer",
-        "outputField": "payload",
-        "timeZone": "",
-        "storeName": "",
-        "commandResponseMsgOutput": "output1",
-        "defaultLocation": "",
-        "defaultLocationType": "default",
-        "outputs": 1,
-        "options": [
-            {
-                "name": "Load",
-                "topic": "topic1",
-                "payloadType": "default",
-                "payload": "",
-                "expressionType": "cron",
-                "expression": "0 30 0 * * * *",
-                "location": "",
-                "offset": "0",
-                "solarType": "all",
-                "solarEvents": "sunrise,sunset"
-            }
-        ],
-        "x": 230,
-        "y": 620,
-        "wires": [
-            [
-                "26ecf226860ba4dd"
-            ]
-        ]
-    },
-    {
-        "id": "26ecf226860ba4dd",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "File",
-        "rules": [
-            {
-                "t": "set",
-                "p": "filename",
-                "pt": "msg",
-                "to": "$globalContext(\"configuration_path\") & $globalContext(\"size_max\")",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 410,
-        "y": 620,
-        "wires": [
-            [
-                "5352eac5b7fb42db"
-            ]
-        ]
     },
     {
         "id": "9f805d7c4e8096e5",
@@ -762,8 +516,8 @@
         "topic": "__key*__:*",
         "obj": true,
         "timeout": 0,
-        "x": 200,
-        "y": 1120,
+        "x": 220,
+        "y": 740,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -832,8 +586,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 360,
-        "y": 1120,
+        "x": 380,
+        "y": 740,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -851,36 +605,10 @@
         "recursive": true,
         "exist": false,
         "name": "",
-        "x": 530,
-        "y": 1120,
+        "x": 550,
+        "y": 740,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "a8c268336845d16a",
-        "type": "inject",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Init",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "$globalContext(\"size_max\")",
-        "payloadType": "jsonata",
-        "x": 250,
-        "y": 460,
-        "wires": [
-            [
-                "df56b3aecf7ce20f"
-            ]
         ]
     },
     {
@@ -889,254 +617,8 @@
         "z": "f15208d99d43e7d6",
         "name": "Delete expired files",
         "info": "",
-        "x": 230,
-        "y": 1060,
-        "wires": []
-    },
-    {
-        "id": "09aec1c7f1ccc0f3",
-        "type": "inject",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Init",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "filename",
-                "v": "$string($globalContext(\"size_max\"))",
-                "vt": "jsonata"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "15",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 210,
-        "y": 780,
-        "wires": [
-            [
-                "db3f4193303dcba8"
-            ]
-        ]
-    },
-    {
-        "id": "83b1a8749fac4ee4",
-        "type": "switch",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "File ready ?",
-        "property": "$count(list)",
-        "propertyType": "jsonata",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "neq",
-                "v": "0",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 670,
-        "y": 780,
-        "wires": [
-            [
-                "bdf1a7420d59de56"
-            ],
-            [
-                "8ed0d529d96803f1"
-            ]
-        ]
-    },
-    {
-        "id": "bdf1a7420d59de56",
-        "type": "delay",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Wait",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 830,
-        "y": 760,
-        "wires": [
-            [
-                "2137fea797f95911"
-            ]
-        ]
-    },
-    {
-        "id": "2137fea797f95911",
-        "type": "link out",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "649e06fe9e47ab06"
-        ],
-        "x": 915,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "649e06fe9e47ab06",
-        "type": "link in",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "link in 1",
-        "links": [
-            "2137fea797f95911"
-        ],
-        "x": 425,
-        "y": 720,
-        "wires": [
-            [
-                "14b909ba9c138d08"
-            ]
-        ]
-    },
-    {
-        "id": "14b909ba9c138d08",
-        "type": "fs-list",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "",
-        "path": "configuration_path",
-        "pathType": "global",
-        "pattern": "filename",
-        "patternType": "msg",
-        "filter": "files",
-        "recursive": false,
-        "follow": true,
-        "property": "list",
-        "propertyType": "msg",
-        "x": 530,
-        "y": 780,
-        "wires": [
-            [
-                "83b1a8749fac4ee4"
-            ]
-        ]
-    },
-    {
-        "id": "db3f4193303dcba8",
-        "type": "switch",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Running ?",
-        "property": "running",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 370,
-        "y": 780,
-        "wires": [
-            [
-                "14b909ba9c138d08"
-            ]
-        ]
-    },
-    {
-        "id": "0988c97edb614bfb",
-        "type": "cronplus",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Restart",
-        "outputField": "payload",
-        "timeZone": "",
-        "storeName": "",
-        "commandResponseMsgOutput": "output1",
-        "defaultLocation": "",
-        "defaultLocationType": "default",
-        "outputs": 1,
-        "options": [
-            {
-                "name": "Load",
-                "topic": "topic1",
-                "payloadType": "default",
-                "payload": "",
-                "expressionType": "cron",
-                "expression": "0 0/1 * * * * *",
-                "location": "",
-                "offset": "0",
-                "solarType": "all",
-                "solarEvents": "sunrise,sunset"
-            }
-        ],
-        "x": 220,
-        "y": 840,
-        "wires": [
-            [
-                "3f343d07531dc3bb"
-            ]
-        ]
-    },
-    {
-        "id": "3f343d07531dc3bb",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "File",
-        "rules": [
-            {
-                "t": "set",
-                "p": "filename",
-                "pt": "msg",
-                "to": "$string($globalContext(\"size_max\"))",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 370,
-        "y": 840,
-        "wires": [
-            [
-                "db3f4193303dcba8"
-            ]
-        ]
-    },
-    {
-        "id": "8ed0d529d96803f1",
-        "type": "link out",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "link out 2",
-        "mode": "link",
-        "links": [
-            "cf69e018c01d3cfe"
-        ],
-        "x": 795,
-        "y": 800,
+        "x": 250,
+        "y": 680,
         "wires": []
     },
     {
@@ -1470,62 +952,12 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 380,
-        "y": 960,
+        "x": 230,
+        "y": 520,
         "wires": [
             [
                 "16a799f89623cff3",
                 "bd43bc015fad0047"
-            ]
-        ]
-    },
-    {
-        "id": "2d37f820c93ba8f8",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "Init",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "config/a/wis2/#",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "action",
-                "pt": "msg",
-                "to": "subscribe",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 250,
-        "y": 960,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "cf69e018c01d3cfe",
-        "type": "link in",
-        "z": "f15208d99d43e7d6",
-        "d": true,
-        "name": "link in 2",
-        "links": [
-            "8ed0d529d96803f1"
-        ],
-        "x": 165,
-        "y": 960,
-        "wires": [
-            [
-                "2d37f820c93ba8f8"
             ]
         ]
     },
@@ -1546,8 +978,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 520,
-        "y": 940,
+        "x": 370,
+        "y": 500,
         "wires": [
             [
                 "accab3f561c00643"
@@ -1569,8 +1001,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 510,
-        "y": 980,
+        "x": 360,
+        "y": 540,
         "wires": [
             [
                 "accab3f561c00643"
@@ -1622,8 +1054,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 7,
-        "x": 800,
-        "y": 960,
+        "x": 650,
+        "y": 520,
         "wires": [
             [
                 "0304084e1cbff2da"
@@ -1658,8 +1090,8 @@
             "31a44fc63ce5696d",
             "0f42fe1560204923"
         ],
-        "x": 995,
-        "y": 1020,
+        "x": 845,
+        "y": 580,
         "wires": []
     },
     {
@@ -1673,8 +1105,8 @@
             "8e3473c56e63770b",
             "3e14349d405d79aa"
         ],
-        "x": 995,
-        "y": 1060,
+        "x": 845,
+        "y": 620,
         "wires": []
     },
     {
@@ -1687,8 +1119,8 @@
             "685ae48b5683f365",
             "7d21165089f1e0ef"
         ],
-        "x": 995,
-        "y": 940,
+        "x": 845,
+        "y": 500,
         "wires": []
     },
     {
@@ -1701,8 +1133,8 @@
             "ca5b114a7774870d",
             "b7311151a77e2321"
         ],
-        "x": 995,
-        "y": 980,
+        "x": 845,
+        "y": 540,
         "wires": []
     },
     {
@@ -1714,8 +1146,8 @@
         "links": [
             "8ed036c3433022b1"
         ],
-        "x": 995,
-        "y": 860,
+        "x": 845,
+        "y": 420,
         "wires": []
     },
     {
@@ -1775,8 +1207,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 660,
-        "y": 960,
+        "x": 510,
+        "y": 520,
         "wires": [
             [
                 "44c2a4750726bd35"
@@ -1817,8 +1249,18 @@
         "links": [
             "b8f06729f9256754"
         ],
-        "x": 995,
-        "y": 900,
+        "x": 845,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "a1c9e3f18cb9d449",
+        "type": "comment",
+        "z": "f15208d99d43e7d6",
+        "name": "Listen to scenario",
+        "info": "",
+        "x": 250,
+        "y": 440,
         "wires": []
     },
     {
@@ -2899,7 +2341,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\nlet arr = [];\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30));\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.topic = datatype.topic;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n}\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\nlet arr = [];\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.topic = datatype.topic;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n       msg.topic = \"cache/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n}\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3542,123 +2984,11 @@
         ]
     },
     {
-        "id": "b98918f090e6340c",
-        "type": "inject",
-        "z": "da27bfdd1d006652",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "512",
-        "payloadType": "num",
-        "x": 400,
-        "y": 820,
-        "wires": [
-            [
-                "8efb6f25187901e9"
-            ]
-        ]
-    },
-    {
-        "id": "8efb6f25187901e9",
-        "type": "function",
-        "z": "da27bfdd1d006652",
-        "name": "function 1",
-        "func": "let length = msg.payload;\nvar buf = Buffer.alloc(length, makeid(24));\nmsg.payload = buf\nmsg.filename = \"/storage/files/\" + makeid(30) + \".txt\"\n\nreturn msg;\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 560,
-        "y": 820,
-        "wires": [
-            [
-                "9190260b38acd0dd"
-            ]
-        ]
-    },
-    {
-        "id": "d35b2f160542b97e",
-        "type": "file",
-        "z": "da27bfdd1d006652",
-        "name": "",
-        "filename": "filename",
-        "filenameType": "msg",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 720,
-        "y": 740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9190260b38acd0dd",
-        "type": "debug",
-        "z": "da27bfdd1d006652",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "filename",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "325e37401e81d498",
-        "type": "inject",
-        "z": "da27bfdd1d006652",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 200,
-        "y": 700,
-        "wires": [
-            [
-                "278b9adc116f286c"
-            ]
-        ]
-    },
-    {
         "id": "242b90601bbb3920",
         "type": "function",
         "z": "fcc41b6aa5346b0b",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30));\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.sub_topic = datatype.topic;\n\nnode.warn(msg.topic) \n\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.sub_topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\nfunction makeid(length) {\n  var result = '';\n  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n  var charactersLength = characters.length;\n  for (var i = 0; i < length; i++) {\n    result += characters.charAt(Math.floor(Math.random() * charactersLength));\n  }\n  return result;\n}",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.sub_topic = datatype.topic;\n\nnode.warn(msg.topic) \n\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nmsg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.topic ;\n\nmsg.data_id = flow.get(\"data_id\") || \"wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + msg.sub_topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\nfunction makeid(length) {\n  var result = '';\n  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n  var charactersLength = characters.length;\n  for (var i = 0; i < length; i++) {\n    result += characters.charAt(Math.floor(Math.random() * charactersLength));\n  }\n  return result;\n}",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
