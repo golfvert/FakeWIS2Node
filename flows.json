@@ -546,7 +546,6 @@
         "wires": [
             [
                 "02468a0afce5beac",
-                "a9b39df0c059443c",
                 "00a9c44428849df8"
             ]
         ]
@@ -620,31 +619,6 @@
         "x": 250,
         "y": 680,
         "wires": []
-    },
-    {
-        "id": "a9b39df0c059443c",
-        "type": "change",
-        "z": "f15208d99d43e7d6",
-        "name": "Buffer",
-        "rules": [
-            {
-                "t": "set",
-                "p": "buffer",
-                "pt": "flow",
-                "to": "\"\"",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 450,
-        "y": 220,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "00a9c44428849df8",
