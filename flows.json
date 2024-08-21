@@ -1411,7 +1411,8 @@
         "y": 160,
         "wires": [
             [
-                "dbfdd24c796ab857"
+                "dbfdd24c796ab857",
+                "308fab195f39d2ce"
             ]
         ]
     },
@@ -1668,6 +1669,51 @@
         ]
     },
     {
+        "id": "25f031cbe9463b89",
+        "type": "mqtt out",
+        "z": "5c8aabcb5b253930",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 850,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "308fab195f39d2ce",
+        "type": "change",
+        "z": "5c8aabcb5b253930",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadatatest\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 100,
+        "wires": [
+            [
+                "25f031cbe9463b89"
+            ]
+        ]
+    },
+    {
         "id": "b8f06729f9256754",
         "type": "link in",
         "z": "23f2408a3192c960",
@@ -1750,7 +1796,8 @@
         "y": 300,
         "wires": [
             [
-                "c63c6f43b81f18ca"
+                "c63c6f43b81f18ca",
+                "b27fc66b5451f152"
             ]
         ]
     },
@@ -2311,6 +2358,51 @@
         ]
     },
     {
+        "id": "c777be87c6a35fd6",
+        "type": "mqtt out",
+        "z": "23f2408a3192c960",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 590,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b27fc66b5451f152",
+        "type": "change",
+        "z": "23f2408a3192c960",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/metadatagen\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "c777be87c6a35fd6"
+            ]
+        ]
+    },
+    {
         "id": "0d890d8ab7853715",
         "type": "function",
         "z": "da27bfdd1d006652",
@@ -2716,7 +2808,8 @@
         "y": 140,
         "wires": [
             [
-                "14b27303351298f1"
+                "14b27303351298f1",
+                "d132355442c718a3"
             ]
         ]
     },
@@ -2958,6 +3051,51 @@
         ]
     },
     {
+        "id": "4f306b3e167d64fb",
+        "type": "mqtt out",
+        "z": "da27bfdd1d006652",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 910,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d132355442c718a3",
+        "type": "change",
+        "z": "da27bfdd1d006652",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/datatest\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 100,
+        "wires": [
+            [
+                "4f306b3e167d64fb"
+            ]
+        ]
+    },
+    {
         "id": "242b90601bbb3920",
         "type": "function",
         "z": "fcc41b6aa5346b0b",
@@ -3125,7 +3263,8 @@
         "y": 180,
         "wires": [
             [
-                "76eb877468896403"
+                "76eb877468896403",
+                "6b41b82936cd3a2b"
             ]
         ]
     },
@@ -3620,6 +3759,51 @@
         ]
     },
     {
+        "id": "7ba9a6b6ce121019",
+        "type": "mqtt out",
+        "z": "fcc41b6aa5346b0b",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 610,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6b41b82936cd3a2b",
+        "type": "change",
+        "z": "fcc41b6aa5346b0b",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/datagen\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "7ba9a6b6ce121019"
+            ]
+        ]
+    },
+    {
         "id": "98be10d6fc587b55",
         "type": "semaphore-plus-take",
         "z": "0528d79810dd92da",
@@ -3777,7 +3961,8 @@
         "y": 120,
         "wires": [
             [
-                "bf78825383df0370"
+                "bf78825383df0370",
+                "b35738b7bcce9586"
             ]
         ]
     },
@@ -4190,6 +4375,51 @@
         ]
     },
     {
+        "id": "51559a099ea7478e",
+        "type": "mqtt out",
+        "z": "0528d79810dd92da",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 850,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b35738b7bcce9586",
+        "type": "change",
+        "z": "0528d79810dd92da",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/wnmtest\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 60,
+        "wires": [
+            [
+                "51559a099ea7478e"
+            ]
+        ]
+    },
+    {
         "id": "6463e038858fab43",
         "type": "function",
         "z": "7a284d91c976432b",
@@ -4205,7 +4435,8 @@
         "y": 140,
         "wires": [
             [
-                "423d8996c3908f58"
+                "423d8996c3908f58",
+                "3a5b2756bb95546e"
             ]
         ]
     },
@@ -4626,6 +4857,51 @@
         "wires": [
             [
                 "1e256b5517221fea"
+            ]
+        ]
+    },
+    {
+        "id": "61582a3d9e1127b8",
+        "type": "mqtt out",
+        "z": "7a284d91c976432b",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 550,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3a5b2756bb95546e",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/wnmgen\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "61582a3d9e1127b8"
             ]
         ]
     }
