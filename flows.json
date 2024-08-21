@@ -3252,7 +3252,7 @@
         "type": "function",
         "z": "fcc41b6aa5346b0b",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet min, max, skew, delay, action;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = payload.configuration.setup.size_max;\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   delay = payload.configuration.setup.delay;\n   action = payload.configuration.setup.action;\n}\n\nflow.set(\"size_min\", min || global.get(\"size_min\") );\nflow.set(\"size_max\",max || global.get(\"size_max\") );\nflow.set(\"skew\",skew || global.get(\"skew\") );\nflow.set(\"delay\", delay || global.get(\"delay\") );\nflow.set(\"action\", action || \"stop\");\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet min, max, skew, delay, action, timeout;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = payload.configuration.setup.size_max;\n   min = payload.configuration.setup.size_min;\n   skew = payload.configuration.setup.skew;\n   delay = payload.configuration.setup.delay;\n   action = payload.configuration.setup.action;\n   timeout = payload.configuration.setup.timeout;\n}\n\nflow.set(\"size_min\", min || global.get(\"size_min\") );\nflow.set(\"size_max\",max || global.get(\"size_max\") );\nflow.set(\"skew\",skew || global.get(\"skew\") );\nflow.set(\"delay\", delay || global.get(\"delay\") );\nflow.set(\"action\", action || \"stop\");\nflow.set(\"timeout\", timeout || 0);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3404,7 +3404,8 @@
         "y": 160,
         "wires": [
             [
-                "a31edaced2e6d77a"
+                "a31edaced2e6d77a",
+                "f7427101eaecb8ea"
             ]
         ]
     },
@@ -3800,6 +3801,114 @@
         "wires": [
             [
                 "7ba9a6b6ce121019"
+            ]
+        ]
+    },
+    {
+        "id": "f7427101eaecb8ea",
+        "type": "switch",
+        "z": "fcc41b6aa5346b0b",
+        "name": "Duration ?",
+        "property": "timeout",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 120,
+        "wires": [
+            [
+                "a0b29af9a5ebc24c"
+            ]
+        ]
+    },
+    {
+        "id": "a0b29af9a5ebc24c",
+        "type": "change",
+        "z": "fcc41b6aa5346b0b",
+        "name": "Delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"timeout\") * 1000",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 120,
+        "wires": [
+            [
+                "24ae04445f2c6717"
+            ]
+        ]
+    },
+    {
+        "id": "24ae04445f2c6717",
+        "type": "trigger",
+        "z": "fcc41b6aa5346b0b",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "6",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "hr",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1155,
+        "y": 120,
+        "wires": [
+            [
+                "0ae68eb8cf214e9b"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "0ae68eb8cf214e9b",
+        "type": "link out",
+        "z": "fcc41b6aa5346b0b",
+        "name": "link out 16",
+        "mode": "link",
+        "links": [
+            "12f91777fd626d0e",
+            "d7ffbf9c555f1849"
+        ],
+        "x": 1205,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d7ffbf9c555f1849",
+        "type": "link in",
+        "z": "fcc41b6aa5346b0b",
+        "name": "link in 27",
+        "links": [
+            "0ae68eb8cf214e9b"
+        ],
+        "x": 545,
+        "y": 240,
+        "wires": [
+            [
+                "2d98292388a0388c"
             ]
         ]
     },
@@ -4424,7 +4533,7 @@
         "type": "function",
         "z": "7a284d91c976432b",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet delay, action;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   delay = payload.configuration.setup.delay;\n   action = payload.configuration.setup.action;\n}\n\nflow.set(\"delay\", delay || global.get(\"delay\") );\nflow.set(\"action\", action || \"stop\");\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet delay, action, timeout;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   delay = payload.configuration.setup.delay;\n   action = payload.configuration.setup.action;\n   timeout = payload.configuration.setup.timeout;\n}\n\nflow.set(\"delay\", delay || global.get(\"delay\") );\nflow.set(\"action\", action || \"stop\");\nflow.set(\"timeout\", timeout || 0);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4529,7 +4638,8 @@
         "y": 120,
         "wires": [
             [
-                "81e4756d3692cefc"
+                "81e4756d3692cefc",
+                "2ba47ba5b1b17a3e"
             ]
         ]
     },
@@ -4581,7 +4691,7 @@
         "repair": false,
         "outputs": 2,
         "x": 380,
-        "y": 380,
+        "y": 420,
         "wires": [
             [
                 "4120753db93115b4"
@@ -4609,7 +4719,7 @@
         "to": "",
         "reg": false,
         "x": 510,
-        "y": 380,
+        "y": 420,
         "wires": [
             [
                 "3a3468d89bcf8b77"
@@ -4634,7 +4744,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 630,
-        "y": 380,
+        "y": 420,
         "wires": [
             [
                 "1646936f9a99d1f8"
@@ -4668,7 +4778,7 @@
         "to": "",
         "reg": false,
         "x": 510,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "4ef8419be40ed93a",
@@ -4692,7 +4802,7 @@
         "type_param_3": "msg",
         "f_use_debug": false,
         "x": 390,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "dbc1960b8b403a38"
@@ -4714,7 +4824,7 @@
         "expiry": "",
         "broker": "8cf5f6b5.937088",
         "x": 650,
-        "y": 240,
+        "y": 280,
         "wires": []
     },
     {
@@ -4727,7 +4837,7 @@
             "207e36a4193f7952"
         ],
         "x": 605,
-        "y": 280,
+        "y": 320,
         "wires": []
     },
     {
@@ -4739,7 +4849,7 @@
             "309aabd1580176fb"
         ],
         "x": 285,
-        "y": 380,
+        "y": 420,
         "wires": [
             [
                 "0ad2b72c10aa712e"
@@ -4756,7 +4866,7 @@
             "81e4756d3692cefc"
         ],
         "x": 305,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "c5165ef052fca09c"
@@ -4773,7 +4883,7 @@
             "2645428b040d9fc2"
         ],
         "x": 715,
-        "y": 380,
+        "y": 420,
         "wires": []
     },
     {
@@ -4819,7 +4929,7 @@
         "logconfig": "a93c45df39215989",
         "sendpane": false,
         "x": 780,
-        "y": 320,
+        "y": 360,
         "wires": [
             []
         ]
@@ -4836,7 +4946,7 @@
         "to": "",
         "reg": false,
         "x": 650,
-        "y": 320,
+        "y": 360,
         "wires": [
             [
                 "a1f17e209edef3bb"
@@ -4852,7 +4962,7 @@
             "6463e038858fab43"
         ],
         "uncaught": false,
-        "x": 450,
+        "x": 310,
         "y": 180,
         "wires": [
             [
@@ -4902,6 +5012,114 @@
         "wires": [
             [
                 "61582a3d9e1127b8"
+            ]
+        ]
+    },
+    {
+        "id": "2ba47ba5b1b17a3e",
+        "type": "switch",
+        "z": "7a284d91c976432b",
+        "name": "Duration ?",
+        "property": "timeout",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 80,
+        "wires": [
+            [
+                "cef43368bb4899d4"
+            ]
+        ]
+    },
+    {
+        "id": "cef43368bb4899d4",
+        "type": "change",
+        "z": "7a284d91c976432b",
+        "name": "Delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "delay",
+                "pt": "msg",
+                "to": "$flowContext(\"timeout\") * 1000",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 80,
+        "wires": [
+            [
+                "4841e399aaecfed1"
+            ]
+        ]
+    },
+    {
+        "id": "4841e399aaecfed1",
+        "type": "trigger",
+        "z": "7a284d91c976432b",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "6",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "hr",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1095,
+        "y": 80,
+        "wires": [
+            [
+                "7dd8b47b2966f9ea"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "7dd8b47b2966f9ea",
+        "type": "link out",
+        "z": "7a284d91c976432b",
+        "name": "link out 16",
+        "mode": "link",
+        "links": [
+            "12f91777fd626d0e",
+            "f79ad1a1ea144a03"
+        ],
+        "x": 1145,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "f79ad1a1ea144a03",
+        "type": "link in",
+        "z": "7a284d91c976432b",
+        "name": "link in 28",
+        "links": [
+            "7dd8b47b2966f9ea"
+        ],
+        "x": 475,
+        "y": 200,
+        "wires": [
+            [
+                "1e256b5517221fea"
             ]
         ]
     }
