@@ -1828,7 +1828,7 @@
             "e5f015fa16907d8d",
             "ba52a0ea4530a051"
         ],
-        "x": 275,
+        "x": 265,
         "y": 460,
         "wires": [
             [
@@ -2305,21 +2305,6 @@
         ]
     },
     {
-        "id": "6b34c675fe26e951",
-        "type": "hash",
-        "z": "23f2408a3192c960",
-        "name": "Hash",
-        "outputvar": "hash",
-        "algorithm": "sha512",
-        "x": 480,
-        "y": 460,
-        "wires": [
-            [
-                "cf5ab4d612037ea0"
-            ]
-        ]
-    },
-    {
         "id": "cf5ab4d612037ea0",
         "type": "change",
         "z": "23f2408a3192c960",
@@ -2366,11 +2351,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 360,
+        "x": 350,
         "y": 460,
         "wires": [
             [
-                "6b34c675fe26e951"
+                "e97360892f1a1bac"
             ]
         ]
     },
@@ -2420,32 +2405,47 @@
         ]
     },
     {
+        "id": "e97360892f1a1bac",
+        "type": "function",
+        "z": "23f2408a3192c960",
+        "name": "Hash",
+        "func": "msg.hash = crypto.createHash(\"sha512\").update(msg.payload).digest(\"base64\"); \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "crypto",
+                "module": "crypto"
+            }
+        ],
+        "x": 470,
+        "y": 460,
+        "wires": [
+            [
+                "cf5ab4d612037ea0"
+            ]
+        ]
+    },
+    {
         "id": "0d890d8ab7853715",
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\nlet topic = flow.get(\"topic\");\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\nlet arr = [];\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nif ( topic == null ) {\n    msg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + datatype.topic;\n} \nelse {\n    msg.topic = \"origin/a/wis2/\" + msg.centre_id + topic;\n}\n\n\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n      msg.topic = msg.topic.replace(/origin/,\"cache\") ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n      msg.topic = msg.topic.replace(/origin/, \"cache\");\n}\n\nmsg.data_id = flow.get(\"data_id\") || msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}\n",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet cache_a_wis2 = flow.get(\"cache_a_wis2\");\nlet topic = flow.get(\"topic\");\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\nlet arr = [];\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\n\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.hash = crypto.createHash(\"sha512\").update(msg.payload).digest(\"base64\");\n\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nif ( topic == null ) {\n    msg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + datatype.topic;\n} \nelse {\n    msg.topic = \"origin/a/wis2/\" + msg.centre_id + topic;\n}\n\n\nif ( cache_a_wis2 == \"mix\" ) {\n    random = Math.random();\n    if ( random <= 0.5 ) { \n      msg.topic = msg.topic.replace(/origin/,\"cache\") ;\n    }\n}\nif ( cache_a_wis2 == \"only\" ) {\n      msg.topic = msg.topic.replace(/origin/, \"cache\");\n}\n\nmsg.data_id = flow.get(\"data_id\") || msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\n\nfunction makeid(length) {\n   var result           = '';\n   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n   var charactersLength = characters.length;\n   for ( var i = 0; i < length; i++ ) {\n      result += characters.charAt(Math.floor(Math.random() * charactersLength));\n   }\n   return result;\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "libs": [],
-        "x": 430,
-        "y": 240,
-        "wires": [
-            [
-                "db727b20860b9b02"
-            ]
-        ]
-    },
-    {
-        "id": "db727b20860b9b02",
-        "type": "hash",
-        "z": "da27bfdd1d006652",
-        "name": "Hash",
-        "outputvar": "hash",
-        "algorithm": "sha512",
+        "libs": [
+            {
+                "var": "crypto",
+                "module": "crypto"
+            }
+        ],
         "x": 550,
         "y": 240,
         "wires": [
@@ -2709,7 +2709,7 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 275,
+        "x": 395,
         "y": 240,
         "wires": [
             [
@@ -2737,7 +2737,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 335,
+        "x": 455,
         "y": 240,
         "wires": [
             [
@@ -3000,7 +3000,7 @@
             "a32dcda5d9b7c09f",
             "8f603e201f903143"
         ],
-        "x": 215,
+        "x": 335,
         "y": 240,
         "wires": [
             [
@@ -3117,29 +3117,19 @@
         "type": "function",
         "z": "fcc41b6aa5346b0b",
         "name": "Init",
-        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet topic = flow.get(\"topic\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nif (topic == null) {\n  msg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + datatype.topic;\n}\nelse {\n  msg.topic = \"origin/a/wis2/\" + msg.centre_id + topic;\n}\n\nmsg.data_id = flow.get(\"data_id\") || msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\nfunction makeid(length) {\n  var result = '';\n  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n  var charactersLength = characters.length;\n  for (var i = 0; i < length; i++) {\n    result += characters.charAt(Math.floor(Math.random() * charactersLength));\n  }\n  return result;\n}",
+        "func": "let min = flow.get(\"size_min\");\nlet max = flow.get(\"size_max\");\nlet skew = flow.get(\"skew\");\nlet topic = flow.get(\"topic\");\n\nlet weight = global.get(\"weight\");\nlet data = global.get(\"dataset\");\nlet path = global.get(\"path\");\nlet chunk;\nlet pos;\nlet obj;\nlet datatype;\nlet random;\n\nmsg = {};\nmsg.centre_id = \"io-wis2dev-\" + global.get(\"centreidnumber\") + \"-test\";\n\nchunk = randn_bm(min, max, skew);\npos = Math.round(Math.random() * max) - Math.min(30,chunk); // 30 is for the file name length\n\nmsg.payload = Buffer.alloc(chunk, makeid(30)).toString('utf-8');\nmsg.hash = crypto.createHash(\"sha512\").update(msg.payload).digest(\"base64\"); \n\nmsg.filename = path + makeid(30) + \".txt\"\n\nif ( typeof weight == \"number\" ) datatype = data;\nelse { \n  obj = Object.assign({}, weight)\n  datatype = data[weightedRandom(obj)]; \n}\n\nmsg.content = \"\";\nmsg.discipline = datatype.discipline;\nmsg.data_policy = datatype.data_policy;\nmsg.chunk = chunk;\n\nif (topic == null) {\n  msg.topic = \"origin/a/wis2/\" + msg.centre_id + \"/data/\" + msg.data_policy + \"/\" + msg.discipline + \"/\" + datatype.topic;\n}\nelse {\n  msg.topic = \"origin/a/wis2/\" + msg.centre_id + topic;\n}\n\nmsg.data_id = flow.get(\"data_id\") || msg.topic +  msg.filename ;\n\nreturn msg;\n\nfunction randn_bm(min, max, skew) {\n  let u = 0, v = 0;\n  while(u === 0) u = Math.random() //Converting [0,1) to (0,1)\n  while(v === 0) v = Math.random()\n  let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )\n  \n  num = num / 10.0 + 0.5 // Translate to 0 -> 1\n  if (num > 1 || num < 0) \n    num = randn_bm(min, max, skew) // resample between 0 and 1 if out of range\n  \n  else{\n    num = Math.pow(num, skew) // Skew\n    num *= max - min // Stretch to fill range\n    num += min // offset to min\n  }\n  return Math.round(num);\n}\n\nfunction weightedRandom(obj) {\n  let i, sum=0, r=Math.random();\n  for (i in obj) {\n    sum += obj[i];\n    if (r <= sum) { return i }\n  }\n}\n\nfunction makeid(length) {\n  var result = '';\n  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n  var charactersLength = characters.length;\n  for (var i = 0; i < length; i++) {\n    result += characters.charAt(Math.floor(Math.random() * charactersLength));\n  }\n  return result;\n}",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "libs": [],
-        "x": 510,
-        "y": 300,
-        "wires": [
-            [
-                "19d76d6506544164"
-            ]
-        ]
-    },
-    {
-        "id": "19d76d6506544164",
-        "type": "hash",
-        "z": "fcc41b6aa5346b0b",
-        "name": "Hash",
-        "outputvar": "hash",
-        "algorithm": "sha512",
-        "x": 630,
+        "libs": [
+            {
+                "var": "crypto",
+                "module": "crypto"
+            }
+        ],
+        "x": 580,
         "y": 300,
         "wires": [
             [
@@ -3205,7 +3195,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 720,
         "y": 300,
         "wires": [
             [
@@ -3227,7 +3217,7 @@
         "param_3": "",
         "type_param_3": "msg",
         "f_use_debug": false,
-        "x": 355,
+        "x": 425,
         "y": 300,
         "wires": [
             [
@@ -3255,7 +3245,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 415,
+        "x": 485,
         "y": 300,
         "wires": [
             [
@@ -3540,7 +3530,7 @@
             "5ff1a7e393844993",
             "a31edaced2e6d77a"
         ],
-        "x": 305,
+        "x": 375,
         "y": 300,
         "wires": [
             [
@@ -3739,7 +3729,7 @@
         "links": [
             "39be0c7a8db3bbca"
         ],
-        "x": 875,
+        "x": 825,
         "y": 300,
         "wires": []
     },
