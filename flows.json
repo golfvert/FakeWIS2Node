@@ -56,6 +56,14 @@
         "env": []
     },
     {
+        "id": "08fa4324bb7d6a58",
+        "type": "tab",
+        "label": "MetricsTest",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "9a693308.7ebaf",
         "type": "subflow",
         "name": "flow-timer",
@@ -173,6 +181,63 @@
         }
     },
     {
+        "id": "d6751d2bb52095bf",
+        "type": "group",
+        "z": "08fa4324bb7d6a58",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "abb8e07055ac2d65",
+            "6a86f7c541c35c77",
+            "2201b7506b5187c0",
+            "4f6ce100156594fa",
+            "147aefa649605440",
+            "6a844cd49d4370d2",
+            "7ffad71c2824747c",
+            "5a2dea88b70aca39"
+        ],
+        "x": 534,
+        "y": 639,
+        "w": 232,
+        "h": 382
+    },
+    {
+        "id": "063a3659efcf29f4",
+        "type": "group",
+        "z": "08fa4324bb7d6a58",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "acbeb00cc14fc5dd",
+            "50019b1506f003c4",
+            "6fa6fb1c92d31f8d",
+            "61a19becbb4da0ef",
+            "ec10c30a77f006d6",
+            "5ec966041cade0ab",
+            "15183c602d1ca2ad",
+            "67c73616b01fe250",
+            "df94d1608ff65e25"
+        ],
+        "x": 534,
+        "y": 1059,
+        "w": 252,
+        "h": 422
+    },
+    {
         "id": "44959fc60800e3f1",
         "type": "redis-config",
         "name": "redis",
@@ -261,6 +326,131 @@
         "id": "4f86e34297b0e1f0",
         "type": "semaphore-plus-config",
         "name": "MetadataTest"
+    },
+    {
+        "id": "0e9de28723f237e9",
+        "type": "semaphore-plus-config",
+        "name": "GSTest"
+    },
+    {
+        "id": "85d82b4006d65d8d",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_connected_flag",
+        "help": "Connection status from broker to centre",
+        "labels": "centre_id,report_by",
+        "mtype": "gauge"
+    },
+    {
+        "id": "6c4610bb8eab7dae",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_received_total",
+        "help": "wmo_wis2_gb_messages_received_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "91862f46380a18bf",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_published_total",
+        "help": "wmo_wis2_gb_messages_published_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "a25e33f65c381b8c",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_no_metadata_total",
+        "help": "wmo_wis2_gb_messages_no_metadata_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "8646947da6c80e53",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_invalid_topic_total",
+        "help": "wmo_wis2_gb_messages_invalid_topic_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "6fb1561193d92df9",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_invalid_format_total",
+        "help": "wmo_wis2_gb_messages_invalid_format_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "1b20016c7135f032",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_last_message_timestamp_seconds",
+        "help": "wmo_wis2_gb_last_message_timestamp_seconds",
+        "labels": "centre_id,report_by",
+        "mtype": "gauge"
+    },
+    {
+        "id": "203ef89ca66b82a2",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_downloaded_total",
+        "help": "wmo_wis2_gc_downloaded_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "34adf0271a148eb2",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_downloaded_errors_total",
+        "help": "wmo_wis2_gc_downloaded_errors_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "232035f92af35a91",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_dataserver_status_flag",
+        "help": "wmo_wis2_gc_dataserver_status_flag",
+        "labels": "centre_id,report_by,dataserver",
+        "mtype": "gauge"
+    },
+    {
+        "id": "bd27f28bfe4eef0e",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_dataserver_last_download_timestamp_seconds",
+        "help": "wmo_wis2_gc_dataserver_last_download_timestamp_seconds",
+        "labels": "centre_id,report_by,dataserver",
+        "mtype": "gauge"
+    },
+    {
+        "id": "fcad0d9f95e40b12",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_no_cache_total",
+        "help": "wmo_wis2_gc_no_cache_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "33a318be978e043b",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_cache_override_total",
+        "help": "wmo_wis2_gc_cache_override_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "eff6f062b536a5f9",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_integrity_failed_total",
+        "help": "wmo_wis2_gc_integrity_failed_total",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
+    },
+    {
+        "id": "a9f64b39e68fafe1",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gc_last_metadata_timestamp_seconds",
+        "help": "wmo_wis2_gc_last_metadata_timestamp_seconds",
+        "labels": "centre_id,report_by",
+        "mtype": "counter"
     },
     {
         "id": "7fc82258.93e36c",
@@ -517,7 +707,7 @@
         "obj": true,
         "timeout": 0,
         "x": 220,
-        "y": 740,
+        "y": 860,
         "wires": [
             [
                 "6a25034a65fb9cb4"
@@ -586,7 +776,7 @@
         "repair": false,
         "outputs": 1,
         "x": 380,
-        "y": 740,
+        "y": 860,
         "wires": [
             [
                 "53688ce4ce18138d"
@@ -605,7 +795,7 @@
         "exist": false,
         "name": "",
         "x": 550,
-        "y": 740,
+        "y": 860,
         "wires": [
             []
         ]
@@ -617,7 +807,7 @@
         "name": "Delete expired files",
         "info": "",
         "x": 250,
-        "y": 680,
+        "y": 800,
         "wires": []
     },
     {
@@ -926,12 +1116,14 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 230,
-        "y": 520,
+        "x": 200,
+        "y": 560,
         "wires": [
             [
                 "16a799f89623cff3",
-                "bd43bc015fad0047"
+                "bd43bc015fad0047",
+                "5fe59ff13693db19",
+                "8516aa1bc2b50a15"
             ]
         ]
     },
@@ -952,7 +1144,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 370,
+        "x": 360,
         "y": 500,
         "wires": [
             [
@@ -975,7 +1167,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 360,
+        "x": 350,
         "y": 540,
         "wires": [
             [
@@ -1022,14 +1214,20 @@
                 "vt": "str"
             },
             {
+                "t": "regex",
+                "v": "gbmetrics|gcmetrics|gdcmetrics",
+                "vt": "str",
+                "case": false
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 7,
-        "x": 650,
-        "y": 520,
+        "outputs": 8,
+        "x": 660,
+        "y": 560,
         "wires": [
             [
                 "0304084e1cbff2da"
@@ -1048,6 +1246,9 @@
             ],
             [
                 "b1fee82a3f2e01ab"
+            ],
+            [
+                "570cd7fa5134ccb0"
             ],
             []
         ]
@@ -1181,8 +1382,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 510,
-        "y": 520,
+        "x": 520,
+        "y": 560,
         "wires": [
             [
                 "44c2a4750726bd35"
@@ -1235,6 +1436,67 @@
         "info": "",
         "x": 250,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5fe59ff13693db19",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "GS",
+        "property": "payload.configuration.setup.gs",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "centreidnumber",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 580,
+        "wires": [
+            [
+                "accab3f561c00643"
+            ]
+        ]
+    },
+    {
+        "id": "8516aa1bc2b50a15",
+        "type": "switch",
+        "z": "f15208d99d43e7d6",
+        "name": "Range",
+        "property": " ( $globalContext(\"centreidnumber\") >= payload.configuration.setup.gs_min and $globalContext(\"centreidnumber\") <= payload.configuration.setup.gs_max ) ",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 620,
+        "wires": [
+            [
+                "accab3f561c00643"
+            ]
+        ]
+    },
+    {
+        "id": "570cd7fa5134ccb0",
+        "type": "link out",
+        "z": "f15208d99d43e7d6",
+        "name": "link out 34",
+        "mode": "link",
+        "links": [
+            "039ae0c14e1d3031"
+        ],
+        "x": 845,
+        "y": 660,
         "wires": []
     },
     {
@@ -1535,6 +1797,13 @@
                 "p": "payload.links[0].rel",
                 "pt": "msg",
                 "to": "$flowContext(\"rel\") != null ? $flowContext(\"rel\") : payload.links[0].rel",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.properties.metadata_id = false ? **.payload ~> |$.properties|{}, ['metadata_id']|: payload",
                 "tot": "jsonata"
             },
             {
@@ -2532,7 +2801,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Message",
-        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\",\n                \"value\": msg.hash\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( flow.get(\"length\") == false ) msg.payload.links[0].length = chunk + 1 ;\n\nif ( flow.get(\"href\") == false ) { msg.payload.links[0].href = host + \"/fail\" + msg.filename; }\nelse { \n    if ( typeof flow.get(\"href\") === \"string\" ) {\n        msg.payload.links[0].href = flow.get(\"href\")\n        delete msg.payload.links[0].length;\n        delete msg.payload.links[0].type;\n        delete msg.payload.properties.integrity;\n        delete msg.payload.properties.end_datetime;\n        delete msg.payload.properties.start_datetime;\n        msg.payload.properties.datetime = null;\n    }\n    else {\n        if ( embed_data == true && chunk <= embed_size_max ) {\n            msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": value, \"size\": chunk }\n        if ( flow.get(\"size\") == false ) msg.payload.properties.content.size = chunk - 1;\n        }\n    }\n}\n\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
+        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet integrity_value = msg.hash;\nlet content_value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\"\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\nif (integrity_value != false) msg.payload.properties.integrity.value = integrity_value;\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( flow.get(\"length\") == false ) msg.payload.links[0].length = chunk + 1 ;\n\nif ( flow.get(\"href\") == false ) { msg.payload.links[0].href = host + \"/fail\" + msg.filename; }\nelse { \n    if ( typeof flow.get(\"href\") === \"string\" ) {\n        msg.payload.links[0].href = flow.get(\"href\")\n        delete msg.payload.links[0].length;\n        delete msg.payload.links[0].type;\n        delete msg.payload.properties.integrity;\n        delete msg.payload.properties.end_datetime;\n        delete msg.payload.properties.start_datetime;\n        msg.payload.properties.datetime = null;\n    }\n    else {\n        if ( embed_data == true && chunk <= embed_size_max ) {\n            msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": content_value, \"size\": chunk }\n        if ( flow.get(\"size\") == false ) msg.payload.properties.content.size = chunk - 1;\n        }\n    }\n}\n\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2922,7 +3191,7 @@
                 "t": "null"
             },
             {
-                "t": "false"
+                "t": "else"
             }
         ],
         "checkall": "true",
@@ -2949,8 +3218,8 @@
                 "t": "set",
                 "p": "hash",
                 "pt": "msg",
-                "to": "filename",
-                "tot": "msg"
+                "to": "value",
+                "tot": "flow"
             }
         ],
         "action": "",
@@ -3049,7 +3318,7 @@
             "e926030de3468aef"
         ],
         "uncaught": false,
-        "x": 370,
+        "x": 350,
         "y": 620,
         "wires": [
             [
@@ -4346,7 +4615,7 @@
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "$flowContext(\"topic\") != null ? \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test\" & $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/core/weather/surface-based-observations/synop\"",
+                "to": "$flowContext(\"topic\") != null ? $flowContext(\"topic\") : \"origin/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/data/core/weather/surface-based-observations/synop\"",
                 "tot": "jsonata"
             }
         ],
@@ -5119,5 +5388,1058 @@
                 "1e256b5517221fea"
             ]
         ]
+    },
+    {
+        "id": "039ae0c14e1d3031",
+        "type": "link in",
+        "z": "08fa4324bb7d6a58",
+        "name": "link in 29",
+        "links": [
+            "570cd7fa5134ccb0"
+        ],
+        "x": 305,
+        "y": 260,
+        "wires": [
+            [
+                "4ba6784944bdb6f4"
+            ]
+        ]
+    },
+    {
+        "id": "4ba6784944bdb6f4",
+        "type": "semaphore-plus-take",
+        "z": "08fa4324bb7d6a58",
+        "name": "Take",
+        "timeout": 0,
+        "config": "0e9de28723f237e9",
+        "avoidance": "never",
+        "threshold": 5,
+        "msgPart": "smp_avoidQueue",
+        "partType": "msg",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "e94d5c7a6bd9b82f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3c64c018bc012c21",
+        "type": "semaphore-plus-release",
+        "z": "08fa4324bb7d6a58",
+        "name": "Release",
+        "config": "0e9de28723f237e9",
+        "x": 1140,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "56051c265fd7b9a3",
+        "type": "switch",
+        "z": "08fa4324bb7d6a58",
+        "name": "id or min/max",
+        "property": "payload.configuration.setup",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "centreid",
+                "vt": "str"
+            },
+            {
+                "t": "jsonata_exp",
+                "v": "$number(\t   payload.configuration.setup.centreid_min\t) <= $number(\t   payload.configuration.setup.centreid_max\t) and $number(\t   payload.configuration.setup.centreid_min\t) >= 10000 and $number(\t   payload.configuration.setup.centreid_max\t) <= 11000",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "9f1b33ec5aeeb96b"
+            ],
+            [
+                "0e6dde67386af8f9"
+            ]
+        ]
+    },
+    {
+        "id": "7f34bba1f4c4c4af",
+        "type": "catch",
+        "z": "08fa4324bb7d6a58",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 980,
+        "y": 620,
+        "wires": [
+            [
+                "3c64c018bc012c21"
+            ]
+        ]
+    },
+    {
+        "id": "9f1b33ec5aeeb96b",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Save",
+        "rules": [
+            {
+                "t": "set",
+                "p": "centreid",
+                "pt": "msg",
+                "to": "payload.configuration.setup.centreid",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metrics",
+                "pt": "msg",
+                "to": "payload.configuration.setup.metrics",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "e689339503a11b17"
+            ]
+        ]
+    },
+    {
+        "id": "e689339503a11b17",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Set 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"op\":$flowContext(\"op\"),\t   \"labels\":{\t      \"centre_id\": \"io-wis2dev-\" & centreid & \"-test\",\t      \"report_by\": \"io-wis2dev-\" & $globalContext(\"centreidnumber\") & $flowContext(\"gs\")\t   },\t   \"val\": payload.configuration.setup.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 380,
+        "wires": [
+            [
+                "bfb62d2246bf26a4"
+            ]
+        ]
+    },
+    {
+        "id": "0e6dde67386af8f9",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Save",
+        "rules": [
+            {
+                "t": "set",
+                "p": "min",
+                "pt": "msg",
+                "to": "payload.configuration.setup.centreid_min",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "max",
+                "pt": "msg",
+                "to": "payload.configuration.setup.centreid_max",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "metrics",
+                "pt": "msg",
+                "to": "payload.configuration.setup.metrics",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "value",
+                "pt": "msg",
+                "to": "payload.configuration.setup.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "c0f4085dfddd50e8"
+            ]
+        ]
+    },
+    {
+        "id": "c0f4085dfddd50e8",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Set 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"op\":$flowContext (\"op\"),\t   \"labels\":{\t      \"centre_id\": \"io-wis2dev-\" & min & \"-test\",\t      \"report_by\": \"io-wis2dev-\" & $globalContext(\"centreidnumber\") & $flowContext(\"gs\")\t   },\t   \"val\": value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 460,
+        "wires": [
+            [
+                "8386f67bd188d4af",
+                "bfb62d2246bf26a4"
+            ]
+        ]
+    },
+    {
+        "id": "8386f67bd188d4af",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Min++",
+        "rules": [
+            {
+                "t": "set",
+                "p": "min",
+                "pt": "msg",
+                "to": "min + 1",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 460,
+        "wires": [
+            [
+                "d39056a5f23432f2"
+            ]
+        ]
+    },
+    {
+        "id": "d39056a5f23432f2",
+        "type": "switch",
+        "z": "08fa4324bb7d6a58",
+        "name": "<= max",
+        "property": "min",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "max",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1000,
+        "y": 460,
+        "wires": [
+            [
+                "1fb00674c71e8f10"
+            ],
+            [
+                "37716adf9a7b7a2f"
+            ]
+        ]
+    },
+    {
+        "id": "1fb00674c71e8f10",
+        "type": "link out",
+        "z": "08fa4324bb7d6a58",
+        "name": "link out 35",
+        "mode": "link",
+        "links": [
+            "7e78f52a6ad909f2"
+        ],
+        "x": 1095,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "7e78f52a6ad909f2",
+        "type": "link in",
+        "z": "08fa4324bb7d6a58",
+        "name": "link in 30",
+        "links": [
+            "1fb00674c71e8f10"
+        ],
+        "x": 645,
+        "y": 520,
+        "wires": [
+            [
+                "c0f4085dfddd50e8"
+            ]
+        ]
+    },
+    {
+        "id": "4b0d15625ee634ad",
+        "type": "complete",
+        "z": "08fa4324bb7d6a58",
+        "name": "",
+        "scope": [
+            "37716adf9a7b7a2f",
+            "e689339503a11b17"
+        ],
+        "uncaught": false,
+        "x": 990,
+        "y": 680,
+        "wires": [
+            [
+                "3c64c018bc012c21"
+            ]
+        ]
+    },
+    {
+        "id": "37716adf9a7b7a2f",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Done",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Done",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da118528da50236c",
+        "type": "mqtt out",
+        "z": "08fa4324bb7d6a58",
+        "name": "Ack",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6b724b3e458a437c",
+        "x": 610,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4bf67ba2957556bc",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "\"result/a/wis2/io-wis2dev-\" & $globalContext(\"centreidnumber\") & \"-test/gmtest\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "da118528da50236c"
+            ]
+        ]
+    },
+    {
+        "id": "de029b5918addfc0",
+        "type": "complete",
+        "z": "08fa4324bb7d6a58",
+        "name": "",
+        "scope": [
+            "56051c265fd7b9a3"
+        ],
+        "uncaught": false,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "4bf67ba2957556bc"
+            ]
+        ]
+    },
+    {
+        "id": "061468ea36fd11d9",
+        "type": "switch",
+        "z": "08fa4324bb7d6a58",
+        "name": "Metrics ?",
+        "property": "metrics",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_connected_flag",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_messages_received_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_messages_published_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_messages_invalid_format_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_messages_invalid_topic_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_messages_no_metadata_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gb_last_message_timestamp_seconds",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_downloaded_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_downloaded_errors_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_dataserver_status_flag",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_dataserver_last_download_timestamp_seconds",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_no_cache_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_cache_override_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_integrity_failed_total",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "wmo_wis2_gc_last_metadata_timestamp_seconds",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 15,
+        "x": 380,
+        "y": 1160,
+        "wires": [
+            [
+                "abb8e07055ac2d65"
+            ],
+            [
+                "6a86f7c541c35c77"
+            ],
+            [
+                "2201b7506b5187c0"
+            ],
+            [
+                "6a844cd49d4370d2"
+            ],
+            [
+                "147aefa649605440"
+            ],
+            [
+                "4f6ce100156594fa"
+            ],
+            [
+                "7ffad71c2824747c"
+            ],
+            [
+                "acbeb00cc14fc5dd"
+            ],
+            [
+                "50019b1506f003c4"
+            ],
+            [
+                "6fa6fb1c92d31f8d"
+            ],
+            [
+                "61a19becbb4da0ef"
+            ],
+            [
+                "ec10c30a77f006d6"
+            ],
+            [
+                "5ec966041cade0ab"
+            ],
+            [
+                "15183c602d1ca2ad"
+            ],
+            [
+                "67c73616b01fe250"
+            ]
+        ]
+    },
+    {
+        "id": "abb8e07055ac2d65",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Flag",
+        "metric": "85d82b4006d65d8d",
+        "x": 630,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "bfb62d2246bf26a4",
+        "type": "link out",
+        "z": "08fa4324bb7d6a58",
+        "name": "link out 36",
+        "mode": "link",
+        "links": [
+            "ba86800f2b4f8384"
+        ],
+        "x": 835,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ba86800f2b4f8384",
+        "type": "link in",
+        "z": "08fa4324bb7d6a58",
+        "name": "link in 31",
+        "links": [
+            "bfb62d2246bf26a4"
+        ],
+        "x": 285,
+        "y": 1160,
+        "wires": [
+            [
+                "061468ea36fd11d9"
+            ]
+        ]
+    },
+    {
+        "id": "e94d5c7a6bd9b82f",
+        "type": "switch",
+        "z": "08fa4324bb7d6a58",
+        "name": "GS ?",
+        "property": "payload.scenario",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "gbmetrics",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "gcmetrics",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "gdcmetrics",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "f3b91f65cc3e056d"
+            ],
+            [
+                "c2fa4ef1981482e4"
+            ],
+            [
+                "57ef81b03aeef6cd"
+            ]
+        ]
+    },
+    {
+        "id": "f3b91f65cc3e056d",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "GB",
+        "rules": [
+            {
+                "t": "set",
+                "p": "gs",
+                "pt": "flow",
+                "to": "-global-broker",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "1a5f791b3bf678c2"
+            ]
+        ]
+    },
+    {
+        "id": "57ef81b03aeef6cd",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "GDC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "gs",
+                "pt": "flow",
+                "to": "-global-discovery-catalogue",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "1a5f791b3bf678c2"
+            ]
+        ]
+    },
+    {
+        "id": "c2fa4ef1981482e4",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "GC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "gs",
+                "pt": "flow",
+                "to": "-global-cache",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "1a5f791b3bf678c2"
+            ]
+        ]
+    },
+    {
+        "id": "60aa3ae44d9aa957",
+        "type": "link in",
+        "z": "08fa4324bb7d6a58",
+        "name": "link in 32",
+        "links": [
+            "c2fb076fe0fa4a59"
+        ],
+        "x": 305,
+        "y": 420,
+        "wires": [
+            [
+                "56051c265fd7b9a3"
+            ]
+        ]
+    },
+    {
+        "id": "26749821103d1395",
+        "type": "inject",
+        "z": "08fa4324bb7d6a58",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 980,
+        "y": 740,
+        "wires": [
+            [
+                "3c64c018bc012c21"
+            ]
+        ]
+    },
+    {
+        "id": "6a86f7c541c35c77",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Received",
+        "metric": "6c4610bb8eab7dae",
+        "x": 640,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2201b7506b5187c0",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Published",
+        "metric": "91862f46380a18bf",
+        "x": 640,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "4f6ce100156594fa",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "No Metadata",
+        "metric": "a25e33f65c381b8c",
+        "x": 650,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "147aefa649605440",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Invalid Topic",
+        "metric": "8646947da6c80e53",
+        "x": 650,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "6a844cd49d4370d2",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Invalid Format",
+        "metric": "6fb1561193d92df9",
+        "x": 660,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "7ffad71c2824747c",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "Last Message",
+        "metric": "1b20016c7135f032",
+        "x": 660,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "1a5f791b3bf678c2",
+        "type": "switch",
+        "z": "08fa4324bb7d6a58",
+        "name": "Set or Inc ?",
+        "property": "payload.configuration.setup.metrics",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "wmo_wis2_gb_connected_flag|wmo_wis2_gb_last_message_timestamp_seconds",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "regex",
+                "v": "wmo_wis2_gc_dataserver_status_flag|wmo_wis2_gc_dataserver_last_download_timestamp_seconds",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "50d03456d32b43d6"
+            ],
+            [
+                "50d03456d32b43d6"
+            ],
+            [
+                "c6edefdd70fe4528"
+            ]
+        ]
+    },
+    {
+        "id": "50d03456d32b43d6",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Set",
+        "rules": [
+            {
+                "t": "set",
+                "p": "op",
+                "pt": "flow",
+                "to": "set",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 240,
+        "wires": [
+            [
+                "c2fb076fe0fa4a59"
+            ]
+        ]
+    },
+    {
+        "id": "c6edefdd70fe4528",
+        "type": "change",
+        "z": "08fa4324bb7d6a58",
+        "name": "Inc",
+        "rules": [
+            {
+                "t": "set",
+                "p": "op",
+                "pt": "flow",
+                "to": "inc",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 280,
+        "wires": [
+            [
+                "c2fb076fe0fa4a59"
+            ]
+        ]
+    },
+    {
+        "id": "c2fb076fe0fa4a59",
+        "type": "link out",
+        "z": "08fa4324bb7d6a58",
+        "name": "link out 37",
+        "mode": "link",
+        "links": [
+            "60aa3ae44d9aa957"
+        ],
+        "x": 1095,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5a2dea88b70aca39",
+        "type": "comment",
+        "z": "08fa4324bb7d6a58",
+        "g": "d6751d2bb52095bf",
+        "name": "GB Metrics",
+        "info": "",
+        "x": 630,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "acbeb00cc14fc5dd",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Downloaded",
+        "metric": "203ef89ca66b82a2",
+        "x": 650,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "50019b1506f003c4",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Downloaded Errors",
+        "metric": "34adf0271a148eb2",
+        "x": 670,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "6fa6fb1c92d31f8d",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Dataserver Flag",
+        "metric": "232035f92af35a91",
+        "x": 660,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "61a19becbb4da0ef",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Dataserver Last",
+        "metric": "bd27f28bfe4eef0e",
+        "x": 660,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "ec10c30a77f006d6",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "No Cache",
+        "metric": "fcad0d9f95e40b12",
+        "x": 640,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "5ec966041cade0ab",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Cache Override",
+        "metric": "33a318be978e043b",
+        "x": 660,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "15183c602d1ca2ad",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Integrity Failed",
+        "metric": "eff6f062b536a5f9",
+        "x": 660,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "67c73616b01fe250",
+        "type": "prometheus-exporter",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "Last Metadata",
+        "metric": "a9f64b39e68fafe1",
+        "x": 660,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "df94d1608ff65e25",
+        "type": "comment",
+        "z": "08fa4324bb7d6a58",
+        "g": "063a3659efcf29f4",
+        "name": "GC Metrics",
+        "info": "",
+        "x": 630,
+        "y": 1100,
+        "wires": []
     }
 ]

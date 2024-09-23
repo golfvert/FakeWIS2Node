@@ -18,7 +18,7 @@ RUN npm install \
         --unsafe-perm --no-update-notifier \ 
         --no-audit --only=production
 
-FROM base as prod
+FROM base AS prod
 
 COPY --from=build --chown=node-red:node-red /data/ /data/
 
