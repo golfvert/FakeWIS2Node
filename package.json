@@ -35,7 +35,6 @@
         "@marcus-j-davies/node-red-semaphore-plus": "3.4.0",
         "node-red-contrib-createrandom": "1.2.0",
         "node-red-contrib-cron-plus": "2.1.0",
-        "node-red-contrib-dotnsf-hash": "0.1.2",
         "node-red-contrib-flogger": "1.2.2",
         "node-red-contrib-prometheus-exporter": "1.0.5"
     },

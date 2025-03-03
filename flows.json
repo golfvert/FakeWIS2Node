@@ -1026,7 +1026,8 @@
         "y": 220,
         "wires": [
             [
-                "97b3a79032f8be52"
+                "97b3a79032f8be52",
+                "366df8ee916e360c"
             ]
         ]
     },
@@ -2736,7 +2737,7 @@
         "links": [
             "385803d26b4f71e9"
         ],
-        "x": 255,
+        "x": 265,
         "y": 580,
         "wires": [
             [
@@ -2801,7 +2802,7 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Message",
-        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet integrity_value = msg.hash;\nlet content_value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\"\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\nif (integrity_value != false) msg.payload.properties.integrity.value = integrity_value;\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( flow.get(\"length\") == false ) msg.payload.links[0].length = chunk + 1 ;\n\nif ( flow.get(\"href\") == false ) { msg.payload.links[0].href = host + \"/fail\" + msg.filename; }\nelse { \n    if ( typeof flow.get(\"href\") === \"string\" ) {\n        msg.payload.links[0].href = flow.get(\"href\")\n        delete msg.payload.links[0].length;\n        delete msg.payload.links[0].type;\n        delete msg.payload.properties.integrity;\n        delete msg.payload.properties.end_datetime;\n        delete msg.payload.properties.start_datetime;\n        msg.payload.properties.datetime = null;\n    }\n    else {\n        if ( embed_data == true && chunk <= embed_size_max ) {\n            msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": content_value, \"size\": chunk }\n        if ( flow.get(\"size\") == false ) msg.payload.properties.content.size = chunk - 1;\n        }\n    }\n}\n\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
+        "func": "let chunk = msg.chunk;\nlet embed_data = global.get(\"embed_data\"); \nlet embed_size_max = global.get(\"embed_size_max\");\nlet cache_large_files = global.get(\"cache_large_files\");\nlet cache_size_max = global.get(\"cache_size_max\");\nlet host = global.get(\"host\");\nlet path = global.get(\"path\");\nlet integrity_value = msg.hash;\nlet content_value = msg.payload;\n\nlet random;\n\nlet lon1 = ( Math.random() - 0.5 ) * 360 ;\nlet lon2 = ( Math.random() - 0.5 ) * 360 ;\nlet lat1 = ( Math.random() - 0.5 ) * 180 ;\nlet lat2 = ( Math.random() - 0.5 ) * 180 ;\n\nmsg.payload = { \n    \"id\": flow.get(\"uuid\"),\n    \"conformsTo\": [\n        \"http://wis.wmo.int/spec/wnm/1/conf/core\"\n    ],\n    \"type\": \"Feature\",\n    \"properties\": {\n            \"pubtime\": flow.get(\"pubtime\") || msg.pubtime,\n            \"integrity\": {\n                \"method\": \"sha512\"\n            },\n            \"data_id\": msg.data_id\n    },\n    \"links\": [  {\n            \"href\": host + msg.filename,\n            \"rel\": flow.get(\"rel\") || \"canonical\",\n            \"type\": \"application/txt\",\n            \"length\": chunk\n    }   ]\n}\n\nif ( cache_large_files == false && chunk >= cache_size_max ) {\n     msg.payload.properties.cache = false ;\n}\n\nif (integrity_value != false) msg.payload.properties.integrity.value = integrity_value;\n\nrandom = Math.random();\nif ( random <= 0.5 ) { \n    msg.payload.properties.datetime = msg.datetime;\n}\nelse {\n    msg.payload.properties.start_datetime = msg.start_datetime;\n    msg.payload.properties.end_datetime = msg.end_datetime;\n}\n\nif (flow.get(\"ttaaii\") !== null) msg.payload.properties.gts= {\n    \"ttaaii\": flow.get(\"ttaaii\"),\n    \"cccc\": flow.get(\"cccc\")\n}\n\nif ( flow.get(\"cache\") !== null ) msg.payload.properties.cache = flow.get(\"cache\") ;\n\nif ( flow.get(\"length\") == false ) msg.payload.links[0].length = chunk + 1 ;\n\nif ( flow.get(\"href\") == false ) { msg.payload.links[0].href = host + \"/fail\" + msg.filename; }\nelse { \n    if ( typeof flow.get(\"href\") === \"string\" ) {\n        msg.payload.links[0].href = flow.get(\"href\")\n        delete msg.payload.links[0].length;\n        delete msg.payload.links[0].type;\n        delete msg.payload.properties.integrity;\n        delete msg.payload.properties.end_datetime;\n        delete msg.payload.properties.start_datetime;\n        msg.payload.properties.datetime = null;\n    }\n    else {\n        if ( embed_data == true && chunk <= embed_size_max ) {\n            msg.payload.properties.content = { \"encoding\": \"utf-8\", \"value\": content_value, \"size\": chunk }\n        if ( flow.get(\"size\") == false ) msg.payload.properties.content.size = chunk - 1;\n        }\n    }\n}\n\n\nrandom = Math.random();\n\nif ( random <= 0.33 ) { \n    msg.payload.geometry = null\n}\nelse if ( random <= 0.66 ) {\n    msg.payload.geometry = { \n              \"type\": \"Point\",\n              \"coordinates\": [\n                  lon1,\n                  lat1\n              ]\n    }\n}\nelse {\n    msg.payload.geometry = { \n              \"type\": \"Polygon\",\n              \"coordinates\" : [\n                  [\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.max(lat1,lat2)],\n                      [Math.max(lon1,lon2), Math.min(lat1,lat2)],\n                      [Math.min(lon1,lon2), Math.min(lat1,lat2)]\n                  ]\n              ]\n    }\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3060,7 +3061,7 @@
             "1a5a6cd662dc99a3",
             "16f047ff444e7daf"
         ],
-        "x": 385,
+        "x": 265,
         "y": 140,
         "wires": [
             [
@@ -3073,14 +3074,14 @@
         "type": "function",
         "z": "da27bfdd1d006652",
         "name": "Override",
-        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, delay, cache_a_wis2,integrity, topic;\nlet data_id, pubtime, cache, rel, length, href, method, value, size;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = Math.min(payload.configuration.setup.size_max, 500000000);\n   min = Math.min(payload.configuration.setup.size_min, max);\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   delay = payload.configuration.setup.delay;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"size_min\", Math.floor(min) || global.get(\"size_min\") );\nflow.set(\"size_max\", Math.floor(max) || global.get(\"size_max\") );\nflow.set(\"skew\", Math.floor(skew) || global.get(\"skew\") );\nflow.set(\"number\", Math.floor(number) || 1);\nflow.set(\"delay\", Math.floor(delay) || global.get(\"delay\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"topic\", topic !== undefined ? topic : null)\n\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm ) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        cache = payload.configuration.wnm.properties.cache;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n        if (payload.configuration.wnm.properties.content) {\n            size = payload.configuration.wnm.properties.content.size;            \n        }        \n    }    \n\n    if ( payload.configuration.wnm.links ) {\n       href = payload.configuration.wnm.links[0].href;\n       rel = payload.configuration.wnm.links[0].rel;\n       length = payload.configuration.wnm.links[0].length;\n    }\n}\n\n\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"size\", size !== undefined ? size : null);\n\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\n\nreturn msg;\n",
+        "func": "let payload = msg.payload;\n\nlet min, max, skew, number, loop, delay, cache_a_wis2,integrity, topic;\nlet data_id, pubtime, cache, rel, length, href, method, value, size;\nlet ttaaii, cccc;\n\nif ( payload.configuration  && payload.configuration.setup ) {\n   max = Math.min(payload.configuration.setup.size_max, 500000000);\n   min = Math.min(payload.configuration.setup.size_min, max);\n   skew = payload.configuration.setup.skew;\n   number = payload.configuration.setup.number;\n   delay = payload.configuration.setup.delay;\n   cache_a_wis2 = payload.configuration.setup.cache_a_wis2;\n   topic = payload.configuration.setup.topic;\n}\n\nflow.set(\"size_min\", Math.floor(min) || global.get(\"size_min\") );\nflow.set(\"size_max\", Math.floor(max) || global.get(\"size_max\") );\nflow.set(\"skew\", Math.floor(skew) || global.get(\"skew\") );\nflow.set(\"number\", Math.floor(number) || 1);\nflow.set(\"delay\", Math.floor(delay) || global.get(\"delay\") )\nflow.set(\"cache_a_wis2\", cache_a_wis2 || global.get(\"cache_a_wis2\") )\nflow.set(\"topic\", topic !== undefined ? topic : null)\n\nflow.set(\"loop\",1);\n\nif ( payload.configuration.wnm ) {\n    if ( payload.configuration.wnm.properties ) {\n        data_id = payload.configuration.wnm.properties.data_id;\n        pubtime = payload.configuration.wnm.properties.pubtime;\n        cache = payload.configuration.wnm.properties.cache;\n        if (payload.configuration.wnm.properties.integrity) {\n            method = payload.configuration.wnm.properties.integrity.method;\n            value = payload.configuration.wnm.properties.integrity.value;\n        }\n        if (payload.configuration.wnm.properties.content) {\n            size = payload.configuration.wnm.properties.content.size;                   \n        }  \n        if (payload.configuration.wnm.properties.gts) {\n            ttaaii = payload.configuration.wnm.properties.gts.ttaaii;\n            cccc = payload.configuration.wnm.properties.gts.cccc;\n        }      \n    }    \n\n    if ( payload.configuration.wnm.links ) {\n       href = payload.configuration.wnm.links[0].href;\n       rel = payload.configuration.wnm.links[0].rel;\n       length = payload.configuration.wnm.links[0].length;\n    }\n}\n\n\nflow.set(\"data_id\", data_id !== undefined ? data_id : null );\nflow.set(\"pubtime\", pubtime !== undefined ? pubtime : null );\nflow.set(\"cache\", cache !== undefined ? cache : null );\nflow.set(\"size\", size !== undefined ? size : null);\n\nflow.set(\"rel\", rel !== undefined ? rel : null );\nflow.set(\"length\", length !== undefined ? length : true);\nflow.set(\"href\", href !== undefined ? href : true);\n\nflow.set(\"method\", method !== undefined ? method : null);\nflow.set(\"value\", value !== undefined ? value : null);\n\nflow.set(\"ttaaii\", ttaaii !== undefined ? ttaaii : null);\nflow.set(\"cccc\", cccc !== undefined ? cccc : null);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
+        "x": 500,
         "y": 140,
         "wires": [
             [
@@ -3158,7 +3159,7 @@
         "threshold": "1",
         "msgPart": "smp_avoidQueue",
         "partType": "msg",
-        "x": 470,
+        "x": 350,
         "y": 140,
         "wires": [
             [
@@ -3173,7 +3174,7 @@
         "z": "da27bfdd1d006652",
         "name": "Release",
         "config": "403eb36e86403742",
-        "x": 500,
+        "x": 540,
         "y": 600,
         "wires": [
             []
@@ -3276,7 +3277,7 @@
         "links": [
             "dca816ac0d92233b"
         ],
-        "x": 755,
+        "x": 615,
         "y": 140,
         "wires": []
     },
@@ -3319,7 +3320,7 @@
         ],
         "uncaught": false,
         "x": 350,
-        "y": 620,
+        "y": 660,
         "wires": [
             [
                 "278b9adc116f286c"
@@ -3340,7 +3341,7 @@
         "correl": "",
         "expiry": "",
         "broker": "6b724b3e458a437c",
-        "x": 910,
+        "x": 770,
         "y": 100,
         "wires": []
     },
@@ -3363,7 +3364,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
+        "x": 650,
         "y": 100,
         "wires": [
             [
